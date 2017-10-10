@@ -1,4 +1,4 @@
-from golem.selenium import elements
+from golem.browser import elements
 
 
 def verify_product_in_results(product_name):

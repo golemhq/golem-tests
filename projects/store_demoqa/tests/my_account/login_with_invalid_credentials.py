@@ -1,11 +1,9 @@
 
-description = ''
+description = ('Verify that the application gives the correct error '
+               'message when the user logs in with invalid credentials')
 
 pages = ['header',
          'my_account']
-
-def setup(data):
-    pass
 
 def test(data):
     navigate('http://store.demoqa.com/')
@@ -13,11 +11,6 @@ def test(data):
     send_keys(my_account.username, 'my_username')
     send_keys(my_account.password, 'some_password')
     click(my_account.login_button)
-    wait_for_element_not_visible(my_account.loading_icon)
-    wait_for_element_visible(my_account.error_message)
-    verify_text_in_element(my_account.error_message, 'ERROR: Invalid login credentials.')
+    verify_text_in_element(my_account.error_message,
+                           'ERROR: Invalid login credentials.')
     capture('Error message')
-
-
-def teardown(data):
-    pass

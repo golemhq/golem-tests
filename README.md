@@ -51,7 +51,9 @@ pip install -r requirements.txt
 The drivers/ folder has the required webdriver executables for each platform. Check that in the settings.json, the path points to the correct executable.
 
 For example: for Mac, the chrome_driver_path should be:
+```
 "chrome_driver_path": "./drivers/mac/chromedriver_mac_2.32",
+```
 
 And so on..
 
@@ -65,7 +67,9 @@ python golem.py gui
 The web module is accesible at http://localhost:5000/
 
 Credentials:
+
 User: admin
+
 Password: admin
 
 

@@ -5,7 +5,7 @@ pages = ['login',
          'index']
 
 def setup(data):
-    go_to('http://localhost:8000/')
+    navigate(data.env.url)
     login.do_login('admin', 'admin')
 
 def test(data):

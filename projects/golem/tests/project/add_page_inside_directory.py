@@ -7,17 +7,15 @@ pages = ['login',
 
 
 def setup(data):
-    go_to('http://localhost:8000/')
+    navigate(data.env.url)
     login.do_login('admin', 'admin')
-
+    index.create_access_project('test')
 
 def test(data):
-    index.access_project('test')
-    store('dir_name', random('ccccc/'))
-    store('page_name', random('ccccc'))
-    project.add_new_page(data.dir_name)
-    project.add_new_page(data.page_name, data.dir_name)
-    project.verify_page_exists(data.page_name, data.dir_name)
+    store('page_name', random('one/ccccc'))
+    project.add_page_directory_if_not_exists('one')
+    project.add_page(data.page_name)
+    project.verify_page_exists(data.page_name)
 
 
 def teardown(data):

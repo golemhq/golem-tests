@@ -1,5 +1,5 @@
 
-description = 'Verify that the user can create a new page from the project page'
+description = 'Verify that the user can create a new test from the project page'
 
 pages = ['login',
          'index',
@@ -11,9 +11,9 @@ def setup(data):
     index.create_access_project('test')
 
 def test(data):
-    store('page_name', random('ccccc'))
-    project.add_page(data.page_name)
-    project.verify_page_exists(data.page_name)
+    store('test_name', random('ccccc'))
+    project.add_test(data.test_name)
+    project.verify_test_exists(data.test_name)
 
 
 def teardown(data):

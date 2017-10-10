@@ -6,13 +6,13 @@ pages = ['login',
          'project']
 
 def setup(data):
-    navigate('http://localhost:8000/')
+    navigate(data.env.url)
     login.do_login('admin', 'admin')
 
 def test(data):
-    index.access_project('test')
-    project.add_new_page('test with spaces')
-    project.verify_error_message('Spaces are not allowed')
+    index.create_access_project('test')
+    project.add_page('test with spaces')
+    project.verify_error_message('Only letters, numbers, \'-\' and \'_\' are allowed')
 
 
 def teardown(data):

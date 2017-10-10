@@ -7,7 +7,7 @@ def setup(data):
     pass
 
 def test(data):
-    go_to('http://localhost:8000/')
+    navigate(data.env.url)
     send_keys(login.password_input, 'admin')
     click(login.login_button)
     capture('Verify the correct error message is shown')

@@ -7,7 +7,7 @@ def setup(data):
     pass
 
 def test(data):
-    go_to('http://localhost:8000/')
+    navigate(data.env.url)
     send_keys(login.username_input, 'admin')
     send_keys(login.password_input, 'incorect password')
     click(login.login_button)

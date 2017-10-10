@@ -1,4 +1,4 @@
-from golem.selenium import get_driver, element
+from golem.browser import get_browser, element
 from golem import actions
 
 
