@@ -14,120 +14,111 @@ def _expand_tree_path(root_element, path):
         _expand_tree_path(new_root_element, path)
 
 
-def click_pages_add_new(path=''):
-    split_path = []
-    if len(path):
-        split_path = path.split('.')
-    selector = '#pagesTree >'
-    for i in range(len(split_path)):
-        branch = split_path[i]
-        this_branch_selector += 'li[data-branch-name=\'{}\'] > a'.format(branch)
-        element(css=this_branch_selector).click()
-        selector = selector +'li[data-branch-name=\'{}\'] ul '.format(branch)
-    selector += ' li > span > a'
-    element(css=selector).click()
-
-
-def add_page(full_path):
-    pages_tree_ul = element(id='pagesTree')
-    split_path = full_path.split('/')
-    page_name = split_path.pop()
+def _add_tree_element(elem_type, fullpath):
+    if elem_type == 'test':
+        tree_ul = element(id='testCasesTree')
+    elif elem_type == 'page':
+        tree_ul = element(id='pagesTree')
+    elif elem_type == 'suite':
+        tree_ul = element(id='suitesTree')
+    else:
+        raise('Error: elem_type must be in {}'.format(['test', 'page', 'suite']))
+    split_path = fullpath.split('/')
+    elem_name = split_path.pop()
     if split_path:
-        _expand_tree_path(pages_tree_ul, list(split_path))
+        _expand_tree_path(tree_ul, list(split_path))
     dot_path = '.'.join(split_path) if split_path else '.'
-    form_container = pages_tree_ul.find("li.form-container[fullpath='{}']".format(dot_path))
+    form_container = tree_ul.find("li.form-container[fullpath='{}']".format(dot_path))
     form_container.find('a.new-element-link').click()
-    add_page_input = form_container.find('input.new-element-input')
-    actions.send_keys(add_page_input, page_name)
-    actions.press_key(add_page_input, 'ENTER')
+    add_elem_input = form_container.find('input.new-element-input')
+    actions.send_keys(add_elem_input, elem_name)
+    actions.press_key(add_elem_input, 'ENTER')
 
 
-def add_test(full_path):
-    tests_tree_ul = element(id='testCasesTree')
-    split_path = full_path.split('/')
-    page_name = split_path.pop()
+def add_page(fullpath):
+    _add_tree_element('page', fullpath)
+
+
+def add_test(fullpath):
+    _add_tree_element('test', fullpath)
+
+
+def add_suite(name):
+    _add_tree_element('suite', name)
+    
+
+def _add_directory(elem_type, fullpath):
+    if elem_type == 'test':
+        tree_ul = element(id='testCasesTree')
+    elif elem_type == 'page':
+        tree_ul = element(id='pagesTree')
+    else:
+        raise('Error: elem_type must be in {}'.format(['test', 'page']))
+    split_path = fullpath.split('/')
+    elem_name = split_path.pop()
     if split_path:
-        _expand_tree_path(tests_tree_ul, list(split_path))
+        _expand_tree_path(tree_ul, list(split_path))
     dot_path = '.'.join(split_path) if '.'.join(split_path) else '.' 
-    form_container = tests_tree_ul.find("li.form-container[fullpath='{}']".format(dot_path))
+    form_container = tree_ul.find("li.form-container[fullpath='{}']".format(dot_path))
     form_container.find('a.new-element-link').click()
-    add_test_input = form_container.find('input.new-element-input')
-    actions.send_keys(add_test_input, page_name)
-    actions.press_key(add_test_input, 'ENTER')
+    add_elem_input = form_container.find('input.new-element-input')
+    actions.send_keys(add_elem_input, elem_name+'/')
+    actions.press_key(add_elem_input, 'ENTER')
 
 
-def add_page_directory(full_path):
-    pages_tree_ul = element(id='pagesTree')
-    split_path = full_path.split('/')
-    page_name = split_path.pop()
+def add_page_directory(fullpath):
+    _add_directory('page', fullpath)
+
+
+def add_test_directory(fullpath):
+    _add_directory('test', fullpath)
+
+
+def _verify_elem_exists(elem_type, fullpath):
+    if elem_type == 'test':
+        tree_ul = element(id='testCasesTree')
+    elif elem_type == 'page':
+        tree_ul = element(id='pagesTree')
+    elif elem_type == 'suite':
+        tree_ul = element(id='suitesTree')
+    else:
+        raise('Error: elem_type must be in {}'.format(['test', 'page', 'suite']))
+    split_path = fullpath.split('/')
+    elem_name = split_path.pop()
     if split_path:
-        _expand_tree_path(pages_tree_ul, list(split_path))
-    dot_path = '.'.join(split_path) if '.'.join(split_path) else '.' 
-    form_container = pages_tree_ul.find("li.form-container[fullpath='{}']".format(dot_path))
-    form_container.find('a.new-element-link').click()
-    add_page_input = form_container.find('input.new-element-input')
-    actions.send_keys(add_page_input, page_name+'/')
-    actions.press_key(add_page_input, 'ENTER')
-
-
-def verify_page_exists(full_path):
-    pages_tree_ul = element(id='pagesTree')
-    split_path = full_path.split('/')
-    page_name = split_path.pop()
-    if split_path:
-        _expand_tree_path(pages_tree_ul, list(split_path))
-    full_dot_path = full_path.replace('/', '.')
-    page_selector = "li.tree-element[fullpath='{}']".format(full_dot_path) 
+        _expand_tree_path(tree_ul, list(split_path))
+    full_dot_path = fullpath.replace('/', '.')
+    selector = "li.tree-element[fullpath='{}']".format(full_dot_path) 
     try:
-        tree_element = pages_tree_ul.find(page_selector, timeout=1)
+        tree_element = tree_ul.find(selector, timeout=1)
     except:
-        raise Exception('Page {} does not exist'.format(full_path))
+        raise Exception('Page {} does not exist'.format(fullpath))
 
 
-def verify_page_directory_exists(full_path):
+def verify_page_exists(fullpath):
+    _verify_elem_exists('page', fullpath)
+
+
+def verify_page_directory_exists(fullpath):
     pages_tree_ul = element(id='pagesTree')
-    split_path = full_path.split('/')
+    split_path = fullpath.split('/')
     page_name = split_path.pop()
     if split_path:
         _expand_tree_path(pages_tree_ul, list(split_path))
-    full_dot_path = full_path.replace('/', '.')
+    full_dot_path = fullpath.replace('/', '.')
     dir_selector = "li.branch[fullpath='{}']".format(full_dot_path)
     try:
         tree_element = pages_tree_ul.find(dir_selector, timeout=1)
     except:
-        raise Exception('Page directory {} does not exist'.format(full_path))
+        raise Exception('Page directory {} does not exist'.format(fullpath))
 
 
-def verify_test_exists(full_path):
-    test_tree_ul = element(id='testCasesTree')
-    split_path = full_path.split('/')
-    page_name = split_path.pop()
-    if split_path:
-        _expand_tree_path(test_tree_ul, list(split_path))
-    full_dot_path = full_path.replace('/', '.') 
-    test_selector = "li.tree-element[fullpath='{}']".format(full_dot_path)
-    try:
-        tree_element = test_tree_ul.find(test_selector, timeout=1)
-    except:
-        raise Exception('Test {} does not exist'.format(full_path))
+def verify_test_exists(fullpath):
+    _verify_elem_exists('test', fullpath)
 
 
-# def verify_test_exists(full_path):
-#     split_path = []
-#     if len(full_path):
-#         split_path = full_path.split('.')
-#     dir_name = split_path.pop()
-#     selector = 'ul#testCasesTree >'
-#     for i in range(len(split_path)):
-#         branch = split_path[i]
-#         this_branch_selector += 'li[data-branch-name=\'{}\'] > a'.format(branch)
-#         element(css=this_branch_selector).click()
-#         selector = selector +'li[data-branch-name=\'{}\'] ul '.format(branch)
-
-#     list_of_lis_selector = selector + ' li.tree-element'
-#     list_of_lis = elements(css=list_of_lis_selector)
-#     if not dir_name in [x.text for x in list_of_lis]:
-#         raise Exception('Test {} was not found'.format(dir_name))
+def verify_suite_exists(name):
+    _verify_elem_exists('suite', name)
 
 
 def verify_error_message(error_message):
@@ -140,30 +131,74 @@ def verify_error_message(error_message):
     raise Exception('Error message {} was not found'.format(error_message))
 
 
-def access_test(full_path):
-    test_tree_ul = element(id='testCasesTree')
-    split_path = full_path.split('/')
-    page_name = split_path.pop()
+def _access_elem(elem_type, fullpath):
+    if elem_type == 'test':
+        tree_ul = element(id='testCasesTree')
+    elif elem_type == 'page':
+        tree_ul = element(id='pagesTree')
+    elif elem_type == 'suite':
+        tree_ul = element(id='suitesTree')
+    else:
+        raise('Error: elem_type must be in {}'.format(['test', 'page', 'suite']))
+    split_path = fullpath.split('/')
+    elem_name = split_path.pop()
     if split_path:
-        _expand_tree_path(test_tree_ul, list(split_path))
-    full_dot_path = full_path.replace('/', '.') 
-    test_selector = "li.tree-element[fullpath='{}']".format(full_dot_path)
-    tree_element = test_tree_ul.find(test_selector)
-    actions.click(tree_element.find('a'))
+        _expand_tree_path(tree_ul, list(split_path))
+    full_dot_path = fullpath.replace('/', '.') 
+    selector = "li.tree-element[fullpath='{}']".format(full_dot_path)
+    tree_elem = tree_ul.find(selector)
+    actions.click(tree_elem.find('a'))
 
 
-def create_access_test(full_path):
+def access_test(fullpath):
+    _access_elem('test', fullpath)
+
+
+def access_page(fullpath):
+    _access_elem('page', fullpath)
+
+
+def access_suite(name):
+    _access_elem('suite', name)
+
+
+def create_access_test(fullpath):
     """Access a test from the list, create it if it does not exist"""
     try:
-        verify_test_exists(full_path)
+        verify_test_exists(fullpath)
     except:
-        add_test(full_path)
-    access_test(full_path)
+        add_test(fullpath)
+    access_test(fullpath)
 
 
-def add_page_directory_if_not_exists(full_path):
+def create_access_page(fullpath):
+    """Access a page from the list, create it if it does not exist"""
     try:
-        verify_page_exists(full_path)
+        verify_page_exists(fullpath)
     except:
-        add_page_directory(full_path)    
+        add_page(fullpath)
+    access_page(fullpath)
+
+
+def create_access_suite(fullpath):
+    """Access a page from the list, create it if it does not exist"""
+    try:
+        verify_suite_exists(fullpath)
+    except:
+        add_suite(fullpath)
+    access_suite(fullpath)
+
+
+def add_page_directory_if_not_exists(fullpath):
+    try:
+        verify_page_exists(fullpath)
+    except:
+        add_page_directory(fullpath)
+
+
+def add_test_directory_if_not_exists(fullpath):
+    try:
+        verify_test_exists(fullpath)
+    except:
+        add_test_directory(fullpath)
 

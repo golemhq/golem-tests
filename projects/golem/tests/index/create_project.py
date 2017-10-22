@@ -10,7 +10,7 @@ def setup(data):
 
 def test(data):
     click(index.create_project_button)
-    store('project_name', random('cccc'))
+    store('project_name', 'project_' + random('cccc'))
     wait_for_element_visible(index.project_name_input)
     send_keys(index.project_name_input, data.project_name)
     click(index.create_button)

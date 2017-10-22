@@ -1,33 +1,31 @@
-// Place this settings file at the root of the test directory to impact all
-// the projects or inside a project folder to impact a single project.
-// Be aware that project settings override global settings.
 {
-// Default time to wait looking for an element until it is found
 "implicit_wait": 20,
 
-// Take a screenshot on error by default
 "screenshot_on_error": true,
 
-// Take a screenshot on every step
 "screenshot_on_step": false,
 
-// Custom wait method to use before each step, must be defined inside extend.py
+"screenshot_on_end": true,
+
 "wait_hook": null,
 
-// Define the driver to use, unless overriden by the -d/--driver flag
 "default_browser": "chrome",
 
-// Path to the chrome driver executable. By default it points to the
-// 'drivers folder inside the test directory
 "chromedriver_path": "./drivers/mac/chromedriver_mac_2.32",
 
-// Path to the gecko driver executable. This is used by Firefox.
-// By default it points to the 'drivers folder inside the test directory.
 "geckodriver_path": "./drivers/mac/geckodriver_mac_0.19.0",
 
-// Path to the ie driver executable. This is used by Internet Explorer.",
-// By default it points to the 'drivers' folder inside the test directory.",
 "iedriver_path": "./drivers/IEDriverServer_windowsx64_3.6.0.exe",
+
+"remote_url": "http://lucianopuccio:3000b3dd-54bc-4a70-8202-db078ba23c2c@ondemand.saucelabs.com:80/wd/hub",
+
+"remote_browsers": {
+    "chrome_60_mac": {
+        "browserName": "chrome",
+        "version": "60.0",
+        "platform": "macOS 10.12"
+    }
+},
 
 "log_all_events": false
 }

@@ -15,7 +15,6 @@ def test(data):
     project.add_test(data.test_name)
     project.add_test(data.test_name)
     project.verify_error_message('A test with that name already exists')
-    capture('Error message is displayed')
 
 
 def teardown(data):

@@ -1,10 +1,12 @@
 
 
 browsers = [
-    'chrome-headless'
+    'chrome-remote'
 ]
 
-workers = 2
+environments = []
+
+workers = 1
 
 tests = [
     'checkout.*',

@@ -1,19 +1,16 @@
 from golem import actions
 from golem.browser import element, elements
 
+
 test_name = ('id', 'testName')
-
 description = ('id', 'description')
-
 save_button = ('id', 'save')
 
 
 def add_action(action_name):
-
+    """adds an action using the autocomplete list"""
     actions.click('#testSteps button.add-step')
-
     action_inputs = elements("#testSteps .step-first-input")
-
     last_input = action_inputs[-1]
     actions.send_keys(last_input, action_name)
     actions.press_key(last_input, 'DOWN')
@@ -32,4 +29,4 @@ def verify_description(desc):
 
 def save_test():
     actions.click(save_button)
-    actions.wait_for_element_not_exist('div.toast')
+    actions.wait_for_element_not_exist('#toast-container')

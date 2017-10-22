@@ -52,10 +52,10 @@ The drivers/ folder has the required webdriver executables for each platform. Ch
 
 For example: for Mac, the chrome_driver_path should be:
 ```
-"chrome_driver_path": "./drivers/mac/chromedriver_mac_2.32",
+"chromedriver_path": "./drivers/mac/chromedriver_mac_2.32",
 ```
 
-And so on..
+And the same applies for the other browser webdrivers.
 
 
 # Start the web module

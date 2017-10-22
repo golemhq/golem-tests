@@ -11,6 +11,5 @@ def test(data):
     send_keys(my_account.username, 'my_username')
     send_keys(my_account.password, 'some_password')
     click(my_account.login_button)
-    verify_text_in_element(my_account.error_message,
-                           'ERROR: Invalid login credentials.')
+    verify_text_in_element(my_account.error_message, 'ERROR: Invalid login credentials.')
     capture('Error message')

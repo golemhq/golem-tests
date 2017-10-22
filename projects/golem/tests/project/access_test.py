@@ -4,7 +4,7 @@ description = 'Verify that the user can access a test by clicking on it in the t
 pages = ['login',
          'index',
          'project',
-         'test_page']
+         'test_builder']
 
 def setup(data):
     navigate(data.env.url)
@@ -15,7 +15,7 @@ def test(data):
     store('test_name', random('ccccc'))
     project.add_test(data.test_name)
     project.access_test(data.test_name)
-    verify_text_in_element(test_page.test_name, data.test_name)
+    verify_text_in_element(test_builder.test_name, data.test_name)
 
 def teardown(data):
     close()

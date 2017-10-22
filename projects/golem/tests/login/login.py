@@ -1,5 +1,5 @@
 
-description = 'Verify that the user can log in to Golem'
+description = 'Verify that the user can log in to Golem web module'
 
 pages = ['login',
          'index']

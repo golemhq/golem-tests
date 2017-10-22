@@ -1,14 +1,14 @@
 
 
 browsers = [
-    'chrome-headless'
+    'chrome'
 ]
 
 environments = [
     'test'
 ]
 
-workers = 4
+workers = 3
 
 tests = [
     '*'
