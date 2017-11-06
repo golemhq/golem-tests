@@ -22,4 +22,3 @@ def test(data):
 
 def teardown(data):
     close()
-

@@ -10,6 +10,7 @@ save_button = ('css', 'button#save', 'Save button')
 
 code_button = ('id', 'loadCodeButton', 'Code button')
 
+
 def add_element(element_def):
     actions.click(add_element_button)
     elemement_rows = elements('#elements>div.element')

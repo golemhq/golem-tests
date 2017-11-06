@@ -3,7 +3,7 @@ description = 'Verify that the user can make changes to a suite and save it succ
 
 pages = ['login',
          'index',
-         'project',
+         'project_suites',
          'suite_builder']
 
 def setup(data):
@@ -12,7 +12,7 @@ def setup(data):
     index.create_access_project('test')
 
 def test(data):
-    project.create_access_suite('test_save_suite' + random('ddd'))
+    project_suites.create_access_suite('test_save_suite' + random('ddd'))
     clear(suite_builder.workers_input)
     send_keys(suite_builder.workers_input, 3)
     wait(1)

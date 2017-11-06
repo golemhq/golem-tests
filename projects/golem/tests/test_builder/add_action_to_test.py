@@ -3,17 +3,19 @@ description = 'Verify that the user can add an action to a test and save it succ
 
 pages = ['login',
          'index',
-         'project',
+         'left_menu',
+         'project_tests',
          'test_builder']
 
 def setup(data):
     navigate(data.env.url)
     login.do_login('admin', 'admin')
     index.create_access_project('test')
+    click(left_menu.tests_menu)
 
 def test(data):
-    project.create_access_test('testing_actions')
+    project_tests.create_access_test('test_' + random('ccc'))
     test_builder.add_action(data.action)
-    click(test_builder.save_button)
+    test_builder.save_test()
     refresh_page()
     test_builder.verify_last_action(data.action)

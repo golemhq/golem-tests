@@ -3,7 +3,7 @@ description = 'Verify that the user can create a new suite from the project page
 
 pages = ['login',
          'index',
-         'project']
+         'project_suites']
 
 def setup(data):
     navigate(data.env.url)
@@ -11,9 +11,9 @@ def setup(data):
     index.create_access_project('test')
 
 def test(data):
-    store('suite_name', random('ccccc'))
-    project.add_suite(data.suite_name)
-    project.verify_suite_exists(data.suite_name)
+    store('suite_name', 'suite_' + random('cccc'))
+    project_suites.add_suite(data.suite_name)
+    project_suites.verify_suite_exists(data.suite_name)
 
 
 def teardown(data):

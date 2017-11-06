@@ -1,14 +1,14 @@
 
 
 browsers = [
-    'chrome'
+    'chrome-headless'
 ]
 
 environments = [
     'test'
 ]
 
-workers = 3
+workers = 5
 
 tests = [
     'index.create_project',

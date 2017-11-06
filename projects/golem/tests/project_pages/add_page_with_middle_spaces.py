@@ -3,17 +3,20 @@ description = 'Verify that the user can create a page with a name that contains 
 
 pages = ['login',
          'index',
-         'project']
+         'left_menu',
+         'project_pages']
 
 def setup(data):
     navigate(data.env.url)
     login.do_login('admin', 'admin')
     index.create_access_project('test')
+    click(left_menu.pages_menu)
 
 def test(data):
-    store('page_name', random('cccccc'))
-    project.add_page(data.page_name + ' with spaces')
-    project.verify_page_exists(data.page_name + '_with_spaces')
+    store('page_name', 'page_' + random('cccc'))
+    project_pages.add_page(data.page_name + ' with spaces')
+    wait(3)
+    project_pages.verify_page_exists(data.page_name + '_with_spaces')
 
 
 def teardown(data):

@@ -1,7 +1,8 @@
 
 
 browsers = [
-    'chrome'
+    'chrome-headless',
+    'firefox'
 ]
 
 environments = [

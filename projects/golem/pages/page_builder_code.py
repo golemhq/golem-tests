@@ -6,4 +6,3 @@ from golem.browser import elements
 
 preview_button = ('id', 'loadGuiButton', 'Preview button')
 
-
