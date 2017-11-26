@@ -144,3 +144,4 @@
 2017.11.05.15.34.35.224 MODIFY test test_builder.import_page by admin
 2017.11.05.15.43.26.974 MODIFY test test_builder.add_new_page by admin
 2017.11.05.15.49.52.281 MODIFY test project_pages.add_page_with_duplicated_name by admin
+2017.11.12.19.17.33.293 MODIFY test project_suites.rename_suite by admin

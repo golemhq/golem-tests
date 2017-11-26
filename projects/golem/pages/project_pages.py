@@ -62,3 +62,7 @@ def add_page_directory_if_not_exists(fullpath):
     except:
         add_page_directory(fullpath)
 
+
+def rename_page(old_full_name, new_full_name):
+    project_common._rename_elem('page', old_full_name, new_full_name)
+

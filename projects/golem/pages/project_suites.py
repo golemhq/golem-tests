@@ -36,3 +36,8 @@ def create_access_suite(fullpath):
     except:
         add_suite(fullpath)
     access_suite(fullpath)
+
+
+def rename_suite(old_full_name, new_full_name):
+    project_common._rename_elem('suite', old_full_name, new_full_name)
+

@@ -90,3 +90,31 @@ def _access_elem(elem_type, fullpath):
     selector = "li.tree-element[fullpath='{}']".format(full_dot_path)
     tree_elem = tree_ul.find(selector)
     actions.click(tree_elem.find('a'))
+
+
+def _rename_elem(elem_type, old_fullpath, new_fullpath):
+    if elem_type == 'test':
+        tree_ul = element(id='testCasesTree')
+    elif elem_type == 'page':
+        tree_ul = element(id='pagesTree')
+    elif elem_type == 'suite':
+        tree_ul = element(id='suitesTree')
+    else:
+        raise('Error: elem_type must be in {}'.format(['test', 'page', 'suite']))
+    split_path = old_fullpath.split('/')
+    elem_name = split_path.pop()
+    if split_path:
+        _expand_tree_path(tree_ul, list(split_path))
+    full_dot_path = old_fullpath.replace('/', '.')
+    selector = "li.tree-element[fullpath='{}']".format(full_dot_path)
+    tree_elem = tree_ul.find(selector)
+    rename_button = tree_elem.find('.tree-element-buttons > button.rename-button')
+    actions.click(rename_button)
+    prompt_input = element('#promptModal #promptModalInput')
+    actions.clear(prompt_input)
+    actions.send_keys(prompt_input, new_fullpath)
+    actions.click('#promptModal #prompSaveButton')
+
+
+
+

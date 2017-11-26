@@ -29,7 +29,7 @@ virtualenv env
 
 Activate the virtualenv in Linux & Mac
 ```
-souce env/bin/activate
+source env/bin/activate
 ```
 
 Activate the virtualenv in Windows:
@@ -48,9 +48,9 @@ pip install -r requirements.txt
 
 # Point to the appropiate webdriver executables
 
-The drivers/ folder has the required webdriver executables for each platform. Check that in the settings.json, the path points to the correct executable.
+The /drivers/ folder has the required webdriver executables for each platform. Check that in the settings.json, the path points to the correct executable for your platform.
 
-For example: for Mac, the chrome_driver_path should be:
+For example: for Mac, the chromedriver_path should be:
 ```
 "chromedriver_path": "./drivers/mac/chromedriver_mac_2.32",
 ```

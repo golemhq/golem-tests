@@ -47,3 +47,9 @@ def add_test_directory_if_not_exists(fullpath):
         verify_test_exists(fullpath)
     except:
         add_test_directory(fullpath)
+
+
+def rename_test(old_full_name, new_full_name):
+    project_common._rename_elem('test', old_full_name, new_full_name)
+
+
