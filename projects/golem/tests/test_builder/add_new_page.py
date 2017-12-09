@@ -9,6 +9,7 @@ pages = ['login',
          'project_pages']
 
 def setup(data):
+    store('page_name', 'new_page_' + random('ccc'))    
     navigate(data.env.url)
     login.do_login('admin', 'admin')
     index.create_access_project('test')
@@ -16,7 +17,6 @@ def setup(data):
 
 def test(data):
     project_tests.create_access_test('test_import_page_' + random('ccc'))
-    store('page_name', 'new_page_' + random('ccc'))
     test_builder.add_new_page(data.page_name)
     test_builder.verify_page_in_list(data.page_name)
 
