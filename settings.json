@@ -1,5 +1,5 @@
 {
-"implicit_wait": 20,
+"implicit_wait": 10,
 
 "screenshot_on_error": true,
 
@@ -11,15 +11,15 @@
 
 "wait_hook": null,
 
-"default_browser": "chrome",
+"default_browser": "firefox",
 
-"chromedriver_path": "./drivers/mac/chromedriver_mac_2.33",
+"chromedriver_path": "./drivers/chromedriver.exe",
 
-"geckodriver_path": "./drivers/mac/geckodriver_mac_0.19.0",
+"geckodriver_path": "./drivers/geckodriver.exe",
 
 "iedriver_path": "./drivers/IEDriverServer_windowsx64_3.6.0.exe",
 
-"remote_url": "http://lucianopuccio:3000b3dd-54bc-4a70-8202-db078ba23c2c@ondemand.saucelabs.com:80/wd/hub",
+"remote_url": "",
 
 "remote_browsers": {
     "chrome_60_mac": {
