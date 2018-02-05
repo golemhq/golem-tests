@@ -27,7 +27,7 @@ Virtualenv (optional)
 virtualenv env
 ```
 
-Activate the virtualenv (Linux & Mac)
+Activate the virtualenv (Linux & Mac):
 ```
 source env/bin/activate
 ```
@@ -44,7 +44,7 @@ env\scripts\activate
 pip install golem-framework
 ```
 
-## Clone & Install
+## Clone repo
 
 ```
 git clone https://github.com/lucianopuccio/golem-demo
@@ -69,7 +69,7 @@ golem gui
 
 The web module is accesible at http://localhost:5000/
 
-Defualt credentials:
+Default credentials:
 
 User: admin
 
@@ -85,9 +85,12 @@ golem run store_demoqa regression
 
 # Run the Golem test suite:
 
-To run the Golem test suite, an instance of the Golem GUI must be running in port 8000 using another console:
+To run the Golem test suite, an instance of the Golem GUI must be running in port 8000 using another console.
+Open a new console and run:
 
 ```
+golem-admin createdirectory test
+cd test
 golem gui -p 8000
 ```
 
