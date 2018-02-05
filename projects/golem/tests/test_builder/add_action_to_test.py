@@ -14,7 +14,7 @@ def setup(data):
     click(left_menu.tests_menu)
 
 def test(data):
-    project_tests.create_access_test('test_' + random('ccc'))
+    project_tests.create_access_test('test_' + random('cccc'))
     test_builder.add_action(data.action)
     test_builder.save_test()
     refresh_page()

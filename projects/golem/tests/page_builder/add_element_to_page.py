@@ -1,7 +1,5 @@
 
-description = '''
-Verify that the user can add an element to a page and save it successfully
-'''
+description = 'Verify that the user can add an element to a page and save it successfully'
 
 pages = ['login',
          'index',
@@ -9,11 +7,13 @@ pages = ['login',
          'project_pages',
          'page_builder']
 
+
 def setup(data):
     navigate(data.env.url)
     login.do_login('admin', 'admin')
     index.create_access_project('test')
     click(left_menu.pages_menu)
+
 
 def test(data):
     store('element_def', ['some_element', 'id', 'selector_value', 'display_name'])

@@ -11,7 +11,7 @@
 
 "wait_hook": null,
 
-"default_browser": "firefox",
+"default_browser": "chrome",
 
 "chromedriver_path": "./drivers/chromedriver.exe",
 

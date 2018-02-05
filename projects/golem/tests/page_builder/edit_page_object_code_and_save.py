@@ -1,5 +1,5 @@
 
-description = 'Verify that the user can see the code of a page by clicking Code button'
+description = 'Verify the user can edit page code and save it'
 
 pages = ['login',
          'index',
@@ -17,8 +17,13 @@ def setup(data):
 def test(data):
     project_pages.create_access_page('test_view_code_' + random('ddd'))
     click(page_builder.code_button)
-    verify_exists(page_builder_code.preview_button)
-
+    store('test_code', 'test = ("id", "test")')
+    page_builder_code.write_code(data.test_code)
+    click(page_builder_code.save_button)
+    click(page_builder_code.preview_button)
+    click(page_builder.code_button)
+    page_builder_code.verify_page_code(data.test_code)
+    wait(5)
 
 def teardown(data):
     close()

@@ -12,7 +12,7 @@ Firefox 55+
 
 Chrome 58+
 
-Selenium 3.5+
+Python 3.4+
 
 PIP
 
@@ -27,46 +27,49 @@ Virtualenv (optional)
 virtualenv env
 ```
 
-Activate the virtualenv in Linux & Mac
+Activate the virtualenv (Linux & Mac)
 ```
 source env/bin/activate
 ```
 
-Activate the virtualenv in Windows:
+Activate the virtualenv (Windows):
 
 ```
 env\scripts\activate
+```
+
+## Install Golem
+
+```
+pip install golem-framework
 ```
 
 ## Clone & Install
 
 ```
 git clone https://github.com/lucianopuccio/golem-demo
-
-pip install -r requirements.txt
+cd golem-demo
 ```
 
 # Point to the appropiate webdriver executables
 
-The /drivers/ folder has the required webdriver executables for each platform. Check that in the settings.json, the path points to the correct executable for your platform.
+The /drivers/ folder must have the webdriver executables. Download them and make sure that the settings.json points to the correct files.
 
-For example: for Mac, the chromedriver_path should be:
+For example:
 ```
-"chromedriver_path": "./drivers/mac/chromedriver_mac_2.32",
+"chromedriver_path": "./drivers/chromedriver",
 ```
-
-And the same applies for the other browser webdrivers.
 
 
 # Start the web module
 
 ```
-python golem.py gui
+golem gui
 ```
 
 The web module is accesible at http://localhost:5000/
 
-Credentials:
+Defualt credentials:
 
 User: admin
 
@@ -76,6 +79,20 @@ Password: admin
 # Run a test suite from the console:
 
 ```
-python golem.py run store_demoqa regression
+golem run store_demoqa regression
 ```
 
+
+# Run the Golem test suite:
+
+To run the Golem test suite, an instance of the Golem GUI must be running in port 8000 using another console:
+
+```
+golem gui -p 8000
+```
+
+Then from the first console:
+
+```
+golem run golem regression
+```
