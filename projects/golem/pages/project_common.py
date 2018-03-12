@@ -110,6 +110,7 @@ def _rename_elem(elem_type, old_fullpath, new_fullpath):
     tree_elem = tree_ul.find(selector)
     rename_button = tree_elem.find('.tree-element-buttons > button.rename-button')
     actions.click(rename_button)
+    actions.wait(0.5)   # TODO
     prompt_input = element('#promptModal #promptModalInput')
     actions.clear(prompt_input)
     actions.send_keys(prompt_input, new_fullpath)

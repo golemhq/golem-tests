@@ -1,6 +1,6 @@
 action
 click
-send keys
+send_keys
 capture
 navigate
 close

@@ -34,9 +34,8 @@ def save_test():
 
 
 def import_page(page_name):
-    actions.send_keys(import_page_imput, page_name)
-    actions.press_key(import_page_imput, 'ENTER')
-    actions.wait(10)
+    for char in page_name:
+        actions.send_keys(import_page_imput, char)
 
 
 def verify_page_in_list(page_name):
