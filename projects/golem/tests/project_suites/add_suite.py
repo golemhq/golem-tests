@@ -1,5 +1,5 @@
 
-description = 'Verify that the user can create a new suite from the project page'
+description = 'Verify the user can create a new suite from the project page'
 
 pages = ['login',
          'index',

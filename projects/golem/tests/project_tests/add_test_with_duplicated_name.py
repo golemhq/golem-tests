@@ -1,5 +1,5 @@
 
-description = 'Verify that the user cannot create a new test if a test with the same name already exists'
+description = 'Verify the user cannot create a new test if a test with the same name already exists'
 
 pages = ['login',
          'index',

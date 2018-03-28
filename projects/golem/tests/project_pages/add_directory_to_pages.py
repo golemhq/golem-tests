@@ -1,5 +1,5 @@
 
-description = 'Verify that the user can add a directory in the pages section by appending \'\\\' at the end'
+description = 'Verify the user can add a directory in the pages section by appending \'\\\' at the end'
 
 pages = ['login',
          'index',

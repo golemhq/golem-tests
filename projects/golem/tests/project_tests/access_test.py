@@ -1,5 +1,5 @@
 
-description = 'Verify that the user can access a test by clicking on it in the test list.'
+description = 'Verify the user can access a test by clicking on it in the test list.'
 
 pages = ['login',
          'index',

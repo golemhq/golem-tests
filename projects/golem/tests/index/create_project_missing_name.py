@@ -1,5 +1,5 @@
 
-description = 'Verify that the application shows the correct error message when creating a project without name'
+description = 'Verify the application shows the correct error message when creating a project without name'
 
 pages = ['login',
          'index']

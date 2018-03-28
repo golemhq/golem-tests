@@ -1,5 +1,5 @@
 
-description = 'Verify that the user can access a test by clicking on it in the test list.'
+description = 'Verify the user can access a test by clicking on it in the test list.'
 
 pages = ['login',
          'index',
@@ -16,12 +16,11 @@ def setup(data):
 def test(data):
     store('name', 'test_' + random('cccc'))
     project_tests.create_access_test(data.name)
+    store('description', 'description of the test')
     send_keys(test_builder.description, data.description)
-    wait(2)
     test_builder.save_test()
     refresh_page()
     test_builder.verify_description(data.description)
-
 
 def teardown(data):
     close()

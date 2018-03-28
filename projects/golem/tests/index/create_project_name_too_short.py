@@ -1,5 +1,5 @@
 
-description = 'Verify that the application shows the correct error message when creating a project with the name too short (less than 3 chars long)'
+description = 'Verify the application shows the correct error message when creating a project with the name too short (less than 3 chars long)'
 
 pages = ['login',
          'index']

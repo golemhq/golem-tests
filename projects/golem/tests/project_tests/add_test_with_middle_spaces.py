@@ -1,5 +1,5 @@
 
-description = 'Verify that the user can create a test with a name that contains spaces in the middle and they are replaces with underscores'
+description = 'Verify the user can create a test with a name that contains spaces in the middle and they are replaces with underscores'
 
 pages = ['login',
          'index',

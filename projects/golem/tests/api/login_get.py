@@ -1,5 +1,5 @@
 
-description = 'Verify that a get request to /login/ returns status code 200'
+description = 'Verify a get request to /login/ returns status code 200'
 
 pages = []
 

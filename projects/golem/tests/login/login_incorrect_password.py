@@ -1,5 +1,5 @@
 
-description = 'Verify that the user cannot log in with in correct password'
+description = 'Verify the user cannot log in with in correct password'
 
 pages = ['login']
 

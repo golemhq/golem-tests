@@ -1,5 +1,5 @@
 
-description = 'Verify that the user can rename a suite'
+description = 'Verify the user can rename a suite'
 
 pages = ['login',
          'index',

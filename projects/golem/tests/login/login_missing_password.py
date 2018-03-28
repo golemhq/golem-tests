@@ -1,5 +1,5 @@
 
-description = 'Verify that the user cannot log in if password value is missing'
+description = 'Verify the user cannot log in if password value is missing'
 
 pages = ['login']
 

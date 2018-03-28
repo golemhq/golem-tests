@@ -1,5 +1,5 @@
 
-description = 'Verify that the user can add an element to a page and save it successfully'
+description = 'Verify the user can add an element to a page and save it successfully'
 
 pages = ['login',
          'index',

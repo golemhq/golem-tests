@@ -1,5 +1,5 @@
 
-description = 'Verify the user can add an action to a test and save it successfully'
+description = 'Verify the use can dismiss unsaved changes alert and stay on the page'
 
 pages = ['login',
          'index',
@@ -12,10 +12,11 @@ def setup(data):
     login.do_login('admin', 'admin')
     index.create_access_project('test')
     click(left_menu.tests_menu)
+    project_tests.create_access_test('test_' + random('cccc'))
 
 def test(data):
-    project_tests.create_access_test('test_' + random('cccc'))
-    test_builder.add_action(data.action)
-    test_builder.save_test()
+    test_builder.add_action('click')
     refresh_page()
-    test_builder.verify_last_action(data.action)
+    verify_alert_is_present()
+    dismiss_alert()
+    test_builder.verify_last_action('click')

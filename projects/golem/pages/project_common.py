@@ -30,7 +30,7 @@ def _add_tree_element(elem_type, fullpath):
     add_elem_input = form_container.find('input.new-element-input')
     actions.send_keys(add_elem_input, elem_name)
     actions.press_key(add_elem_input, 'ENTER')
-    actions.wait(1)
+    actions.wait(0.5)
 
 
 def _add_directory(elem_type, fullpath):

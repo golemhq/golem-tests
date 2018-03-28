@@ -1,5 +1,5 @@
 
-description = 'Verify that the application shows the correct error message when the user tries to create a project with non unique name'
+description = 'Verify the application shows the correct error message when the user tries to create a project with non unique name'
 
 pages = ['login',
          'index']

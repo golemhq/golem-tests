@@ -1,5 +1,5 @@
 
-description = 'Verify that the user can create a new page inside a directory'
+description = 'Verify the user can create a new page inside a directory'
 
 pages = ['login',
          'index',

@@ -1,5 +1,5 @@
 
-description = 'Verify that the user can make changes to a suite and save it successfully'
+description = 'Verify the user can make changes to a suite and save it successfully'
 
 pages = ['login',
          'index',

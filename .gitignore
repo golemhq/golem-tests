@@ -3,3 +3,4 @@ __pycache__/
 geckodriver.log
 **/reports/*
 drivers/*
+debug.log

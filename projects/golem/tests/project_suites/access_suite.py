@@ -1,5 +1,5 @@
 
-description = 'Verify that the user can access a suite by clicking on it in the suite list.'
+description = 'Verify the user can access a suite by clicking on it in the suite list.'
 
 pages = ['login',
          'index',

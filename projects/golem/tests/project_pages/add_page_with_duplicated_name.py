@@ -1,5 +1,5 @@
 
-description = 'Verify that the application displays the correct error message when the page name already exists'
+description = 'Verify the application displays the correct error message when the page name already exists'
 
 pages = ['login',
          'index',
