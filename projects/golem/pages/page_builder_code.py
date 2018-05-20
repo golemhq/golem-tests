@@ -3,7 +3,6 @@ from golem.browser import elements, element, get_browser
 
 
 save_button = ('id', 'save', 'Save button')
-
 preview_button = ('id', 'loadGuiButton', 'Preview button')
 
 

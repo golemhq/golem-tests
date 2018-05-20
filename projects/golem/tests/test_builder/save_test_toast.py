@@ -1,20 +1,17 @@
 
 description = 'Verify the application displays a toast message when saving a test'
 
-pages = ['login',
+pages = ['common',
          'index',
-         'left_menu',
-         'project_tests',
-         'test_builder',
-         'common']
+         'tests',
+         'test_builder']
 
 def setup(data):
-    navigate(data.env.url)
-    login.do_login('admin', 'admin')
+    common.access_golem(data.env.url, data.env.admin)
     index.create_access_project('test')
-    click(left_menu.tests_menu)
-    store('test_name', 'test_' + random('cccc'))
-    project_tests.create_access_test(data.test_name)
+    common.navigate_menu('Tests')
+    store('test_name', 'test_' + random('dddd'))
+    tests.create_access_test(data.test_name)
 
 def test(data):
     test_builder.add_action('click')

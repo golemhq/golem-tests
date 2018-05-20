@@ -13,11 +13,11 @@
 
 "default_browser": "chrome",
 
-"chromedriver_path": "./drivers/chromedriver.exe",
+"chromedriver_path": "./drivers/chromedriver*",
 
-"geckodriver_path": "./drivers/geckodriver.exe",
+"geckodriver_path": "./drivers/geckodriver*",
 
-"iedriver_path": "./drivers/IEDriverServer_windowsx64_3.6.0.exe",
+"iedriver_path": "./drivers/iedriver*",
 
 "remote_url": "",
 

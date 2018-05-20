@@ -1,18 +1,16 @@
 
 description = 'Verify an alert is displayed when the user leaves the test builder with unsaved changes'
 
-pages = ['login',
+pages = ['common',
          'index',
-         'left_menu',
-         'project_tests',
+         'tests',
          'test_builder']
 
 def setup(data):
-    navigate(data.env.url)
-    login.do_login('admin', 'admin')
+    common.access_golem(data.env.url, data.env.admin)
     index.create_access_project('test')
-    click(left_menu.tests_menu)
-    project_tests.create_access_test('test_' + random('cccc'))
+    common.navigate_menu('Tests')
+    tests.create_access_random_test()
 
 def test(data):
     test_builder.add_action('click')

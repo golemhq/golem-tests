@@ -76,13 +76,6 @@ User: admin
 Password: admin
 
 
-# Run a test suite from the console:
-
-```
-golem run store_demoqa regression
-```
-
-
 # Run the Golem test suite:
 
 To run the Golem test suite, an instance of the Golem GUI must be running in port 8000 using another console.

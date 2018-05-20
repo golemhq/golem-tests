@@ -109,7 +109,6 @@ def verify_empty_test_execution_modal_content(test_name):
     first_log_expected = 'INFO Test execution started: {}'.format(test_name)
     second_log_expected = 'INFO Browser: chrome'
     third_log_expected = 'INFO Test passed'
-    first_log = test_result_logs[0].text
     assert first_log_expected in test_result_logs[0].text
     assert second_log_expected in test_result_logs[1].text
     assert third_log_expected in test_result_logs[2].text

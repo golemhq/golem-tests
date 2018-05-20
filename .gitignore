@@ -4,3 +4,4 @@ geckodriver.log
 **/reports/*
 drivers/*
 debug.log
+.idea

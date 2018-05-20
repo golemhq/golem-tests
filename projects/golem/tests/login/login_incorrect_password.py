@@ -1,10 +1,7 @@
 
-description = 'Verify the user cannot log in with in correct password'
+description = 'Verify the user cannot log in with incorrect password'
 
 pages = ['login']
-
-def setup(data):
-    pass
 
 def test(data):
     navigate(data.env.url)
@@ -13,7 +10,3 @@ def test(data):
     click(login.login_button)
     capture('Verify the correct error message is shown')
     verify_text_in_element(login.error_list, 'Username and password do not match')
-
-
-def teardown(data):
-    close()

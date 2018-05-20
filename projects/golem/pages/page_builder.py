@@ -3,11 +3,8 @@ from golem.browser import elements
 
 
 page_name = ('id', 'pageObjectName', 'page_name')
-
 add_element_button = ('css', '#datosContainer button', 'Add Element button')
-
 save_button = ('css', 'button#save', 'Save button')
-
 code_button = ('id', 'loadCodeButton', 'Code button')
 
 

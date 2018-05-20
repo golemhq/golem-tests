@@ -115,7 +115,3 @@ def _rename_elem(elem_type, old_fullpath, new_fullpath):
     actions.clear(prompt_input)
     actions.send_keys(prompt_input, new_fullpath)
     actions.click('#promptModal #prompSaveButton')
-
-
-
-

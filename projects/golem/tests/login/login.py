@@ -4,9 +4,6 @@ description = 'Verify that the user can log in to Golem web module'
 pages = ['login',
          'index']
 
-def setup(data):
-    pass
-
 def test(data):
     navigate(data.env.url)
     click(login.login_button)
@@ -15,7 +12,3 @@ def test(data):
     click(login.login_button)
     capture('Verify the user is logged in')
     verify_text_in_element(index.title, 'Select a Project')
-
-
-def teardown(data):
-    close()

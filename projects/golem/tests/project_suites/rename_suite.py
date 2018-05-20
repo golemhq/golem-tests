@@ -1,23 +1,19 @@
 
 description = 'Verify the user can rename a suite'
 
-pages = ['login',
+pages = ['common',
          'index',
-         'project_suites']
+         'suites']
 
 def setup(data):
-    navigate(data.env.url)
-    login.do_login('admin', 'admin')
-    index.create_access_project('test_rename')
+    common.access_golem(data.env.url, data.env.admin)
+    index.create_access_project('test')
+    common.navigate_menu('Suites')
 
 def test(data):
     store('suite_name', 'suite_' + random('cccc'))
     store('new_suite_name', data.suite_name + '_rename')
-    project_suites.add_suite(data.suite_name)
-    project_suites.verify_suite_exists(data.suite_name)
-    project_suites.rename_suite(data.suite_name, data.new_suite_name)
-    project_suites.verify_suite_exists(data.new_suite_name)
-
-
-def teardown(data):
-    close()
+    suites.add_suite(data.suite_name)
+    suites.verify_suite_exists(data.suite_name)
+    suites.rename_suite(data.suite_name, data.new_suite_name)
+    suites.verify_suite_exists(data.new_suite_name)

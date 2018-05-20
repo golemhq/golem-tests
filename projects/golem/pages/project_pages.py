@@ -56,6 +56,12 @@ def create_access_page(fullpath):
     access_page(fullpath)
 
 
+def create_access_random_page():
+    page_name = 'test_' + actions.random('dddddd')
+    add_page(page_name)
+    access_page(page_name)
+
+
 def add_page_directory_if_not_exists(fullpath):
     try:
         verify_page_exists(fullpath)

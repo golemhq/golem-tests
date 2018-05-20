@@ -1,25 +1,18 @@
 
 description = 'Verify the user can import a page into the test'
 
-pages = ['login',
+pages = ['common',
          'index',
-         'left_menu',
-         'project_tests',
-         'test_builder',
-         'project_pages']
+         'tests',
+         'test_builder']
 
 def setup(data):
-    store('page_name', 'new_page_' + random('ccc'))    
-    navigate(data.env.url)
-    login.do_login('admin', 'admin')
+    common.access_golem(data.env.url, data.env.admin)
     index.create_access_project('test')
-    click(left_menu.tests_menu)
+    common.navigate_menu('Tests')
+    tests.create_access_random_test()
 
 def test(data):
-    project_tests.create_access_test('test_import_page_' + random('ccc'))
+    store('page_name', 'new_page_' + random('dddd')) 
     test_builder.add_new_page(data.page_name)
     test_builder.verify_page_in_list(data.page_name)
-
-
-def teardown(data):
-    pass

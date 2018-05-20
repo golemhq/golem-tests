@@ -1,5 +1,5 @@
 from golem import actions
-from golem.browser import element, elements
+from golem.browser import element, elements, get_browser
 
 from projects.golem.pages import project_common
 
@@ -40,6 +40,12 @@ def create_access_test(fullpath):
     except:
         add_test(fullpath)
     access_test(fullpath)
+
+
+def create_access_random_test():
+    test_name = 'test_' + actions.random('dddddd')
+    add_test(test_name)
+    access_test(test_name)
 
 
 def add_test_directory_if_not_exists(fullpath):

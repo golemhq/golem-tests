@@ -38,6 +38,11 @@ def create_access_suite(fullpath):
     access_suite(fullpath)
 
 
+def create_access_random_suite():
+    suite_name = 'test_' + actions.random('dddddd')
+    add_suite(suite_name)
+    access_suite(suite_name)
+
+
 def rename_suite(old_full_name, new_full_name):
     project_common._rename_elem('suite', old_full_name, new_full_name)
-
