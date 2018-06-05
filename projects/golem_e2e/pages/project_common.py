@@ -1,5 +1,5 @@
 from golem import actions
-from golem.browser import element, elements
+from golem.browser import element
 
 
 def _expand_tree_path(root_element, path):

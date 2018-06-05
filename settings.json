@@ -1,5 +1,7 @@
 {
-//"implicit_wait": 10,
+"search_timeout": 10,
+
+"wait_displayed": true,
 
 "screenshot_on_error": true,
 

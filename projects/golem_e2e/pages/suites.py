@@ -1,7 +1,7 @@
 from golem import actions
 from golem.browser import element, elements
 
-from projects.golem.pages import project_common
+from projects.golem_e2e.pages import project_common
 
 
 error_modal = ('id', 'errorModal', 'Error modal')

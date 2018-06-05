@@ -7,9 +7,10 @@ from golem.browser import element, elements
 test_name = ('id', 'testName', 'Test Name')
 description = ('id', 'description', 'Description input')
 save_button = ('id', 'save', 'Save button')
+code_button = ('id', 'loadCodeButton', 'Code button')
+run_button = ('id', 'runTest', 'Run button')
 import_page_imput = ('css', 'input.page-objects-autocomplete', 'Import Page input')
 new_page_button = ('id', 'newPageButton', 'New Page button')
-run_button = ('id', 'runTest', 'Run button')
 
 
 def add_action(action_name, where='test'):

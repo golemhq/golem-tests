@@ -1,6 +1,6 @@
 from golem import actions
 from golem.browser import element
-from projects.golem.pages import common
+from projects.golem_e2e.pages import common
 
 
 save_button = ('css', 'button#save', 'Save button')

@@ -3,7 +3,7 @@ import time
 from golem.browser import elements
 from golem import actions
 
-from projects.golem.pages import login, left_menu
+from projects.golem_e2e.pages import login, left_menu
 
 
 def access_golem(url, user):

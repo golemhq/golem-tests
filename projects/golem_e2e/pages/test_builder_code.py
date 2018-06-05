@@ -1,8 +1,7 @@
 from golem.browser import element
 
-
-save_button = ('id', 'save', 'Save button')
 preview_button = ('id', 'loadGuiButton', 'Preview button')
+save_button = ('id', 'save', 'Save button')
 
 
 def verify_error_message(expected_error):
