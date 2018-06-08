@@ -13,5 +13,5 @@ def test(data):
     try:
         actions.wait_for_alert_present(3)
     except Exception as e:
-        assert e.__class__.__name__ == 'TimeoutException'
+        "Timeout waiting for alert to be present" in e.args[0]
     actions.dismiss_alert(ignore_not_present=True)
