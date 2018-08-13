@@ -21,7 +21,7 @@
 
 "iedriver_path": "./drivers/iedriver*",
 
-"remote_url": "",
+"remote_url": "http://localhost:4444/wd/hub",
 
 "remote_browsers": {
     "chrome_60_mac": {

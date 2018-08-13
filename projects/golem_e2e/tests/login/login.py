@@ -11,4 +11,4 @@ def test(data):
     send_keys(login.password_input, 'admin')
     click(login.login_button)
     capture('Verify the user is logged in')
-    verify_text_in_element(index.title, 'Select a Project')
+    verify_element_text(index.title, 'Select a Project')

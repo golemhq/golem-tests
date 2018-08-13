@@ -26,6 +26,13 @@ def set_line_value(index, value):
     get_browser().execute_script(script, index, value)
 
 
+def assert_value(expected_value):
+    actions.step('Verify code editor value is: {}'.format(expected_value))
+    actual_value = get_value()
+    msg = 'Expected "{}" and received "{}"'.format(expected_value, actual_value)
+    assert actual_value == expected_value, msg
+
+
 def assert_line_value(index, expected_value):
     actions.step('Verify code editor line {} is: {}'.format(index, expected_value))
     value = get_line_value(index)

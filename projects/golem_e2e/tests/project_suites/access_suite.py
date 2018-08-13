@@ -15,4 +15,4 @@ def test(data):
     store('suite_name', 'suite_' + random('cccc'))
     suites.add_suite(data.suite_name)
     suites.access_suite(data.suite_name)
-    verify_text_in_element(suite_builder.suite_name, data.suite_name)
+    verify_element_text(suite_builder.suite_name, data.suite_name)

@@ -9,5 +9,6 @@ def test(data):
     actions.navigate(data.env.url+'elements/')
     try:
         actions.verify_element_not_enabled('#input-one')
+        assert False, 'Expected Exception'
     except Exception as e:
         assert 'Element is enabled' in e.args[0]

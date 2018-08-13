@@ -1,4 +1,4 @@
 // Settings defined here will override global settings
 {
-  "wait_displayed": false
+  "wait_displayed": true
 }

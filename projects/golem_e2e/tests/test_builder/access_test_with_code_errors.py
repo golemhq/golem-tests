@@ -19,6 +19,6 @@ def test(data):
     code_editor.set_line_value(0, 'undefined_var')
     click(test_builder_code.save_button)
     click(test_builder_code.preview_button)
-    verify_text('There are errors in the test')
-    verify_text('There are errors and the test cannot be displayed, open the test code editor to solve them.')
+    verify_page_contains_text('There are errors in the test')
+    verify_page_contains_text('There are errors and the test cannot be displayed, open the test code editor to solve them.')
     # TODO verify Open Test Code button present and click it

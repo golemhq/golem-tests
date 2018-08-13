@@ -8,4 +8,4 @@ def test(data):
     send_keys(login.password_input, 'admin')
     click(login.login_button)
     capture('Verify the correct error message is shown')
-    verify_text_in_element(login.error_list, 'Username is required')
+    verify_element_text(login.error_list, 'Username is required')

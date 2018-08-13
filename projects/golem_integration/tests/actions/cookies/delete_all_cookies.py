@@ -1,10 +1,12 @@
+from golem import actions
+
 
 description = 'Verify golem action delete_all_cookies'
 
 def test(data):
-    navigate('https://google.com')
-    add_cookie({'name': 'foo', 'value': 'bar'})
-    add_cookie({'name': 'baz', 'value': 'qux'})
-    delete_all_cookies()
-    assert get_cookie('foo') == None
-    assert get_cookie('baz') == None
+    actions.navigate('https://google.com')
+    actions.add_cookie({'name': 'foo', 'value': 'bar'})
+    actions.add_cookie({'name': 'baz', 'value': 'qux'})
+    actions.delete_all_cookies()
+    assert actions.get_cookie('foo') == None
+    assert actions.get_cookie('baz') == None

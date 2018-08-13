@@ -12,6 +12,7 @@ def test(data):
     assert execution.settings['search_timeout'] == 9.99
     try:
         actions.set_search_timeout('999')
+        assert False, 'Expected Exception'
     except ValueError:
         pass
     actions.set_search_timeout(current_search_timeout)

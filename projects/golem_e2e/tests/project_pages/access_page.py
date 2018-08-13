@@ -16,4 +16,4 @@ def test(data):
     store('page_name', 'page_' + random('cccc'))
     project_pages.add_page(data.page_name)
     project_pages.access_page(data.page_name)
-    verify_text_in_element(page_builder.page_name, data.page_name)
+    verify_element_text(page_builder.page_name, data.page_name)

@@ -35,7 +35,7 @@ def verify_page_directory_exists(fullpath):
 
 def verify_error_message(error_message):
     actions.step('Verify that the error {} is displayed'.format(error_message))
-    actions.wait_for_element_visible(error_modal)
+    actions.wait_for_element_displayed(error_modal)
     errors = elements(css='#errorList>li')
     for error in errors:
         if error.text == error_message:

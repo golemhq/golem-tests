@@ -15,4 +15,4 @@ def test(data):
     store('test_name', 'test_' + random('cccc'))
     tests.add_test(data.test_name)
     tests.access_test(data.test_name)
-    verify_text_in_element(test_builder.test_name, data.test_name)
+    verify_element_text(test_builder.test_name, data.test_name)

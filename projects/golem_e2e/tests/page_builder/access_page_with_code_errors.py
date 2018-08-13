@@ -19,6 +19,6 @@ def test(data):
     code_editor.set_value('undefined_var')
     click(page_builder_code.save_button)
     click(page_builder_code.preview_button)
-    verify_text('There are errors in the page')
-    verify_text('There are errors and the page cannot be displayed, open the page code editor to solve them.')
+    verify_page_contains_text('There are errors in the page')
+    verify_page_contains_text('There are errors and the page cannot be displayed, open the page code editor to solve them.')
     # TODO verify Open Page Code button present and click it

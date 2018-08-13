@@ -18,17 +18,18 @@ def _project_exists(project_name):
 
 
 def verify_project_exists(project_name):
-    actions.capture('verify the project exists in the list')
+    actions.take_screenshot('verify the project exists in the list')
     if not _project_exists(project_name):
         raise Exception('Project {} does not exists'.format(project_name))
 
 
 def verify_error_message(error_message):
-    actions.wait_for_element_visible(error_modal)
+    actions.wait_for_element_displayed(error_modal)
     items = elements(error_list_items)
     error_messages = [x.text for x in items]
-    actions.capture('verify the application shows the error message: {}'.format(error_message))
-    if not error_message in error_messages:
+    msg = 'verify the application shows the error message: {}'.format(error_message)
+    actions.take_screenshot(msg)
+    if error_message not in error_messages:
         raise Exception('Error message {} is not present'.format(error_message))
 
 
@@ -44,10 +45,10 @@ def access_project(project_name):
 
 def create_project(project_name):
     actions.click(create_project_button)
-    actions.wait_for_element_visible(project_name_input)
+    actions.wait_for_element_displayed(project_name_input)
     actions.send_keys(project_name_input, project_name)
     actions.click(create_button)
-    actions.wait_for_element_not_visible(create_button)
+    actions.wait_for_element_displayed(create_project_button)
 
 
 def create_access_project(project_name):

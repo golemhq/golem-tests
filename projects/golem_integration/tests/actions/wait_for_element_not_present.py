@@ -14,5 +14,6 @@ def test(data):
     actions.navigate(data.env.url + 'elements/')
     try:
         actions.wait_for_element_not_present('#button-one', timeout=3)
+        assert False, 'Expected Exception'
     except Exception as e:
         assert "Timeout waiting for element #button-one to not be present" in e.args[0]

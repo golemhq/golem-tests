@@ -29,7 +29,7 @@ def add_element(element_def):
 
 def save_page():
     actions.click(save_button)
-    actions.wait_for_element_not_exist('#toast-container')
+    actions.wait_for_element_present('#toast-container', timeout=5)
 
 
 def verify_element_exists(element_def):

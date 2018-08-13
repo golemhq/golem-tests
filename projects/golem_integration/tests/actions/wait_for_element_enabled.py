@@ -10,5 +10,6 @@ def test(data):
     actions.navigate(data.env.url + 'dynamic-elements/?delay=5')
     try:
         actions.wait_for_element_enabled('#button-three', 3)
+        assert False, 'Expected Exception'
     except Exception as e:
         assert "Timeout waiting for element #button-three to be enabled" in e.args[0]

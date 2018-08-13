@@ -11,5 +11,6 @@ def test(data):
     actions.verify_element_has_focus('#textarea-1')
     try:
         actions.verify_element_has_focus('#input-one')
+        assert False, 'Expected Exception'
     except Exception as e:
         assert 'element #input-one does not have focus' in e.args[0]

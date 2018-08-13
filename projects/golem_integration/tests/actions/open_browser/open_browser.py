@@ -1,6 +1,7 @@
 from golem import actions
 from golem import execution
 
+
 description = 'Verify open_browser action'
 
 def test(data):

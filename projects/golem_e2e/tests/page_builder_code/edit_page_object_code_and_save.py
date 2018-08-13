@@ -5,7 +5,8 @@ pages = ['common',
          'index',
          'project_pages',
          'page_builder',
-         'page_builder_code']
+         'page_builder_code',
+         'code_editor']
 
 def setup(data):
     common.access_golem(data.env.url, data.env.admin)
@@ -16,8 +17,9 @@ def setup(data):
 def test(data):
     store('test_code', 'test = ("id", "test")')
     click(page_builder.code_button)
-    page_builder_code.write_code(data.test_code)
+    # code_editor.set_line_value(1, data.test_code)
+    code_editor.set_value(data.test_code)
     click(page_builder_code.save_button)
     click(page_builder_code.preview_button)
     click(page_builder.code_button)
-    page_builder_code.verify_page_code(data.test_code)
+    code_editor.assert_value(data.test_code)

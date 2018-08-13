@@ -12,6 +12,7 @@ def test(data):
     actions.click('#alert-delay-button')
     try:
         actions.wait_for_alert_present(3)
+        assert False, 'Expected Exception'
     except Exception as e:
         "Timeout waiting for alert to be present" in e.args[0]
     actions.dismiss_alert(ignore_not_present=True)

@@ -1,8 +1,9 @@
+from golem import actions
 
 description = 'Verify golem action add_cookie'
 
 def test(data):
-    navigate('https://google.com')
-    add_cookie({'name': 'foo', 'value': 'bar'})
-    verify_cookie_exists('foo')
+    actions.navigate('https://google.com')
+    actions.add_cookie({'name': 'foo', 'value': 'bar'})
+    actions.verify_cookie_exists('foo')
 

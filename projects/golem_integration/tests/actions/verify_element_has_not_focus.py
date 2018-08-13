@@ -9,5 +9,6 @@ def test(data):
     actions.focus_element('#input-one')
     try:
         actions.verify_element_has_not_focus('#input-one')
+        assert False, 'Expected Exception'
     except Exception as e:
         assert 'element #input-one has focus' in e.args[0]

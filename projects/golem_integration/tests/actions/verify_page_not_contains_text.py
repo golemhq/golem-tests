@@ -8,5 +8,6 @@ def test(data):
     actions.verify_page_not_contains_text('THIS TEXT IS NOT PRESENT')
     try:
         actions.verify_page_not_contains_text('Special Elements')
+        assert False, 'Expected Exception'
     except Exception as e:
         assert "text 'Special Elements' was found in page" in e.args[0]

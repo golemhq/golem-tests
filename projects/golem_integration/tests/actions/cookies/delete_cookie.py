@@ -1,8 +1,10 @@
+from golem import actions
+
 
 description = 'Verify golem action delete_cookie'
 
 def test(data):
-    navigate('https://google.com')
-    add_cookie({'name': 'foo', 'value': 'bar'})
-    delete_cookie('foo')
-    assert get_cookie('foo') == None
+    actions.navigate('https://google.com')
+    actions.add_cookie({'name': 'foo', 'value': 'bar'})
+    actions.delete_cookie('foo')
+    assert actions.get_cookie('foo') == None

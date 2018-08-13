@@ -8,5 +8,6 @@ def test(data):
     actions.verify_element_present('#double-click-one')
     try:
         actions.verify_element_present('#does-not-exist')
+        assert False, 'Expected Exception'
     except Exception as e:
-        assert 'element is not present' in e.args[0]
+        assert 'element #does-not-exist is not present' in e.args[0]

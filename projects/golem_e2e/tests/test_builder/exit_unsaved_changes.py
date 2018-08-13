@@ -15,5 +15,5 @@ def setup(data):
 def test(data):
     test_builder.add_action('click')
     refresh_page()
-    verify_alert_is_present()
+    verify_alert_present()
     accept_alert()

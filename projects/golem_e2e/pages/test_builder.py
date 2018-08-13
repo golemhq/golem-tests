@@ -18,16 +18,15 @@ def add_action(action_name, where='test'):
     if where == 'test':
         steps_section = element('div#testSteps')
     elif where == 'setup':
-        steps_section = element('#setupSteps')
+        steps_section = element('#setupSteps', wait_displayed=False)
         if not steps_section.is_displayed():
             actions.click('#showSetupLink>a')
             actions.wait(0.5)
     elif where == 'teardown':
-        steps_section = element('#teardownSteps')
+        steps_section = element('#teardownSteps', wait_displayed=False)
         if not steps_section.is_displayed():
             actions.click('#showTeardownLink>a')
             actions.wait(0.5)
-
 
     # get last input in steps section
     inputs = steps_section.find_all('input.form-control.step-first-input')
@@ -42,9 +41,6 @@ def add_action(action_name, where='test'):
         inputs = steps_section.find_all('input.form-control.step-first-input')
         new_action_input = inputs[-1]
 
-    # actions.click('#testSteps button.add-step')
-    # action_inputs = elements("#testSteps .step-first-input")
-    # last_input = action_inputs[-1]
     actions.send_keys(new_action_input, action_name)
     actions.press_key(new_action_input, 'DOWN')
     actions.press_key(new_action_input, 'ENTER')
@@ -58,7 +54,7 @@ def verify_last_action(action_name, where='test'):
     elif where == 'teardown':
         action_inputs = elements("#teardownSteps .step-first-input")
     last_input = action_inputs[-1]
-    actions.assert_equals(last_input.get_attribute('value'), action_name)
+    assert last_input.get_attribute('value'), action_name
 
 
 def verify_description(desc):
@@ -67,7 +63,7 @@ def verify_description(desc):
 
 def save_test():
     actions.click(save_button)
-    actions.wait_for_element_not_exist('#toast-container')
+    actions.wait_for_element_displayed('#toast-container', timeout=10)
 
 
 def import_page(page_name):
@@ -89,7 +85,7 @@ def add_new_page(page_name):
     prompt_input = element('#promptModal #promptModalInput')
     actions.send_keys(prompt_input, page_name)
     actions.click('#promptModal #prompSaveButton')
-    actions.wait_for_element_not_visible('#promptModal')
+    actions.wait_for_element_not_displayed('#promptModal')
 
 
 def wait_for_test_to_run(timeout=5):

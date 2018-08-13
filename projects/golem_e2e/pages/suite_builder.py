@@ -11,7 +11,7 @@ suite_name = ('id', 'suiteName', 'Suite name')
 
 def save_suite():
     actions.click(save_button)
-    actions.wait_for_element_not_exist('#toast-container')
+    actions.wait_for_element_present('#toast-container', timeout=5)
 
 
 def verify_workers_value(expected_value):

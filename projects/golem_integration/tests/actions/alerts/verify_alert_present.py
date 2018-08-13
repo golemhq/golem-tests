@@ -7,6 +7,7 @@ def test(data):
     actions.navigate(data.env.url+'alert/')
     try:
         actions.verify_alert_present()
+        assert False, 'Expected Exception'
     except Exception as e:
         assert 'an alert was not present' in e.args[0]
     actions.click('#alert-button')

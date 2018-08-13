@@ -9,4 +9,4 @@ def test(data):
     send_keys(login.password_input, 'incorect password')
     click(login.login_button)
     capture('Verify the correct error message is shown')
-    verify_text_in_element(login.error_list, 'Username and password do not match')
+    verify_element_text(login.error_list, 'Username and password do not match')

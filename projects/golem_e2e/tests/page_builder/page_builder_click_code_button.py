@@ -15,4 +15,4 @@ def setup(data):
 
 def test(data):
     click(page_builder.code_button)
-    verify_exists(page_builder_code.preview_button)
+    verify_element_present(page_builder_code.preview_button)
