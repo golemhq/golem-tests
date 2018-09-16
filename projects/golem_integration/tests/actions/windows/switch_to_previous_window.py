@@ -1,5 +1,7 @@
 from golem import actions
 
+from projects.golem_integration.pages import golem_steps
+
 
 description = 'Verify switch_to_previous_window action'
 
@@ -19,6 +21,7 @@ def test(data):
     actions.switch_to_window_by_index(2)
     actions.verify_title(third_title)
     actions.switch_to_previous_window()
+    golem_steps.assert_last_step_message('Switch to previous window')
     actions.verify_title(second_title)
     actions.switch_to_previous_window()
     actions.verify_title(first_title)

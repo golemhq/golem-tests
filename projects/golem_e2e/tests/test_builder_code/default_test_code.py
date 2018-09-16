@@ -3,7 +3,7 @@ description = 'Verify the default test code is correct'
 
 pages = ['common',
          'index',
-         'tests',
+         'project_tests',
          'test_builder',
          'code_editor']
 
@@ -11,7 +11,7 @@ def setup(data):
     common.access_golem(data.env.url, data.env.admin)
     index.create_access_project('test')
     common.navigate_menu('Tests')
-    tests.create_access_random_test()
+    project_tests.create_access_random_test()
     click(test_builder.code_button)
 
 def test(data):

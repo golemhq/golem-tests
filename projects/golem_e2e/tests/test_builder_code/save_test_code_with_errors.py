@@ -3,7 +3,7 @@ description = 'Verify the application displays an error message when the user sa
 
 pages = ['common',
          'index',
-         'tests',
+         'project_tests',
          'test_builder',
          'test_builder_code',
          'code_editor']
@@ -13,7 +13,7 @@ def setup(data):
     index.create_access_project('test')
     common.navigate_menu('Tests')
     store('test_name', 'test_'+random('ddddd'))
-    tests.create_access_test(data.test_name)
+    project_tests.create_access_test(data.test_name)
 
 def test(data):
     store('test_line', "undefined_var")

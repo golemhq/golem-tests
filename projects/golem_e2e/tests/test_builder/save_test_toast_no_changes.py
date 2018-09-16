@@ -3,7 +3,7 @@ description = 'Verify the application displays a toast message when saving a tes
 
 pages = ['common',
          'index',
-         'tests',
+         'project_tests',
          'test_builder']
 
 def setup(data):
@@ -11,7 +11,7 @@ def setup(data):
     index.create_access_project('test')
     common.navigate_menu('Tests')
     store('test_name', 'test_' + random('dddd'))
-    tests.create_access_test(data.test_name)
+    project_tests.create_access_test(data.test_name)
 
 def test(data):
     test_builder.add_action('click')

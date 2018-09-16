@@ -1,5 +1,7 @@
 from golem import actions
 
+from projects.golem_integration.pages import golem_steps
+
 
 description = 'Verify close_window_by_index action'
 
@@ -17,6 +19,7 @@ def test(data):
     actions.switch_to_window_by_index(0)
     # close third window by index
     actions.close_window_by_index(2)
+    golem_steps.assert_last_step_message('Close window by index 2')
     actions.verify_amount_of_windows(2)
     actions.verify_title(first_title)
     # close first window by index, from the first window

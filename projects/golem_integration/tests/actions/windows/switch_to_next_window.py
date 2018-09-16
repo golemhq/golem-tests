@@ -1,5 +1,7 @@
 from golem import actions
 
+from projects.golem_integration.pages import golem_steps
+
 
 description = 'Verify switch_to_next_window action'
 
@@ -18,6 +20,7 @@ def test(data):
     third_title = actions.get_window_title()
     actions.switch_to_window_by_index(0)
     actions.switch_to_next_window()
+    golem_steps.assert_last_step_message('Switch to next window')
     actions.verify_title(second_title)
     actions.switch_to_next_window()
     actions.verify_title(third_title)

@@ -1,5 +1,7 @@
 from golem import actions
 
+from projects.golem_integration.pages import golem_steps
+
 
 description = 'Verify switch_to_first_window action'
 
@@ -11,5 +13,6 @@ def test(data):
     assert actions.get_window_index() == 1
     actions.verify_title('Tab')
     actions.switch_to_first_window()
+    golem_steps.assert_last_step_message('Switch to first window')
     assert actions.get_window_index() == 0
     actions.verify_title('Tabs')

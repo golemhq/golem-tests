@@ -1,5 +1,7 @@
 from golem import actions
 
+from projects.golem_integration.pages import golem_steps
+
 
 description = 'Verify switch_to_window_by_partial_url action'
 
@@ -8,6 +10,7 @@ def test(data):
     actions.send_keys('#urlInput', '/elements/')
     actions.click("#goButton")
     actions.switch_to_window_by_partial_url('elem')
+    golem_steps.assert_last_step_message("Switch to window with partial URL 'elem'")
     actions.verify_title('Elements')
     actions.switch_to_window_by_partial_url('tab')
     actions.verify_title('Tabs')

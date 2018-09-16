@@ -1,5 +1,7 @@
 from golem import actions
 
+from projects.golem_integration.pages import golem_steps
+
 
 description = 'Verify dismiss_alert action'
 
@@ -9,6 +11,7 @@ def test(data):
     actions.click('#alert-button')
     actions.verify_alert_present()
     actions.dismiss_alert()
+    golem_steps.assert_last_step_message('Dismiss alert')
     actions.verify_alert_not_present()
     actions.verify_text_in_element('#result', '1')
     # confirm
