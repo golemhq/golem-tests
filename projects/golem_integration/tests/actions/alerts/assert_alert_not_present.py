@@ -1,7 +1,7 @@
 from golem import actions
 
 from projects.golem_integration.pages import golem_steps
-
+from projects.golem_integration.utils import expected_exception
 
 description = 'assert_alert_not_present action'
 
@@ -10,9 +10,7 @@ def test(data):
     actions.assert_alert_not_present()
     assert golem_steps.get_last_step_message() == 'Assert an alert is not present'
     actions.click('#alert-button')
-    try:
+    with expected_exception(AssertionError, 'an alert was present'):
         actions.assert_alert_not_present()
-    except AssertionError as e:
-        assert 'an alert was present' in e.args[0]
     actions.dismiss_alert()
     actions.assert_alert_not_present()

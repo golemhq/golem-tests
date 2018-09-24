@@ -11,12 +11,12 @@ def test(data):
     text_area = '#textarea-1'
     # clear input
     actions.send_keys(input, 'foo')
-    golem_steps.assert_last_step_message('Clear element {}'.format(input))
-    actions.assert_element_text(input, 'foo')
+    actions.assert_element_attribute(input, 'value', 'foo')
     actions.clear_element(input)
-    actions.assert_element_text(input, '')
+    golem_steps.assert_last_step_message('Clear element {}'.format(input))
+    actions.assert_element_attribute(input, 'value', '')
     # clear text area
     actions.send_keys(text_area, 'bar')
-    actions.assert_element_text(text_area, 'bar')
+    actions.assert_element_attribute(text_area, 'value', 'bar')
     actions.clear_element(text_area)
-    actions.assert_element_text(text_area, '')
+    actions.assert_element_attribute(text_area, 'value', '')

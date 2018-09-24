@@ -7,8 +7,8 @@ description = 'verify_window_present_by_title action'
 
 def test(data):
     actions.navigate(data.env.url+'tabs/')
-    actions.send_keys('#urlInput', '/elements/')
-    actions.click("#goButton")
-    actions.verify_window_present_by_title('Elements')
-    golem_steps.assert_last_step_message("There is no window present with title 'Elements'")
+    actions.click("#openTab")
+    actions.wait_for_window_present_by_title('Tab', 5)
+    actions.verify_window_present_by_title('Tab')
+    golem_steps.assert_last_step_message("Verify window present by title 'Tab'")
     actions.verify_window_present_by_title('Tabs')

@@ -9,9 +9,10 @@ def test(data):
     url = data.env.url + 'tabs/'
     actions.navigate(url)
     actions.send_keys('#title', 'testing')
-    actions.click('#goButton')
+    actions.click('#goButtonCustom')
     actions.assert_window_present_by_partial_title('Tab')
     golem_steps.assert_last_step_message("Assert window present by partial title 'Tab'")
+    actions.wait(1)
     actions.assert_window_present_by_partial_title('test')
     try:
         actions.assert_window_present_by_partial_title('incorrect')

@@ -12,7 +12,7 @@ def test(data):
     actions.step('Find element by name')
     text_area = browser.find(name=selector)
     assert type(text_area) in [ExtendedRemoteWebElement, ExtendedFirefoxWebElement]
-    assert text_area.text == ''
+    assert text_area.get_attribute('placeholder') == 'textarea'
     assert text_area.selector_type == 'name'
     assert text_area.selector_value == selector
     assert text_area.name == selector

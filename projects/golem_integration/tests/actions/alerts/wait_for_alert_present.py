@@ -2,6 +2,7 @@ from selenium.common.exceptions import TimeoutException
 from golem import actions
 
 from projects.golem_integration.pages import golem_steps
+from projects.golem_integration.utils import expected_exception
 
 
 description = 'Verify wait_for_alert_present action'
@@ -14,9 +15,6 @@ def test(data):
     actions.verify_alert_present()
     actions.dismiss_alert()
     actions.click('#alert-delay-button')
-    try:
+    with expected_exception(TimeoutException, "Timeout waiting for alert to be present"):
         actions.wait_for_alert_present(3)
-        assert False, 'Expected Exception'
-    except TimeoutException as e:
-        assert "Timeout waiting for alert to be present" in e.args[0]
     actions.dismiss_alert(ignore_not_present=True)

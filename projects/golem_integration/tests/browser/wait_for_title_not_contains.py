@@ -1,5 +1,7 @@
 from golem import actions
 
+from projects.golem_integration.utils import expected_exception
+
 
 description = 'Verify webdriver.wait_for_title_not_contains method'
 
@@ -10,9 +12,7 @@ def test(data):
     actions.get_browser().wait_for_title_not_contains('Dynamic', 5)
     actions.verify_title_not_contains('Dynamic')
     actions.navigate(data.env.url + 'dynamic-elements/?delay=5')
-    try:
+    msg = "Timeout waiting for title to not contain 'Dynamic'"
+    with expected_exception(Exception, msg):
         actions.click('#change-title-button')
         actions.get_browser().wait_for_title_not_contains('Dynamic', 5)
-        assert False, 'Expected Exception'
-    except Exception as e:
-        assert "Timeout waiting for title to not contain \'Dynamic\'" in e.args[0]

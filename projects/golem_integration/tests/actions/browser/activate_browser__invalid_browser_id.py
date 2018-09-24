@@ -2,6 +2,7 @@ from golem import actions
 
 description = 'Verify activate_browser throws error when browser_id is incorrect'
 
+
 def test(data):
     actions.open_browser()
     actions.navigate(data.env.url)

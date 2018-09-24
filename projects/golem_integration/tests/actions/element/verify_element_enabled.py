@@ -11,4 +11,4 @@ def test(data):
     golem_steps.assert_last_step_message('Verify element #input-one is enabled')
     actions.navigate(data.env.url+'disabled-elements/')
     actions.verify_element_enabled('#text')
-    golem_steps.assert_last_error('Element #text is not enabled')
+    golem_steps.assert_last_error('element #text is not enabled')

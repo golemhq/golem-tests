@@ -1,16 +1,15 @@
 from golem import actions
 
-from projects.golem_integration.pages import golem_steps
 
-
-description = 'close_window_by_title action'
+description = 'get_window_titles action'
 
 def test(data):
     actions.navigate(data.env.url + 'tabs/')
     actions.send_keys('#title', 'foo')
-    actions.click('#goButton')
+    actions.click('#goButtonCustom')
+    actions.clear_element('#title')
     actions.send_keys('#title', 'bar')
-    actions.click('#goButton')
+    actions.click('#goButtonCustom')
     actions.assert_amount_of_windows(3)
     titles = actions.get_window_titles()
     expected = ['Tabs', 'foo', 'bar']

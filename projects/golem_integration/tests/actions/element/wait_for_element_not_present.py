@@ -2,6 +2,7 @@ from selenium.common.exceptions import TimeoutException
 from golem import actions
 
 from projects.golem_integration.pages import golem_steps
+from projects.golem_integration.utils import expected_exception
 
 
 description = 'Verify wait_for_element_not_present action'
@@ -16,8 +17,6 @@ def test(data):
     actions.wait_for_element_not_present('#this-element-does-not-exist', timeout=3)
     # wait times out and element is still present
     actions.navigate(data.env.url + 'elements/')
-    try:
+    msg = "Timeout waiting for element #button-one to not be present"
+    with expected_exception(TimeoutException, msg):
         actions.wait_for_element_not_present('#button-one', timeout=3)
-        assert False, 'Expected Exception'
-    except TimeoutException as e:
-        assert "Timeout waiting for element #button-one to not be present" in e.args[0]

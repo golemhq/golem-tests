@@ -1,20 +1,18 @@
 from golem import actions
 
 from projects.golem_integration.pages import golem_steps
+from projects.golem_integration.utils import expected_exception
+
 
 description = 'assert_element_checked action'
 
 def test(data):
     actions.navigate(data.env.url+'elements/')
     actions.assert_element_checked('#selected-checkbox')
-    golem_steps.assert_last_step_message('element #selected-checkbox is not checked')
-    try:
+    golem_steps.assert_last_step_message('Assert element #selected-checkbox is checked')
+    with expected_exception(AssertionError, 'element #unselected-checkbox is not checked'):
         actions.assert_element_checked('#unselected-checkbox')
-    except AssertionError as e:
-        assert 'element #unselected-checkbox is not checked' in e.args[0]
     # radio button
     actions.assert_element_checked('#exampleRadios1')
-    try:
+    with expected_exception(AssertionError, 'element #exampleRadios2 is not checked'):
         actions.assert_element_checked('#exampleRadios2')
-    except AssertionError as e:
-        assert 'element #exampleRadios2 is not checked' in e.args[0]

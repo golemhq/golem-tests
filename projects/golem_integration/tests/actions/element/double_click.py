@@ -10,4 +10,4 @@ def test(data):
     button = ('id', 'double-click-one')
     actions.double_click(button)
     golem_steps.assert_last_step_message('Double click element double-click-one')
-    actions.assert_element_text(button, 'Double Clicked!')
+    actions.assert_element_text('#double-click-one-result', 'Double Clicked!')

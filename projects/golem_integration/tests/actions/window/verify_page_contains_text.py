@@ -10,4 +10,4 @@ def test(data):
     actions.verify_page_contains_text('Special Elements')
     golem_steps.assert_last_step_message("Verify 'Special Elements' is present in page")
     actions.verify_page_contains_text('THIS TEXT IS NOT PRESENT')
-    golem_steps.assert_last_error("Text 'THIS TEXT IS NOT PRESENT' not found in page")
+    golem_steps.assert_last_error("text 'THIS TEXT IS NOT PRESENT' not found in page")

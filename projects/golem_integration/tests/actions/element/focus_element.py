@@ -7,7 +7,7 @@ description = 'Verify focus_element action'
 
 def test(data):
     actions.navigate(data.env.url + 'elements/')
-    actions.get_browser()
+    b = actions.get_browser()
     text_input = b.find(id='input-one')
     text_area = b.find(id='textarea-1')
     actions.focus_element(text_input)

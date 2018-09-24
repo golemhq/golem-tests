@@ -12,5 +12,5 @@ def test(data):
     actions.navigate(data.env.url + 'elements/')
     actions.take_screenshot('my_screenshot')
     golem_steps.assert_last_step_message('my_screenshot')
-    path = os.path.join(execution.report_directory, 'my_screenshot.png')
-    assert os.path.isfile(path)
+    listdir = os.listdir(execution.report_directory)
+    assert any(x.endswith('.png') for x in listdir)

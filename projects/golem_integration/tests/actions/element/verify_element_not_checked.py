@@ -8,6 +8,6 @@ description = 'verify_element_not_checked action'
 def test(data):
     actions.navigate(data.env.url+'elements/')
     actions.verify_element_not_checked('#unselected-checkbox')
-    golem_steps.assert_last_step_message('Verify the element #unselected-checkbox is not checked')
+    golem_steps.assert_last_step_message('Verify element #unselected-checkbox is not checked')
     actions.verify_element_not_checked('#selected-checkbox')
     golem_steps.assert_last_error('element #selected-checkbox is checked')

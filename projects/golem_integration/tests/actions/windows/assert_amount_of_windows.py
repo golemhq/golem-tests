@@ -10,6 +10,7 @@ def test(data):
     actions.assert_amount_of_windows(1)
     assert golem_steps.get_last_step_message() == 'Assert amount of open windows is 1'
     actions.click('#openTab')
+    actions.wait_for_window_present_by_title('Tab', 5)
     actions.assert_amount_of_windows(2)
     try:
         actions.assert_amount_of_windows(3)

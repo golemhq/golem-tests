@@ -11,4 +11,4 @@ def test(data):
     actions.verify_url_is_not('http://incorrect')
     golem_steps.assert_last_step_message("Verify URL is not 'http://incorrect'")
     actions.verify_url_is_not(url)
-    golem_steps.assert_last_error("expected URL to not be '{}'")
+    golem_steps.assert_last_error("expected URL to not be '{}'".format(url))

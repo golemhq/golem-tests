@@ -1,6 +1,7 @@
 from golem import actions
 
 from projects.golem_integration.pages import golem_steps
+from projects.golem_integration.utils import expected_exception
 
 
 description = 'Verify uncheck_element action'
@@ -21,14 +22,8 @@ def test(data):
     actions.verify_element_not_checked(checkbox_checked)
     # uncheck a radio button (error)
     actions.verify_element_checked(radio_checked)
-    try:
+    with expected_exception(ValueError, 'Element #exampleRadios1 is not checkbox'):
         actions.uncheck_element(radio_checked)
-        assert False, 'Expected Exception'
-    except Exception as e:
-        assert 'Element #exampleRadios1 is not checkbox' in e.args[0]
     # try to uncheck an element not checkbox
-    try:
+    with expected_exception(ValueError, 'Element #button-one is not checkbox'):
         actions.uncheck_element('#button-one')
-        assert False, 'Expected Exception'
-    except Exception as e:
-        assert 'Element #button-one is not checkbox' in e.args[0]

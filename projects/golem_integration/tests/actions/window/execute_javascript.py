@@ -2,7 +2,6 @@ from golem import actions
 
 from projects.golem_integration.pages import golem_steps
 
-
 description = 'Verify execute_javascript action'
 
 def test(data):
