@@ -1,7 +1,7 @@
 import time
 
 from golem import actions
-from golem.browser import element, elements
+from golem.browser import get_browser, element, elements
 
 
 test_name = ('id', 'testName', 'Test Name')
@@ -9,11 +9,12 @@ description = ('id', 'description', 'Description input')
 save_button = ('id', 'save', 'Save button')
 code_button = ('id', 'loadCodeButton', 'Code button')
 run_button = ('id', 'runTest', 'Run button')
-import_page_imput = ('css', 'input.page-objects-autocomplete', 'Import Page input')
+import_page_input = ('css', 'input.page-objects-autocomplete', 'Import Page input')
 new_page_button = ('id', 'newPageButton', 'New Page button')
+result_modal_body = ('css', 'div#testRunModal .modal-body #testResultContainer')
 
 
-def add_action(action_name, where='test'):
+def add_action(action_name, params=[], where='test'):
     """adds an action using the autocomplete list"""
     if where == 'test':
         steps_section = element('div#testSteps')
@@ -28,22 +29,29 @@ def add_action(action_name, where='test'):
             actions.click('#showTeardownLink>a')
             actions.wait(0.5)
 
-    # get last input in steps section
-    inputs = steps_section.find_all('input.form-control.step-first-input')
-    last_input = inputs[-1]
+    # get last step
+    steps = steps_section.find_all('div.step')
+    step = steps[-1]
 
-    # use the last empty input or add a new one if it's not empty
-    new_action_input = None
-    if not len(last_input.get_attribute('value')):
-        new_action_input = last_input
-    else:
+    # if the last action input is not empty, add a new one
+    if step.find('input.step-first-input').value:
         steps_section.find('button.add-step').click()
-        inputs = steps_section.find_all('input.form-control.step-first-input')
-        new_action_input = inputs[-1]
+        steps = steps_section.find_all('div.step')
+        step = steps[-1]
 
-    actions.send_keys(new_action_input, action_name)
-    actions.press_key(new_action_input, 'DOWN')
-    actions.press_key(new_action_input, 'ENTER')
+    action_input = step.find('input.step-first-input')
+    # actions.send_keys(action_input, action_name)
+    for i in range(len(action_name)):
+        actions.send_keys(action_input, action_name[i])
+        actions.wait(0.1)
+    actions.press_key(action_input, 'DOWN')
+    actions.press_key(action_input, 'ENTER')
+
+    # fill in each param
+    if params:
+        param_inputs = step.find_all('input.parameter-input')
+        for i, param in enumerate(params):
+            param_inputs[i].send_keys(param)
 
 
 def verify_last_action(action_name, where='test'):
@@ -68,7 +76,7 @@ def save_test():
 
 def import_page(page_name):
     for char in page_name:
-        actions.send_keys(import_page_imput, char)
+        actions.send_keys(import_page_input, char)
 
 
 def verify_page_in_list(page_name):
@@ -99,22 +107,36 @@ def wait_for_test_to_run(timeout=5):
         raise Exception('test is still running')
 
 
-def verify_empty_test_execution_modal_content(test_name):
-    test_result = element('div#testRunModal .modal-body #testResultContainer')
-    
-    test_result_logs = test_result.find_all('#testResultLogs>div')
-    first_log_expected = 'INFO Test execution started: {}'.format(test_name)
-    second_log_expected = 'INFO Browser: chrome'
-    third_log_expected = 'INFO Test passed'
-    assert first_log_expected in test_result_logs[0].text
-    assert second_log_expected in test_result_logs[1].text
-    assert third_log_expected in test_result_logs[2].text
-    assert len(test_result_logs) == 3
+def assert_result_log_line(index, expected_line):
+    test_result_logs = element(result_modal_body).find_all('#testResultLogs>div.log-line')
+    actual_line = test_result_logs[index].text
+    msg = 'Expected {} in {}'.format(expected_line, actual_line)
+    assert expected_line in actual_line, msg
 
-    test_results = test_result.find_all('#testResults>.report-result>span')
-    assert test_results[0].text == 'Result: pass'
-    assert test_results[1].text == 'Error:'
-    assert 'Elapsed Time:' in test_results[2].text
-    assert test_results[3].text == 'Browser: chrome'
-    assert test_results[4].text == 'Steps:'
-    assert len(test_results) == 5
+
+def assert_result_modal_result(expected_result):
+    result = element(result_modal_body).find_all('#testResults')[0]
+    assert expected_result in result.text
+
+
+def assert_result_modal_errors(expected_errors):
+    if not expected_errors:
+        assert not get_browser().element_is_present('#resultErrorList')
+    else:
+        errors = elements('#resultErrorList>li')
+        for i, expected_error in enumerate(expected_errors):
+            assert errors[i].text == expected_error
+
+
+def assert_result_modal_steps_is_empty():
+    assert not get_browser().element_is_present('#resultStepsList')
+
+
+def assert_result_modal_steps(expected_steps):
+    if not expected_steps:
+        assert not get_browser().element_is_present('#resultStepsList')
+    else:
+        steps = elements('#resultStepsList>li')
+        for i, expected_step in enumerate(expected_steps):
+            msg = 'Expected step {} to be {} but was {}'.format(i, expected_step, steps[i].text)
+            assert steps[i].text == expected_step, msg

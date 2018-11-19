@@ -1,11 +1,19 @@
 from golem import actions
 
+from projects.golem_integration.pages import golem_steps
+
 
 description = 'Verify http_post action'
 
 def test(data):
-    url = data.env.url + 'ajax-request-process/'
-    params = {'numberOne': '1', 'numberTwo': '1', 'delay': '0'}
-    actions.http_post(url, data=params)
-    assert data.last_response.status_code == 200
-    assert data.last_response.text == '2'
+    url = data.env.url + 'form-basic-result/'
+    payload = {
+        'name': 'name',
+        'planet': 'alderaan',
+        'lightsaber': True,
+        'alignment': 'Light Side'
+    }
+    response = actions.http_post(url, data=payload)
+    golem_steps.assert_last_step_message('Make a POST request to {}'.format(url))
+    assert response == data.last_response
+    assert response.status_code == 200

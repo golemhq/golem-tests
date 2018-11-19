@@ -1,5 +1,7 @@
 from golem import actions
 
+from projects.golem_integration.utils import expected_exception
+
 
 description = 'Verify webdriver.close_window_by_title method'
 
@@ -27,8 +29,6 @@ def test(data):
     actions.verify_amount_of_windows(1)
     actions.verify_title(second_title)
     # try to close a window that is not present
-    try:
+    msg = "a window with title 'Incorrect Title' was not found"
+    with expected_exception(Exception, msg):
         actions.get_browser().close_window_by_title('Incorrect Title')
-        assert False, 'Expected Exception'
-    except Exception as e:
-        assert "a window with title 'Incorrect Title' was not found" in e.args[0]

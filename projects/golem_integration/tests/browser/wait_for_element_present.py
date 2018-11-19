@@ -1,15 +1,15 @@
 from golem import actions
 
+from projects.golem_integration.utils import expected_exception
+
 
 description = 'Verify webdriver.wait_for_element_present method'
 
 def test(data):
     actions.navigate(data.env.url+'dynamic-elements/?delay=3')
-    actions.get_browser().wait_for_element_present('#button-five', 10)
+    actions.get_browser().wait_for_element_present('#button-five', 5)
     actions.verify_element_present('#button-five')
     actions.navigate(data.env.url + 'dynamic-elements/?delay=5')
-    try:
+    msg = "timeout waiting for element #button-five to be present"
+    with expected_exception(Exception, msg):
         actions.get_browser().wait_for_element_present('#button-five', 3)
-        assert False, 'Expected Exception'
-    except Exception as e:
-        assert "Element #button-five not found using selector css:'#button-five'" in e.args[0]

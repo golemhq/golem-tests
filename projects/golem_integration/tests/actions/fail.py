@@ -1,10 +1,10 @@
 from golem import actions
 
+from projects.golem_integration.utils import expected_exception
+
+
 description = 'Verify fail action'
 
 def test(data):
-    try:
+    with expected_exception(AssertionError, 'I have failed you Anakin'):
         actions.fail('I have failed you Anakin')
-        assert False, 'Expected Exception'
-    except Exception as e:
-        assert 'I have failed you Anakin' in e.args[0]

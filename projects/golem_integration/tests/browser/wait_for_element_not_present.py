@@ -1,5 +1,7 @@
 from golem import actions
 
+from projects.golem_integration.utils import expected_exception
+
 
 description = 'Verify webdriver.wait_for_element_not_present method'
 
@@ -18,8 +20,6 @@ def test(data):
     browser.wait_for_element_not_present(button, timeout=10)
     # wait times out and element is still present
     actions.navigate(data.env.url + 'elements/')
-    try:
+    msg = "Timeout waiting for element #button-one to not be present"
+    with expected_exception(Exception, msg):
         browser.wait_for_element_not_present('#button-one', timeout=3)
-        assert False, 'Expected Exception'
-    except Exception as e:
-        assert "Timeout waiting for element #button-one to not be present" in e.args[0]

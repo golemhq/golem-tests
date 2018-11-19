@@ -1,5 +1,7 @@
 from golem import actions
 
+from projects.golem_integration.utils import expected_exception
+
 
 description = 'Verify webelement.wait_text method'
 
@@ -9,8 +11,6 @@ def test(data):
     element = '#button-seven'
     browser.find(element).wait_text('New Text', timeout=10)
     actions.navigate(data.env.url + 'dynamic-elements/?delay=5')
-    try:
+    msg = "Timeout waiting for element #button-seven text to be 'New Text'"
+    with expected_exception(Exception, msg):
         browser.find(element).wait_text('New Text', 3)
-        assert False, 'Expected Exception'
-    except Exception as e:
-        assert "Timeout waiting for element #button-seven text to be 'New Text'" in e.args[0]

@@ -1,5 +1,6 @@
 from golem import actions
 
+
 description = 'Verify webelement.press_key method'
 
 def test(data):
@@ -10,6 +11,7 @@ def test(data):
     try:
         element = actions.get_browser().find('#input-one')
         element.press_key('UNDEFINED_KEY')
-        assert False, 'Expected Exception'
     except Exception as e:
         assert 'Key UNDEFINED_KEY is invalid' in e.args[0]
+    else:
+        raise AssertionError('expected an exception')

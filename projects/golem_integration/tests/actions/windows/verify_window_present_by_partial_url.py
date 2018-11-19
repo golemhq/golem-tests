@@ -1,5 +1,7 @@
 from golem import actions
 
+from projects.golem_integration.pages import golem_steps
+
 
 description = 'verify_window_present_by_partial_url action'
 
@@ -8,9 +10,5 @@ def test(data):
     actions.send_keys('#urlInput', '/elements/')
     actions.click("#goButton")
     actions.verify_window_present_by_partial_url('tab')
+    golem_steps.assert_last_step_message("Verify window present by partial URL 'tab'")
     actions.verify_window_present_by_partial_url('elem')
-    try:
-        actions.verify_window_present_by_partial_url('/url/not/present')
-        assert False, 'Expected Exception'
-    except Exception as e:
-        assert 'There is no window present with partial URL \'/url/not/present\'' in e.args[0]

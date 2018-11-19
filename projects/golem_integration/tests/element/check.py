@@ -1,5 +1,8 @@
 from golem import actions
 
+from projects.golem_integration.utils import expected_exception
+
+
 description = 'Verify webelement.check method'
 
 def test(data):
@@ -25,8 +28,6 @@ def test(data):
     radio_checked.check()
     actions.verify_element_checked(radio_checked)
     # try to check an element not radio or checkbox
-    try:
+    msg = 'Element #button-one is not checkbox or radiobutton'
+    with expected_exception(Exception, msg):
         browser.find('#button-one').check()
-        assert False, 'Expected Exception'
-    except Exception as e:
-        assert 'Element #button-one is not checkbox or radiobutton' in e.args[0]

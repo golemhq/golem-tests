@@ -1,4 +1,7 @@
+from selenium.common.exceptions import TimeoutException
 from golem import actions
+
+from projects.golem_integration.utils import expected_exception
 
 
 description = 'Verify webdriver.wait_for_element_displayed method'
@@ -9,9 +12,6 @@ def test(data):
     actions.verify_element_displayed('#button-one')
     # time out waiting for element to be displayed
     actions.navigate(data.env.url + 'dynamic-elements/?delay=5')
-    try:
+    msg = "timeout waiting for element #button-one to be displayed"
+    with expected_exception(TimeoutException, msg):
         actions.wait_for_element_displayed('#button-one', timeout=3)
-        assert False, 'Expected Exception'
-    except Exception as e:
-        expected = "Timeout waiting for element #button-one to be displayed"
-        assert expected in e.args[0]

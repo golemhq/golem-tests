@@ -1,5 +1,7 @@
 from golem import actions
 
+from projects.golem_integration.utils import expected_exception
+
 
 description = 'Verify webelement.wait_has_not_attribute method'
 
@@ -12,8 +14,6 @@ def test(data):
     browser.find(element).wait_has_not_attribute(attribute, timeout=5)
     actions.verify_element_has_not_attribute(element, attribute)
     actions.navigate(data.env.url + 'dynamic-elements/?delay=5')
-    try:
+    msg = "Timeout waiting for element {} to not have attribute {}".format(element, attribute)
+    with expected_exception(Exception, msg):
         browser.find(element).wait_has_not_attribute(attribute, timeout=3)
-        assert False, 'Expected Exception'
-    except Exception as e:
-        assert "Timeout waiting for element {} to not have attribute {}".format(element, attribute) in e.args[0]

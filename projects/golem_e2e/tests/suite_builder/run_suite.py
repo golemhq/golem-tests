@@ -4,7 +4,7 @@ description = 'Run a suite'
 
 pages = ['common',
          'index',
-         'tests',
+         'project_tests',
          'suites',
          'suite_builder',
          'report_execution']

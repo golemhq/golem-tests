@@ -1,15 +1,15 @@
 from golem import actions
 
+from projects.golem_integration.pages import golem_steps
+
 
 description = 'Verify_alert_present action'
 
 def test(data):
     actions.navigate(data.env.url+'alert/')
-    try:
-        actions.verify_alert_present()
-        assert False, 'Expected Exception'
-    except Exception as e:
-        assert 'an alert was not present' in e.args[0]
+    actions.verify_alert_present()
+    golem_steps.assert_last_step_message('Verify an alert is present')
+    golem_steps.assert_last_error('an alert was not present')
     actions.click('#alert-button')
     actions.verify_alert_present()
     actions.dismiss_alert()

@@ -1,5 +1,7 @@
 from golem import actions
 
+from projects.golem_integration.utils import expected_exception
+
 
 description = 'Verify webdriver.switch_to_window_by_partial_url method'
 
@@ -11,8 +13,6 @@ def test(data):
     actions.verify_title('Elements')
     actions.get_browser().switch_to_window_by_partial_url('tab')
     actions.verify_title('Tabs')
-    try:
+    msg = "Window with partial URL 'xyz' was not found"
+    with expected_exception(Exception, msg):
         actions.get_browser().switch_to_window_by_partial_url('xyz')
-        assert False, 'Expected Exception'
-    except Exception as e:
-        assert 'Window with partial URL \'xyz\' was not found' in e.args[0]

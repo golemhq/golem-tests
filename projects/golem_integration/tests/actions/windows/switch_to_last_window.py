@@ -1,5 +1,7 @@
 from golem import actions
 
+from projects.golem_integration.pages import golem_steps
+
 
 description = 'Verify switch_to_last_window action'
 
@@ -23,5 +25,6 @@ def test(data):
     actions.verify_title('Tabs')
     # switch to last tab
     actions.switch_to_last_window()
+    golem_steps.assert_last_step_message('Switch to last window')
     assert actions.get_window_index() == 2
     actions.verify_title('Index')

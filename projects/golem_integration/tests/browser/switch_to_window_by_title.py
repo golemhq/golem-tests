@@ -1,5 +1,7 @@
 from golem import actions
 
+from projects.golem_integration.utils import expected_exception
+
 
 description = 'Verify webdriver.switch_to_window_by_title method'
 
@@ -9,8 +11,6 @@ def test(data):
     actions.click("#goButton")
     actions.get_browser().switch_to_window_by_title('Elements')
     actions.verify_title('Elements')
-    try:
+    with expected_exception(Exception,
+                            "Window with title 'incorrect title' was not found"):
         actions.get_browser().switch_to_window_by_title('incorrect title')
-        assert False, 'Expected Exception'
-    except Exception as e:
-        assert 'Window with title \'incorrect title\' was not found' in e.args[0]
