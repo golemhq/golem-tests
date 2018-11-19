@@ -9,7 +9,7 @@ description = 'assert_page_not_contains_text action'
 def test(data):
     actions.navigate(data.env.url+'special-elements/')
     actions.assert_page_not_contains_text('THIS TEXT IS NOT PRESENT')
-    golem_steps.assert_last_step_message("Assert 'THIS TEXT IS NOT PRESENT' is not present in page")
-    msg = "text 'Special Elements' was found in page"
+    golem_steps.assert_last_step_message("Assert 'THIS TEXT IS NOT PRESENT' is not present in the page")
+    msg = "text 'Special Elements' was found in the page"
     with expected_exception(AssertionError, msg):
         actions.assert_page_not_contains_text('Special Elements')

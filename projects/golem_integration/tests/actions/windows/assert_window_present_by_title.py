@@ -9,11 +9,11 @@ description = 'assert_window_present_by_title action'
 def test(data):
     url = data.env.url + 'tabs/'
     actions.navigate(url)
-    actions.send_keys('#title', 'testing')
+    actions.send_keys('#title', 'lorem ipsum')
     actions.click('#goButtonCustom')
-    actions.assert_window_present_by_title('Tabs')
-    golem_steps.assert_last_step_message("Assert window present by title 'Tabs'")
-    actions.assert_window_present_by_title('testing')
+    actions.assert_window_present_by_title('Web Playground - Tabs')
+    golem_steps.assert_last_step_message("Assert window present by title 'Web Playground - Tabs'")
+    actions.assert_window_present_by_title('lorem ipsum')
     expected = "There is no window present with title 'incorrect'".format(url)
     with expected_exception(AssertionError, expected):
         actions.assert_window_present_by_title('incorrect')

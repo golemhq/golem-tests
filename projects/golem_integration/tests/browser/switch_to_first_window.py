@@ -12,4 +12,4 @@ def test(data):
     actions.verify_title('Tab')
     actions.switch_to_first_window()
     assert actions.get_window_index() == 0
-    actions.verify_title('Tabs')
+    actions.verify_title('Web Playground - Tabs')

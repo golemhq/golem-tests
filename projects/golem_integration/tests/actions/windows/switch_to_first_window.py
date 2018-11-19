@@ -11,8 +11,8 @@ def test(data):
     actions.wait_for_window_present_by_title('Tab')
     actions.switch_to_window_by_index(1)
     assert actions.get_window_index() == 1
-    actions.verify_title('Tab')
+    actions.assert_title('Tab')
     actions.switch_to_first_window()
     golem_steps.assert_last_step_message('Switch to first window')
     assert actions.get_window_index() == 0
-    actions.verify_title('Tabs')
+    actions.assert_title('Web Playground - Tabs')

@@ -5,3 +5,4 @@ geckodriver.log
 drivers/*
 debug.log
 .idea
+golem_start.py

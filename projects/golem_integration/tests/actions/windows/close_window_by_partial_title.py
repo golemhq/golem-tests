@@ -7,10 +7,10 @@ description = 'close_window_by_partial_title action'
 
 def test(data):
     actions.navigate(data.env.url + 'tabs/')
-    actions.send_keys('#title', 'foo')
+    actions.send_keys('#title', 'lorem ipsum')
     actions.click('#goButtonCustom')
     actions.assert_amount_of_windows(2)
-    actions.close_window_by_partial_title('fo')
-    golem_steps.assert_last_step_message("Close window by partial title 'fo'")
+    actions.close_window_by_partial_title('lorem')
+    golem_steps.assert_last_step_message("Close window by partial title 'lorem'")
     actions.assert_amount_of_windows(1)
 

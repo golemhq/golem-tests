@@ -11,5 +11,5 @@ def test(data):
     browser = actions.get_browser()
     second_handle = browser.window_handles[1]
     browser.close_window_switch_back(second_handle)
-    actions.verify_title('Tabs')
+    actions.verify_title('Web Playground - Tabs')
     actions.verify_amount_of_windows(1)

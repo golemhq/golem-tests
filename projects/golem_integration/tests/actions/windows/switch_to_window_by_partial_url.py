@@ -1,6 +1,7 @@
 from golem import actions
 
 from projects.golem_integration.pages import golem_steps
+from projects.golem_integration.utils import expected_exception
 
 
 description = 'Verify switch_to_window_by_partial_url action'
@@ -11,11 +12,9 @@ def test(data):
     actions.click("#goButton")
     actions.switch_to_window_by_partial_url('elem')
     golem_steps.assert_last_step_message("Switch to window with partial URL 'elem'")
-    actions.verify_title('Elements')
-    actions.switch_to_window_by_partial_url('tab')
-    actions.verify_title('Tabs')
-    try:
+    actions.verify_title('Web Playground - Elements')
+    actions.switch_to_window_by_partial_url('tabs/')
+    actions.verify_title('Web Playground - Tabs')
+    msg = "Window with partial URL 'xyz' was not found"
+    with expected_exception(Exception, msg):
         actions.switch_to_window_by_partial_url('xyz')
-        assert False, 'Expected Exception'
-    except Exception as e:
-        assert 'Window with partial URL \'xyz\' was not found' in e.args[0]

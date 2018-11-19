@@ -9,7 +9,7 @@ description = 'Verify wait_for_title_contains action'
 
 def test(data):
     actions.navigate(data.env.url+'dynamic-elements/?delay=3')
-    actions.verify_title('Dynamic Elements')
+    actions.verify_title('Web Playground - Dynamic Elements')
     actions.click('#change-title-button')
     actions.wait_for_title_contains('New', 5)
     golem_steps.assert_last_step_message("Wait for title to contain 'New'")
@@ -17,4 +17,4 @@ def test(data):
     actions.navigate(data.env.url + 'dynamic-elements/?delay=5')
     with expected_exception(TimeoutException, "Timeout waiting for title to contain 'New'"):
         actions.click('#change-title-button')
-        actions.wait_for_title_contains('New', 5)
+        actions.wait_for_title_contains('New', 3)

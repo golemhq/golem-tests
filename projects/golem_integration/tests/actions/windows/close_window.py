@@ -15,4 +15,4 @@ def test(data):
     actions.close_window()
     golem_steps.assert_last_step_message('Close current window')
     actions.assert_amount_of_windows(1)
-    actions.assert_title('Tabs')
+    actions.assert_title('Web Playground - Tabs')

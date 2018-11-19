@@ -14,17 +14,17 @@ def test(data):
     actions.send_keys('#title', 'THIRD TAB')
     actions.click('#goButtonCustom')
     # wait for the new tabs to load
-    actions.wait_for_window_present_by_title('SECOND TAB', timeout=10)
-    actions.wait_for_window_present_by_title('THIRD TAB', timeout=10)
+    actions.wait_for_window_present_by_title('SECOND TAB', timeout=5)
+    actions.wait_for_window_present_by_title('THIRD TAB', timeout=5)
     # switch to last tab and navigate to index
     actions.switch_to_window_by_index(2)
     assert actions.get_window_index() == 2
     actions.navigate(data.env.url)
     # switch to first tab
     actions.switch_to_first_window()
-    actions.verify_title('Tabs')
+    actions.assert_title('Web Playground - Tabs')
     # switch to last tab
     actions.switch_to_last_window()
     golem_steps.assert_last_step_message('Switch to last window')
     assert actions.get_window_index() == 2
-    actions.verify_title('Index')
+    actions.assert_title('Web Playground')

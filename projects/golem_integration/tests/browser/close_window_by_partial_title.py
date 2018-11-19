@@ -17,7 +17,6 @@ def test(data):
     first_title_partial = first_title[:-2]
     actions.switch_to_window_by_index(1)
     second_title = actions.get_window_title()
-    second_title_partial = second_title[:-2]
     actions.switch_to_window_by_index(2)
     third_title = actions.get_window_title()
     third_title_partial = third_title[:-2]

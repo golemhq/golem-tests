@@ -7,8 +7,8 @@ def expected_exception(exception_class, *args):
         yield
     except exception_class as e:
         for arg in args:
-            msg = ("arg '{}' is not in exception\n"
-                   'Actual args: {}'.format(arg, e.args))
+            msg = ("arg '{}' is not in exception message\n"
+                   'Actual exception args: {}'.format(arg, e.args))
             assert arg in e.args, msg
     except Exception as e:
         msg = ('expected {} exception but got {}'

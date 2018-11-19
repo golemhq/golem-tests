@@ -10,5 +10,5 @@ def test(data):
     actions.navigate(data.env.url+'elements/')
     actions.assert_title_is_not('incorrect title')
     golem_steps.assert_last_step_message("Assert page title is not 'incorrect title'")
-    with expected_exception(AssertionError, "expected title to not be 'Elements'"):
-        actions.assert_title_is_not('Elements')
+    with expected_exception(AssertionError, "expected title to not be 'Web Playground - Elements'"):
+        actions.assert_title_is_not('Web Playground - Elements')

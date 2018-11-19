@@ -13,9 +13,9 @@ def test(data):
     actions.send_keys('#urlInput', '/elements/')
     actions.click("#goButton")
     actions.get_browser().switch_to_window_by_url(elements_url)
-    actions.verify_title('Elements')
+    actions.verify_title('Web Playground - Elements')
     actions.get_browser().switch_to_window_by_url(tabs_url)
-    actions.verify_title('Tabs')
+    actions.verify_title('Web Playground - Tabs')
     msg = "Window with URL '{}' was not found".format(nonexistent_url)
     with expected_exception(Exception, msg):
         actions.get_browser().switch_to_window_by_url(nonexistent_url)

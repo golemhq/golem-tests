@@ -8,7 +8,7 @@ description = 'assert_element_not_displayed action'
 
 def test(data):
     actions.navigate(data.env.url+'special-elements/')
-    actions.assert_element_not_displayed('#hidden-input')
-    golem_steps.assert_last_step_message('Assert element #hidden-input is not displayed')
+    actions.assert_element_not_displayed('#hidden-button')
+    golem_steps.assert_last_step_message('Assert element #hidden-button is not displayed')
     with expected_exception(AssertionError, 'element #double-click-one is displayed'):
         actions.assert_element_not_displayed('#double-click-one')

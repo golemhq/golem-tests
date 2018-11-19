@@ -16,7 +16,7 @@ def test(data):
     assert actions.get_window_index() == 2
     actions.navigate(data.env.url)
     actions.switch_to_first_window()
-    actions.verify_title('Tabs')
+    actions.verify_title('Web Playground - Tabs')
     actions.get_browser().switch_to_last_window()
     assert actions.get_window_index() == 2
-    actions.verify_title('Index')
+    actions.verify_title('Web Playground')

@@ -7,4 +7,4 @@ def test(data):
     browser = actions.get_browser()
     browser.navigate(data.env.url)
     assert browser.current_url == data.env.url
-    assert browser.title == 'Index'
+    assert browser.title == 'Web Playground'

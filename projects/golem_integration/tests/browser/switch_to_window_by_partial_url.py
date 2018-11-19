@@ -10,9 +10,9 @@ def test(data):
     actions.send_keys('#urlInput', '/elements/')
     actions.click("#goButton")
     actions.get_browser().switch_to_window_by_partial_url('elem')
-    actions.verify_title('Elements')
+    actions.verify_title('Web Playground - Elements')
     actions.get_browser().switch_to_window_by_partial_url('tab')
-    actions.verify_title('Tabs')
+    actions.verify_title('Web Playground - Tabs')
     msg = "Window with partial URL 'xyz' was not found"
     with expected_exception(Exception, msg):
         actions.get_browser().switch_to_window_by_partial_url('xyz')

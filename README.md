@@ -1,94 +1,99 @@
+# Golem Tests
 
-# Golem Demo Projects
+Tests for the [Golem](https://github.com/golemhq/golem) project.
 
-This repo contains example projects using the Golem framework.
-
-Check the Golem repo here: https://github.com/lucianopuccio/golem
-Check the full documentation here: http://golem-framework.readthedocs.io/
-
-# Requirements
-
-Firefox 55+
-
-Chrome 58+
-
-Python 3.4+
-
-PIP
-
-Virtualenv (optional)
+Read the full documentation here: http://golem-framework.readthedocs.io/
 
 
 # Install
 
+## Requirements
+
+* Python 3.5+
+* PIP
+* Virtualenv (optional)
+
 ## Create a virtualenv (optional)
 
-```
+```bash
 virtualenv env
 ```
 
 Activate the virtualenv (Linux & Mac):
-```
+```bash
 source env/bin/activate
 ```
 
 Activate the virtualenv (Windows):
 
-```
+```bash
 env\scripts\activate
 ```
 
 ## Install Golem
 
-```
+```bash
 pip install golem-framework
 ```
 
-## Clone repo
+## Clone This Repo
 
-```
-git clone https://github.com/lucianopuccio/golem-demo
-cd golem-demo
-```
-
-# Point to the appropiate webdriver executables
-
-The /drivers/ folder must have the webdriver executables. Download them and make sure that the settings.json points to the correct files.
-
-For example:
-```
-"chromedriver_path": "./drivers/chromedriver",
+```bash
+git clone https://github.com/golemhq/golem-tests.git
+cd golem-tests
 ```
 
+## Download Webdrivers
 
-# Start the web module
-
+```bash
+webdriver-manager update
 ```
-golem gui
-```
 
-The web module is accesible at http://localhost:5000/
+# Suites
 
-Default credentials:
+This repository contains two suites: **golem_gui** and **golem_integration**
 
-User: admin
+## golem_gui
 
-Password: admin
+These are Golem tests that test the Golem GUI. So meta... (⌐■_■)
 
+A Golem GUI instance must to be running in port 8000.
+This will be considered the System Under Test. 
 
-# Run the Golem test suite:
+Open a new console pointing to a different location than before and run:
 
-To run the Golem test suite, an instance of the Golem GUI must be running in port 8000 using another console.
-Open a new console and run:
-
-```
+```bash
 golem-admin createdirectory test
 cd test
 golem gui -p 8000
 ```
 
-Then from the first console:
+Then from the first console run:
 
+```bash
+golem run golem_gui regression
 ```
-golem run golem regression
+
+## golem_integration
+
+These are tests that ensure the Browser class, Element class and actions module work as expected.
+
+An instance of the [Web Playground](https://github.com/golemhq/web-playground) must be running in port 6565.
+
+```bash
+golem run golem_integration regression
 ```
+
+# Open the Reports
+
+Start the Golem GUI:
+
+```bash
+golem run gui
+```
+
+Then the reports are available here:
+    
+http://localhost:5000/report/project/golem_gui/
+
+http://localhost:5000/report/project/golem_integration/

@@ -12,5 +12,5 @@ def test(data):
     actions.click('#goButtonCustom')
     actions.assert_amount_of_windows(3)
     titles = actions.get_window_titles()
-    expected = ['Tabs', 'foo', 'bar']
+    expected = ['Web Playground - Tabs', 'foo', 'bar']
     assert sorted(titles) == sorted(expected)

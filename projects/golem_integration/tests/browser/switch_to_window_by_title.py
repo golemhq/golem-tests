@@ -9,8 +9,8 @@ def test(data):
     actions.navigate(data.env.url+'tabs/')
     actions.send_keys('#urlInput', '/elements/')
     actions.click("#goButton")
-    actions.get_browser().switch_to_window_by_title('Elements')
-    actions.verify_title('Elements')
+    actions.get_browser().switch_to_window_by_title('Web Playground - Elements')
+    actions.verify_title('Web Playground - Elements')
     with expected_exception(Exception,
                             "Window with title 'incorrect title' was not found"):
         actions.get_browser().switch_to_window_by_title('incorrect title')
