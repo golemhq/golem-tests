@@ -3,12 +3,10 @@ from golem.browser import elements
 
 
 create_project_button = ('css', "#projectCreationButton button", 'Create Project button')
-title = ('css', "h4", 'Title')
+title = ('css', "#content h3", 'Title')
 project_name_input = ('id', "newProjectName", 'Project Name input')
 create_button = ('id', "createProjectCreate", 'Create button')
 project_list_item = ('css', '#projectList>a')
-error_list_items = ('css', '#errorList li', 'error_list_item')
-error_modal = ('id', 'errorModal', 'error_modal')
 
 
 def _project_exists(project_name):
@@ -20,15 +18,6 @@ def _project_exists(project_name):
 def assert_project_exists(project_name):
     actions.take_screenshot('verify the project exists in the list')
     assert _project_exists(project_name), 'Project {} does not exists'.format(project_name)
-
-
-def assert_error_message(error_message):
-    actions.wait_for_element_displayed(error_modal)
-    items = elements(error_list_items)
-    error_messages = [x.text for x in items]
-    msg = 'verify the application shows the error message: {}'.format(error_message)
-    actions.take_screenshot(msg)
-    assert error_message in error_messages, 'Error message {} is not present'.format(error_message)
 
 
 def access_project(project_name):

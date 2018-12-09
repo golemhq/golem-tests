@@ -1,5 +1,5 @@
 
-description = 'Verify the user can import a page into the test'
+description = 'Verify the user can create a new page from the test builder'
 
 pages = ['common',
          'index',

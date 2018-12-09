@@ -2,13 +2,13 @@ from golem.browser import get_browser
 from golem import actions
 
 
-def set_value(code):
-    script = 'codeEditor.setValue(arguments[0])'
+def set_value(code, code_editor_var='codeEditor'):
+    script = '{}.setValue(arguments[0])'.format(code_editor_var)
     get_browser().execute_script(script, code)
 
 
-def get_value():
-    script = 'return codeEditor.getValue()'
+def get_value(code_editor_var='codeEditor'):
+    script = 'return {}.getValue()'.format(code_editor_var)
     all_code = get_browser().execute_script(script)
     return all_code
 
@@ -26,9 +26,9 @@ def set_line_value(index, value):
     get_browser().execute_script(script, index, value)
 
 
-def assert_value(expected_value):
+def assert_value(expected_value, code_editor_var='codeEditor'):
     actions.step('Verify code editor value is: {}'.format(expected_value))
-    actual_value = get_value()
+    actual_value = get_value(code_editor_var)
     msg = 'Expected "{}" and received "{}"'.format(expected_value, actual_value)
     assert actual_value == expected_value, msg
 

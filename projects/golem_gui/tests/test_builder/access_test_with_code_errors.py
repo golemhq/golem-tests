@@ -5,8 +5,7 @@ pages = ['common',
          'index',
          'test_list',
          'test_builder',
-         'test_builder_code',
-         'code_editor']
+         'test_builder_code']
 
 def setup(data):
     common.access_golem(data.env.url, data.env.admin)
@@ -16,7 +15,7 @@ def setup(data):
 
 def test(data):
     click(test_builder.code_button)
-    code_editor.set_line_value(0, 'undefined_var')
+    test_builder_code.set_value('undefined_var')
     test_builder_code.save_test()
     click(test_builder_code.preview_button)
     assert_page_contains_text('There are errors in the test')

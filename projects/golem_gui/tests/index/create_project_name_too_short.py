@@ -12,4 +12,4 @@ def test(data):
     store('project_name', random('cc'))
     send_keys(index.project_name_input, data.project_name)
     click(index.create_button)
-    index.assert_error_message('Project name is too short')
+    common.assert_error_message('Project name is too short')

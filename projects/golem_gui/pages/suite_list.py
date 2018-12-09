@@ -1,10 +1,6 @@
 from golem import actions
-from golem.browser import elements
 
 from projects.golem_gui.pages import list_common
-
-
-error_modal = ('id', 'errorModal', 'Error modal')
 
 
 def add_suite(name):
@@ -17,16 +13,6 @@ def suite_exists(fullpath):
 
 def assert_suite_exists(fullpath):
     assert suite_exists(fullpath), 'suite {} does not exist'.format(fullpath)
-
-
-def assert_error_message(error_message):
-    actions.step('Verify that the error {} is displayed'.format(error_message))
-    actions.wait_for_element_displayed(error_modal)
-    errors = elements(css='#errorList>li')
-    for error in errors:
-        if error.text == error_message:
-            return
-    raise AssertionError('Error message {} was not found'.format(error_message))
 
 
 def access_suite(name):

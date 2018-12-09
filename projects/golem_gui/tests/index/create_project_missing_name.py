@@ -10,4 +10,4 @@ def setup(data):
 def test(data):
     click(index.create_project_button)
     click(index.create_button)
-    index.assert_error_message('Project name is too short')
+    common.assert_error_message('Project name is too short')

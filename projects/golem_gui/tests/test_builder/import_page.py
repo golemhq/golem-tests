@@ -9,7 +9,7 @@ pages = ['common',
 
 def setup(data):
     common.access_golem(data.env.url, data.env.admin)
-    index.create_access_project('test')
+    index.create_access_project('test_add_page')
     common.navigate_menu('Pages')
     store('page_name', 'page_import_' + random('dddd'))
     page_list.add_page(data.page_name)

@@ -14,4 +14,4 @@ def test(data):
     store('test_name', 'test_' + random('cccc'))
     test_list.add_test(data.test_name)
     test_list.add_test(data.test_name)
-    test_list.assert_error_message('a test with that name already exists')
+    common.assert_error_message('a test with that name already exists')

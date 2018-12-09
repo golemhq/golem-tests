@@ -1,6 +1,6 @@
 {
     "test": {
-        "url": "http://localhost:8000",
+        "url": "http://localhost:8000/",
       	"admin": {
         	"username": "admin",
           	"password": "admin"

@@ -1,10 +1,7 @@
 from golem import actions
-from golem.browser import elements
+from golem.browser import element
 
 from projects.golem_gui.pages import list_common
-
-
-error_modal = ('id', 'errorModal', 'Error modal')
 
 
 def add_test(fullpath):
@@ -25,16 +22,6 @@ def test_exists(fullpath):
 
 def directory_exists(fullpath):
     return list_common._directory_exists('test', fullpath)
-
-
-def assert_error_message(error_message):
-    actions.step('Verify that the error {} is displayed'.format(error_message))
-    actions.wait_for_element_displayed(error_modal)
-    errors = elements(css='#errorList>li')
-    for error in errors:
-        if error.text == error_message:
-            return
-    raise Exception('Error message {} was not found'.format(error_message))
 
 
 def access_test(fullpath):
@@ -63,3 +50,14 @@ def rename_test(old_full_name, new_full_name):
     list_common._rename_elem('test', old_full_name, new_full_name)
 
 
+def click_run_test(fullpath):
+    tree_ul = element(id='testCasesTree')
+    split_path = fullpath.split('/')
+    elem_name = split_path.pop()
+    if split_path:
+        list_common._expand_tree_path(tree_ul, list(split_path))
+    full_dot_path = fullpath.replace('/', '.')
+    selector = "li.tree-element[fullpath='{}']".format(full_dot_path)
+    tree_elem = tree_ul.find(selector)
+    run_button = tree_elem.find('.tree-element-buttons > .run-test-button')
+    actions.click(run_button)

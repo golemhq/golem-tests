@@ -1,12 +1,8 @@
 import time
 
 from golem import actions
-from golem.browser import elements
 
-from projects.golem_gui.pages import list_common
-
-
-error_modal = ('id', 'errorModal', 'Error modal')
+from projects.golem_gui.pages import list_common, common
 
 
 def add_page(fullpath):
@@ -32,14 +28,6 @@ def page_exists(fullpath):
 
 def directory_exists(fullpath):
     return list_common._directory_exists('page', fullpath)
-
-
-def assert_error_message(error_message):
-    actions.step('Verify that the error {} is displayed'.format(error_message))
-    actions.wait_for_element_displayed(error_modal)
-    errors = elements(css='#errorList>li')
-    error_msgs = [x.text for x in errors]
-    assert error_message in error_msgs, 'Error message {} was not found'.format(error_message)
 
 
 def access_page(fullpath):

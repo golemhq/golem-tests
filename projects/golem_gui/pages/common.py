@@ -6,6 +6,9 @@ from golem import actions
 from projects.golem_gui.pages import login, left_menu
 
 
+error_modal = ('id', 'errorModal', 'Error modal')
+
+
 def access_golem(url, user):
     """navigate to url and log in to Golem GUI"""
     actions.navigate(url)
@@ -47,3 +50,19 @@ def assert_toast_message_is_displayed(toast_message):
                 return
         time.sleep(0.5)
     assert False, 'Toast with message "{}" was not found'.format(toast_message)
+
+
+def assert_error_message(error_message):
+    actions.step('Verify that the error {} is displayed'.format(error_message))
+    actions.wait_for_element_displayed(error_modal)
+    errors = elements(css='#errorList>li')
+    for error in errors:
+        if error.text == error_message:
+            return
+    raise Exception('Error message {} was not found'.format(error_message))
+
+
+def assert_info_bar_message(msg):
+    info_bar = actions.get_browser().find('.info-bar', wait_displayed=False)
+    actions.assert_element_displayed(info_bar)
+    assert msg in info_bar.text, 'expected {} to contain {}'.format(info_bar.text, msg)

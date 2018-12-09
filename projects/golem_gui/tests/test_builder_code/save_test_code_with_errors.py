@@ -5,8 +5,7 @@ pages = ['common',
          'index',
          'test_list',
          'test_builder',
-         'test_builder_code',
-         'code_editor']
+         'test_builder_code']
 
 def setup(data):
     common.access_golem(data.env.url, data.env.admin)
@@ -16,10 +15,10 @@ def setup(data):
     test_list.create_access_test(data.test_name)
 
 def test(data):
-    store('test_line', "undefined_var")
+    store('page_line', "undefined_var")
     store('error_message', "Traceback (most recent call last):\nNameError: name 'undefined_var' is not defined")
     click(test_builder.code_button)
-    code_editor.set_line_value(0, data.test_line)
+    test_builder_code.set_value(data.page_line)
     click(test_builder_code.save_button)
     common.assert_toast_message_is_displayed('Test '+data.test_name+' saved')
     common.assert_toast_message_is_displayed('There are errors in the code')
