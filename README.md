@@ -10,25 +10,6 @@ Read the full documentation here: http://golem-framework.readthedocs.io/
 ## Requirements
 
 * Python 3.5+
-* PIP
-* Virtualenv (optional)
-
-## Create a virtualenv (optional)
-
-```bash
-virtualenv env
-```
-
-Activate the virtualenv (Linux & Mac):
-```bash
-source env/bin/activate
-```
-
-Activate the virtualenv (Windows):
-
-```bash
-env\scripts\activate
-```
 
 ## Install Golem
 
@@ -78,10 +59,28 @@ golem run golem_gui regression
 
 These are tests that ensure the Browser class, Element class and actions module work as expected.
 
-An instance of the [Web Playground](https://github.com/golemhq/web-playground) must be running in port 6565.
+### Stage environment
+
+Points to https://www.web-playground.net/
 
 ```bash
-golem run golem_integration regression
+golem run golem_integration regression -e stage
+```
+
+### Test environment (local)
+
+An instance of the [Web Playground](https://github.com/golemhq/web-playground) must be running in port 6565.
+
+Open a second console and run:
+
+```bash
+pip install web-playground
+web-playground
+```
+
+From the first console:
+```bash
+golem run golem_integration regression -e test
 ```
 
 # Open the Reports

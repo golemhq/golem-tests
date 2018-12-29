@@ -1,5 +1,8 @@
 {
     "test": {
         "url": "http://localhost:6565/"
+    },
+    "stage": {
+        "url": "http://www.web-playground.net/"
     }
 }
