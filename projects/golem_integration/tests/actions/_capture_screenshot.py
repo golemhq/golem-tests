@@ -17,8 +17,10 @@ def test(data):
 
     # no screenshot settings
     execution.settings['screenshots'] = {}
-    actions._capture_screenshot('no_settings')
-    assert os.path.isfile(imgpath('no_settings.png'))
+    filename = actions._capture_screenshot('no_settings')
+    expected_filename = 'no_settings.png'
+    assert filename == expected_filename
+    assert os.path.isfile(imgpath(expected_filename))
 
     # validate format is 'png' or 'jpg'
     execution.settings['screenshots'] = {'format': 'foo'}
@@ -71,21 +73,25 @@ def test(data):
 
     # save screenshot as jpg
     execution.settings['screenshots'] = {'format': 'jpg'}
-    actions._capture_screenshot('jpg_all_settings_default')
-    filename = imgpath('jpg_all_settings_default.jpg')
-    assert os.path.isfile(filename)
-    default_jpg_size = os.path.getsize(filename)
+    filename = actions._capture_screenshot('jpg_all_settings_default')
+    expected_filename = 'jpg_all_settings_default.jpg'
+    assert filename == expected_filename
+    filepath = imgpath(filename)
+    assert os.path.isfile(filepath)
+    default_jpg_size = os.path.getsize(filepath)
 
     # save screenshot as jpg with reduced quality
     execution.settings['screenshots'] = {
         'format': 'jpg',
         'quality': 50
     }
-    actions._capture_screenshot('jpg_reduced_quality')
-    filename = imgpath('jpg_reduced_quality.jpg')
-    assert os.path.isfile(filename)
+    filename = actions._capture_screenshot('jpg_reduced_quality')
+    expected_filename = 'jpg_reduced_quality.jpg'
+    assert filename == expected_filename
+    filepath = imgpath(filename)
+    assert os.path.isfile(filepath)
     # size should be smaller than the default quality jpg
-    assert os.path.getsize(filename) < default_jpg_size
+    assert os.path.getsize(filepath) < default_jpg_size
 
     # save screenshot as jpg with set width and height
     execution.settings['screenshots'] = {
@@ -93,18 +99,22 @@ def test(data):
         'width': 400,
         'height': 250
     }
-    actions._capture_screenshot('jpg_set_width_height')
-    filename = imgpath('jpg_set_width_height.jpg')
-    assert os.path.isfile(filename)
+    filename = actions._capture_screenshot('jpg_set_width_height')
+    expected_filename = 'jpg_set_width_height.jpg'
+    assert filename == expected_filename
+    filepath = imgpath(filename)
+    assert os.path.isfile(filepath)
     # size should be smaller than the default quality jpg
-    assert os.path.getsize(filename) < default_jpg_size
+    assert os.path.getsize(filepath) < default_jpg_size
 
     # save screenshot as png
     execution.settings['screenshots'] = {'format': 'png'}
-    actions._capture_screenshot('png_all_settings_default')
-    filename = imgpath('png_all_settings_default.png')
-    assert os.path.isfile(filename)
-    default_png_size = os.path.getsize(filename)
+    filename = actions._capture_screenshot('png_all_settings_default')
+    expected_filename = 'png_all_settings_default.png'
+    assert filename == expected_filename
+    filepath = imgpath(filename)
+    assert os.path.isfile(filepath)
+    default_png_size = os.path.getsize(filepath)
 
     # save screenshot as png with set width and height
     execution.settings['screenshots'] = {
@@ -112,11 +122,13 @@ def test(data):
         'width': 400,
         'height': 250
     }
-    actions._capture_screenshot('png_set_width_height')
-    filename = imgpath('png_set_width_height.png')
-    assert os.path.isfile(filename)
+    filename = actions._capture_screenshot('png_set_width_height')
+    expected_filename = 'png_set_width_height.png'
+    assert filename == expected_filename
+    filepath = imgpath(filename)
+    assert os.path.isfile(filepath)
     # size should be smaller than the default quality jpg
-    assert os.path.getsize(filename) < default_png_size
+    assert os.path.getsize(filepath) < default_png_size
 
     # reset settings
     execution.settings['screenshots'] = original_screenshot_settings
