@@ -10,7 +10,7 @@ def test(data):
     actions.navigate(data.env.url+'tabs/')
     actions.send_keys('#urlInput', '/elements/')
     actions.click("#goButton")
-    actions.wait_for_window_present_by_title('Web Elements - Elements', timeout=3)
+    actions.wait_for_window_present_by_title('Web Playground - Elements', timeout=3)
     actions.switch_to_window_by_title('Web Playground - Elements')
     golem_steps.assert_last_step_message("Switch to window with title 'Web Playground - Elements'")
     actions.verify_title('Web Playground - Elements')

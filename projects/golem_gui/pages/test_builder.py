@@ -13,6 +13,8 @@ new_page_button = ('id', 'newPageButton', 'New Page button')
 new_page_modal_input = ('css', '#promptModal #promptModalInput')
 new_page_modal_submit = ('css', '#prompSaveButton')
 open_test_code_button = ('link_text', 'Open Test Code', 'Open Test Code button')
+tags_input = ('id', 'tags', 'Tag input')
+tags_autocomplete_list = ('css', 'div.autocomplete-suggestions')
 
 
 def add_action(action_name, params=[], where='test'):
@@ -95,3 +97,12 @@ def add_new_page(page_name):
     actions.send_keys(prompt_input, page_name)
     actions.click('#promptModal #prompSaveButton')
     actions.wait_for_element_not_displayed('#promptModal')
+
+
+def assert_tags(expected_tags):
+    tag_value = element(tags_input).value
+    actual_tags = [x.strip() for x in tag_value.split(',')]
+    msg = 'expected {} tags but found {}'.format(len(expected_tags), len(actual_tags))
+    assert len(actual_tags) == len(expected_tags), msg
+    for t in expected_tags:
+        assert t in actual_tags, 'tag "{}" is not in Tags input'

@@ -1,6 +1,6 @@
 import time
 
-from golem.browser import elements
+from golem.browser import elements, get_browser
 from golem import actions
 
 from projects.golem_gui.pages import login, left_menu
@@ -50,6 +50,16 @@ def assert_toast_message_is_displayed(toast_message):
                 return
         time.sleep(0.5)
     assert False, 'Toast with message "{}" was not found'.format(toast_message)
+
+
+def error_modal_is_displayed():
+    error_modal_element = get_browser().find(error_modal, timeout=0, wait_displayed=False)
+    return error_modal_element.is_displayed()
+
+
+def dismiss_error_modal():
+    error_modal_element = get_browser().find(error_modal, timeout=0, wait_displayed=False)
+    error_modal_element.find('button[data-dismiss="modal"]').click()
 
 
 def assert_error_message(error_message):

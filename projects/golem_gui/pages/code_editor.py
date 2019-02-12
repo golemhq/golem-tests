@@ -1,3 +1,7 @@
+import time
+
+from selenium.common.exceptions import WebDriverException
+
 from golem.browser import get_browser
 from golem import actions
 
@@ -7,7 +11,18 @@ def set_value(code, code_editor_var='codeEditor'):
     get_browser().execute_script(script, code)
 
 
-def get_value(code_editor_var='codeEditor'):
+def get_value(code_editor_var='codeEditor', timeout=5):
+    """Use the Javascript codeMirror object to retrieve
+    the value of the code editor.
+    """
+    for _ in range(timeout):
+        # Wait until the codeMirror object is initialized
+        script = 'return typeof({}) === "undefined"'.format(code_editor_var)
+        is_undefined = get_browser().execute_script(script)
+        if is_undefined:
+            time.sleep(1)
+        else:
+            break
     script = 'return {}.getValue()'.format(code_editor_var)
     all_code = get_browser().execute_script(script)
     return all_code

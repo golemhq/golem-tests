@@ -1,5 +1,8 @@
+"""Page Object for the test list: /project/<project>/tests/"""
+from urllib.parse import urljoin
+
 from golem import actions
-from golem.browser import element
+from golem.browser import element, elements
 
 from projects.golem_gui.pages import list_common
 
@@ -61,3 +64,20 @@ def click_run_test(fullpath):
     tree_elem = tree_ul.find(selector)
     run_button = tree_elem.find('.tree-element-buttons > .run-test-button')
     actions.click(run_button)
+
+
+def generate_test_url(base_url, project, test):
+    rel = '/project/{}/test/{}/'.format(project, test)
+    return urljoin(base_url, rel)
+
+
+def assert_test_tags(full_test_name, expected_tags):
+    tag_spans = elements("li.tree-element[fullpath='{}'] > div.tag-container > span.tag"
+                         .format(full_test_name))
+    msg = ('expected {} tags, but got {} tags for test {}'
+           .format(len(expected_tags), len(tag_spans), full_test_name))
+    assert len(tag_spans) == len(expected_tags), msg
+    actual_tags = [t.text for t in tag_spans]
+    for t in expected_tags:
+        assert t in actual_tags, '{} tag was not found for test {}'.format(t, full_test_name)
+

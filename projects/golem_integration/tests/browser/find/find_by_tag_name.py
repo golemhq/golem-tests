@@ -15,4 +15,4 @@ def test(data):
     assert img.selector_type == 'tag_name'
     assert img.selector_value == selector
     assert img.name == selector
-    assert '/static/images/cat-image.jpg' in img.get_attribute('src')
+    assert '/static/images/forkme.png' in img.get_attribute('src')

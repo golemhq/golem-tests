@@ -1,5 +1,5 @@
 
-description = 'Verify the user can access a test by clicking on it in the test list.'
+description = 'Verify the user can add a description to a test'
 
 pages = ['common',
          'index',
