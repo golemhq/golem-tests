@@ -13,8 +13,8 @@ def setup(data):
     suite_list.create_access_random_suite()
 
 def test(data):
-    clear_element(suite_builder.workers_input)
-    send_keys(suite_builder.workers_input, 3)
+    clear_element(suite_builder.processes_input)
+    send_keys(suite_builder.processes_input, 3)
     suite_builder.save_suite()
     refresh_page()
-    suite_builder.assert_workers_value(3)
+    suite_builder.assert_processes_value(3)

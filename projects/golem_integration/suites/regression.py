@@ -8,7 +8,7 @@ environments = [
     'test'
 ]
 
-workers = 1
+processes = 1
 
 tests = [
     '*'

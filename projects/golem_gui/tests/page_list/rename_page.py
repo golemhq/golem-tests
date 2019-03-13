@@ -1,15 +1,16 @@
 
 description = 'Verify the user can create a new page from the project page'
 
-pages = ['login',
-         'common',
+pages = ['common',
          'index',
          'page_list']
+
 
 def setup(data):
     common.access_golem(data.env.url, data.env.admin)
     index.create_access_project('test')
     common.navigate_menu('Pages')
+
 
 def test(data):
     store('page_name', 'page_' + random('cccc'))

@@ -22,5 +22,4 @@ def test(data):
     click(test_builder.run_button)
     wait_for_element_displayed(test_run_config_modal.config_modal)
     assert_element_displayed(test_run_config_modal.config_modal)
-    # TODO: assert_element_displayed should wait
     common.assert_info_bar_message('Select at least one environment')

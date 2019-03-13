@@ -8,7 +8,7 @@ environments = [
     'test'
 ]
 
-workers = 5
+processes = 5
 
 tests = [
     'project_suites.add_suite',

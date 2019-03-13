@@ -6,11 +6,11 @@ from projects.golem_gui.pages import list_common, common
 
 
 def add_page(fullpath):
-    list_common._add_tree_element('page', fullpath)
+    list_common._add_tree_element(fullpath)
 
 
 def add_directory(fullpath):
-    list_common._add_directory('page', fullpath)
+    list_common._add_directory(fullpath)
 
 
 def assert_page_exists(fullpath):
@@ -23,15 +23,15 @@ def assert_directory_exists(fullpath):
 
 
 def page_exists(fullpath):
-    return list_common._elem_exists('page', fullpath)
+    return list_common._elem_exists(fullpath)
 
 
 def directory_exists(fullpath):
-    return list_common._directory_exists('page', fullpath)
+    return list_common._directory_exists(fullpath)
 
 
 def access_page(fullpath):
-    list_common._access_elem('page', fullpath)
+    list_common._access_elem(fullpath)
 
 
 def create_access_page(fullpath):
@@ -53,7 +53,11 @@ def add_directory_if_not_exists(fullpath):
 
 
 def rename_page(old_full_name, new_full_name):
-    list_common._rename_elem('page', old_full_name, new_full_name)
+    list_common.rename_elem(old_full_name, new_full_name)
+
+
+def duplicate_page(page_name, new_page_name):
+    list_common.duplicate_elem(page_name, new_page_name)
 
 
 def wait_for_page_exists(fullpath, timeout=5):
@@ -61,4 +65,11 @@ def wait_for_page_exists(fullpath, timeout=5):
         if page_exists(fullpath):
             return
         time.sleep(timeout)
-    raise AssertionError('Timeout waiting for page {} to exist'.format(fullpath))
+    actions.fail('Timeout waiting for page {} to exist'.format(fullpath))
+
+
+def click_delete_button(full_name):
+    test_element = list_common.get_tree_item(full_name)
+    test_element.mouse_over()
+    button = test_element.find('.tree-element-buttons button.delete-button')
+    button.click()

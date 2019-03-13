@@ -4,15 +4,15 @@ from urllib.parse import urljoin
 from golem import actions
 from golem.browser import element, elements
 
-from projects.golem_gui.pages import list_common
+from projects.golem_gui.pages import list_common, common
 
 
 def add_test(fullpath):
-    list_common._add_tree_element('test', fullpath)
+    list_common._add_tree_element(fullpath)
 
 
 def add_directory(fullpath):
-    list_common._add_directory('test', fullpath)
+    list_common._add_directory(fullpath)
 
 
 def assert_test_exists(fullpath):
@@ -20,15 +20,20 @@ def assert_test_exists(fullpath):
 
 
 def test_exists(fullpath):
-    return list_common._elem_exists('test', fullpath)
+    return list_common._elem_exists(fullpath)
 
 
 def directory_exists(fullpath):
-    return list_common._directory_exists('test', fullpath)
+    return list_common._directory_exists(fullpath)
+
+
+def assert_directory_exists(fullpath):
+    actions.step('Assert directory {} exists'.format(fullpath))
+    assert directory_exists(fullpath), 'directory {} does not exist'.format(fullpath)
 
 
 def access_test(fullpath):
-    list_common._access_elem('test', fullpath)
+    list_common._access_elem(fullpath)
 
 
 def create_access_test(fullpath):
@@ -50,19 +55,17 @@ def add_test_directory_if_not_exists(fullpath):
 
 
 def rename_test(old_full_name, new_full_name):
-    list_common._rename_elem('test', old_full_name, new_full_name)
+    list_common.rename_elem(old_full_name, new_full_name)
+
+
+def duplicate_test(test_name, new_test_name):
+    list_common.duplicate_elem(test_name, new_test_name)
 
 
 def click_run_test(fullpath):
-    tree_ul = element(id='testCasesTree')
-    split_path = fullpath.split('/')
-    elem_name = split_path.pop()
-    if split_path:
-        list_common._expand_tree_path(tree_ul, list(split_path))
-    full_dot_path = fullpath.replace('/', '.')
-    selector = "li.tree-element[fullpath='{}']".format(full_dot_path)
-    tree_elem = tree_ul.find(selector)
-    run_button = tree_elem.find('.tree-element-buttons > .run-test-button')
+    tree_item = list_common.get_tree_item(fullpath)
+    tree_item.mouse_over()
+    run_button = tree_item.find('.tree-element-buttons > .run-test-button')
     actions.click(run_button)
 
 
@@ -81,3 +84,9 @@ def assert_test_tags(full_test_name, expected_tags):
     for t in expected_tags:
         assert t in actual_tags, '{} tag was not found for test {}'.format(t, full_test_name)
 
+
+def click_delete_button(full_name):
+    test_element = list_common.get_tree_item(full_name)
+    test_element.mouse_over()
+    button = test_element.find('.tree-element-buttons button.delete-button')
+    button.click()

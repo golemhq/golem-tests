@@ -1,6 +1,6 @@
 import time
 
-from golem.browser import elements, get_browser
+from golem.browser import element, elements, get_browser
 from golem import actions
 
 from projects.golem_gui.pages import login, left_menu
@@ -43,6 +43,7 @@ def get_toast_with_message(toast_message):
 
 
 def assert_toast_message_is_displayed(toast_message):
+    actions.step('Assert a toast is displayed with message {}'.format(toast_message))
     for _ in range(6):
         toasts = elements('div.toast>.toast-message')
         for toast in toasts:
@@ -50,6 +51,10 @@ def assert_toast_message_is_displayed(toast_message):
                 return
         time.sleep(0.5)
     assert False, 'Toast with message "{}" was not found'.format(toast_message)
+
+
+def wait_for_toast_to_dissapear():
+    get_browser().wait_for_element_not_present('div.toast', 10)
 
 
 def error_modal_is_displayed():
@@ -73,6 +78,29 @@ def assert_error_message(error_message):
 
 
 def assert_info_bar_message(msg):
-    info_bar = actions.get_browser().find('.info-bar', wait_displayed=False)
-    actions.assert_element_displayed(info_bar)
-    assert msg in info_bar.text, 'expected {} to contain {}'.format(info_bar.text, msg)
+    actions.step('Assert an info bar is displayed with msg: {}'.format(msg))
+    info_bars = actions.get_browser().find_all('.info-bar')
+    if not info_bars:
+        time.sleep(1)
+        info_bars = actions.get_browser().find_all('.info-bar')
+    for bar in info_bars:
+        if msg in bar.text:
+            return
+    info_bars_text = '\n'.join([bar.text for bar in info_bars])
+    error = ('expected an info bar with text {}\nInfo Bars found:\n{}'
+             .format(msg, info_bars_text))
+    actions.fail(error)
+
+
+def confirm_confirm_modal():
+    element('#confirmModal button.confirm').click()
+
+
+def send_confirm_modal(value):
+    """Send a value to confirm modal and click Save button"""
+    input_ = element('#promptModalInput')
+    input_.clear()
+    input_.send_keys(value)
+    save_button = element('#prompSaveButton')
+    save_button.click()
+    save_button.wait_not_displayed(5)

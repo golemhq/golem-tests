@@ -23,13 +23,7 @@
 
 "remote_url": "http://localhost:4444/wd/hub",
 
-"remote_browsers": {
-    "chrome_60_mac": {
-        "browserName": "chrome",
-        "version": "60.0",
-        "platform": "macOS 10.12"
-    }
-},
+"remote_browsers": {},
 
 "log_all_events": false
 }

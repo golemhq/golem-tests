@@ -3,6 +3,7 @@ from golem.browser import element, elements
 
 
 test_name = ('id', 'testName', 'Test Name')
+test_name_input = ('css', '#testNameInput>input', 'Test Name input')
 description = ('id', 'description', 'Description input')
 save_button = ('id', 'save', 'Save button')
 code_button = ('id', 'loadCodeButton', 'Code button')
@@ -102,6 +103,8 @@ def add_new_page(page_name):
 def assert_tags(expected_tags):
     tag_value = element(tags_input).value
     actual_tags = [x.strip() for x in tag_value.split(',')]
+    if '' in actual_tags:
+        actual_tags.remove('')
     msg = 'expected {} tags but found {}'.format(len(expected_tags), len(actual_tags))
     assert len(actual_tags) == len(expected_tags), msg
     for t in expected_tags:

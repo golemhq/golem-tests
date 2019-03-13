@@ -8,7 +8,7 @@ pages = ['common',
 
 def setup(data):
     common.access_golem(data.env.url, data.env.admin)
-    index.create_access_project('test')
+    index.create_access_project('test_list')
     common.navigate_menu('Tests')
 
 def test(data):

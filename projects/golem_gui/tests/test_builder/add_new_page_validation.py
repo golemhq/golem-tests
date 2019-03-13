@@ -34,5 +34,5 @@ def test(data):
     click(test_builder.new_page_button)
     send_keys(test_builder.new_page_modal_input, '$$invalid')
     click(test_builder.new_page_modal_submit)
-    common.assert_error_message("Only letters, numbers, '-' and '_' are allowed")
+    common.assert_error_message("Only letters, numbers and underscores are allowed")
     refresh_page()

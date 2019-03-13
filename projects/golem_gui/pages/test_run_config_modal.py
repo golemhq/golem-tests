@@ -6,6 +6,7 @@ config_modal = ('id', 'runTestConfigModal')
 run_button = ('id', 'TestRunConfigRunTest')
 environments_input = '#runTestConfigModal input#runTestEnvironments'
 browser_input = '#runTestConfigModal input#runTestBrowsers'
+processes_input = '#runTestConfigModal input#runTestProcesses'
 
 
 def select_env(env_name):
