@@ -4,14 +4,13 @@ description = 'Verify the user can edit the test name by clicking on the title'
 pages = ['common',
          'index',
          'test_list',
-         'page_list',
          'test_builder']
 
 def setup(data):
     common.access_golem(data.env.url, data.env.admin)
     index.create_access_project('test_builder')
     common.navigate_menu('Tests')
-    store('test_name', 'test'+random('dddddd'))
+    store('test_name', 'test'+random('dddd'))
     test_list.create_access_test(data.test_name)
 
 

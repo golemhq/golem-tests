@@ -15,6 +15,6 @@ def test(data):
     golem_steps.assert_last_step_message(expected)
     actions.send_keys(input_one, 'foo')
     actions.assert_element_value(input_one, 'foo')
-    msg = ("expected element {} value to be 'bar' was 'foo'".format(input_one))
+    msg = ("expected element {} value to be 'bar' but was 'foo'".format(input_one))
     with expected_exception(AssertionError, msg):
         actions.assert_element_value(input_one, 'bar')

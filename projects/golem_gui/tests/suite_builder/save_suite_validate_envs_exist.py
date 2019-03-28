@@ -14,7 +14,10 @@ def setup(data):
 
 def test(data):
     send_keys(suite_builder.environments_input, 'not-existent')
-    suite_builder.save_suite()
+    wait(0.5)
+    click(suite_builder.save_button)
     common.assert_toast_message_is_displayed('Environment not-existent does not exist for project test')
     refresh_page()
+    assert_alert_present()
+    accept_alert()
     assert_element_value(suite_builder.environments_input, '')

@@ -3,7 +3,6 @@ from golem import actions
 from projects.golem_gui.pages import common, test_list, suite_list, suite_builder
 
 
-
 def create_access_simple_suite(suite_name=None, test_name=None):
     """Creates a suite with an empty test if the suite
     does not exist.

@@ -28,7 +28,7 @@ def test(data):
     wait_for_element_displayed(test_builder.new_page_modal_input)
     assert_element_attribute(test_builder.new_page_modal_input, 'value', '')
     click(test_builder.new_page_modal_submit)
-    common.assert_error_message('Name cannot be empty')
+    common.assert_error_message('New filename cannot be empty')
     refresh_page()
     step('add a new page with invalid characters')
     click(test_builder.new_page_button)

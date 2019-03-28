@@ -11,6 +11,11 @@ def add_test(fullpath):
     list_common._add_tree_element(fullpath)
 
 
+def add_test_if_not_exists(fullpath):
+    if not test_exists(fullpath):
+        list_common._add_tree_element(fullpath)
+
+
 def add_directory(fullpath):
     list_common._add_directory(fullpath)
 

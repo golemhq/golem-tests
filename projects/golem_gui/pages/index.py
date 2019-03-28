@@ -1,6 +1,6 @@
 from selenium.common.exceptions import TimeoutException
 from golem import actions
-from golem.browser import element, elements
+from golem.browser import element, elements, get_browser
 
 from projects.golem_gui.pages import common
 
@@ -40,18 +40,18 @@ def create_project(project_name, ignore_exists=False):
     actions.send_keys(project_name_input, project_name)
     try:
         actions.click(create_button)
+        actions.wait_for_element_displayed(create_project_button)
     except TimeoutException as e:
         if ignore_exists:
             if common.error_modal_is_displayed():
-                common.dismiss_error_modal()
-                element(cancel_create_button).click()
+                get_browser().refresh()
+                return
         else:
             raise e
-    actions.wait_for_element_displayed(create_project_button)
 
 
 def create_access_project(project_name):
     if not _project_exists(project_name):
-        create_project(project_name)
+        create_project(project_name, ignore_exists=True)
     access_project(project_name)
 

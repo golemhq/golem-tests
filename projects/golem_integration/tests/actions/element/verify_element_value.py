@@ -14,5 +14,5 @@ def test(data):
     expected = "Verify element {} value is 'foo'".format(input_one)
     golem_steps.assert_last_step_message(expected)
     actions.verify_element_value(input_one, 'bar')
-    msg = ("expected element {} value to be 'bar' was 'foo'".format(input_one))
+    msg = ("expected element {} value to be 'bar' but was 'foo'".format(input_one))
     golem_steps.assert_last_error(msg)
