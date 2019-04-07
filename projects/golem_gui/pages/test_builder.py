@@ -45,7 +45,7 @@ def add_action(action_name, params=[], where='test'):
 
     action_input = step.find('input.step-first-input')
     for i in range(len(action_name)):
-        actions.send_keys(action_input, action_name[i])
+        action_input.send_keys(action_name[i])
         actions.wait(0.1)
     actions.press_key(action_input, 'DOWN')
     actions.press_key(action_input, 'ENTER')

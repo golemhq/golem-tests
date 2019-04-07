@@ -15,7 +15,7 @@ def setup(data):
     index.create_access_project('project_two_envs')
     common.navigate_menu('Environments')
     environments.set_value('{"foo": {}, "bar": {}}')
-    click(environments.save_button)
+    environments.save()
     common.navigate_menu('Tests')
     test_list.create_access_random_test()
 

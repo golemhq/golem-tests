@@ -1,3 +1,4 @@
+import time
 from golem import actions
 from golem.browser import element
 
@@ -25,6 +26,7 @@ def _add_tree_element(fullpath):
     dot_path = '.'.join(split_path) if split_path else '.'
     form_container = tree_ul.find("li.form-container[fullpath='{}']".format(dot_path))
     form_container.find('a.new-element-link').click()
+    time.sleep(0.5)
     add_elem_input = form_container.find('input.new-element-input')
     actions.send_keys(add_elem_input, elem_name)
     actions.press_key(add_elem_input, 'ENTER')

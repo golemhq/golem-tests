@@ -6,6 +6,7 @@ from golem import actions
 
 title = ('css', 'h2')
 general_table_total_row = ('css', '#generalTable #totalRow', 'General Table Total Row')
+main_spinner = ('css', 'h2>small>i.spinner', 'Spinner icon')
 
 
 def test_row_by_full_test_name(full_test_name):
@@ -27,7 +28,6 @@ def wait_until_execution_end(timeout=30):
 
 def assert_amount_of_tests(expected_amount):
     actions.step('Assert number of tests is {}'.format(expected_amount))
-    wait_until_execution_end()
     rows = elements('#detailTable > tbody > tr.test-row')
     actual = len(rows)
     assert actual == expected_amount, 'expected {} tests, got {}'.format(expected_amount, actual)
@@ -59,7 +59,14 @@ def assert_general_total_row(columns):
             td = total_row.find('td[result="success"]')
         elif column == 'Failure':
             td = total_row.find('td[result="failure"]')
+        elif column == 'Error':
+            td = total_row.find('td[result="error"]')
         else:
             raise ValueError('{} is an incorrect column value'.format(column))
         msg = 'expected column "{}" to be "{}" but was "{}"'.format(column, expected, td.text)
         assert td.text == expected, msg
+
+
+def assert_report_is_running():
+    spinner = element(main_spinner, wait_displayed=True)
+    spinner.wait_not_displayed()

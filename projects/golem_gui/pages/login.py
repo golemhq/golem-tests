@@ -1,4 +1,5 @@
 from golem import actions
+from golem.browser import element
 
 
 username_input = ('id', "username", 'username')
@@ -8,6 +9,7 @@ error_list = ('id', 'errorList', 'Error list')
 
 
 def login(username, password):
-    actions.send_keys(username_input, username)
-    actions.send_keys(password_input, password)
-    actions.click(login_button)
+    actions.step('Login with user {}'.format(username))
+    element(username_input).send_keys(username)
+    element(password_input).send_keys(password)
+    element(login_button).click()

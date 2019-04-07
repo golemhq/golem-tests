@@ -11,12 +11,11 @@ environments = [
 processes = 5
 
 tests = [
-    'project_suites.add_suite',
-    'page_builder.add_element_to_page',
-    'suite_builder.*',
-    'project_pages.add_page',
     'index.create_project',
-    'project_tests.add_test',
+    'login.login',
+    'page_builder.add_element_to_page',
+    'page_list.add_page',
+    'suite_list.add_suite',
     'test_builder.add_action_to_test',
-    'login.login'
+    'test_list.add_test'
 ]

@@ -6,11 +6,13 @@ pages = ['common',
          'suite_list',
          'suite_builder']
 
+
 def setup(data):
     common.access_golem(data.env.url, data.env.admin)
     index.create_access_project('test')
     common.navigate_menu('Suites')
     suite_list.create_access_random_suite()
+
 
 def test(data):
     send_keys(suite_builder.environments_input, 'not-existent')

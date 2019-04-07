@@ -42,7 +42,7 @@ def create_access_page(fullpath):
 
 
 def create_access_random_page():
-    page_name = 'test_' + actions.random('dddddd')
+    page_name = 'page_' + actions.random('dddd')
     add_page(page_name)
     access_page(page_name)
 

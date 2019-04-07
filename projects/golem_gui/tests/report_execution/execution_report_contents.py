@@ -19,9 +19,9 @@ def setup(data):
 def test(data):
     suite_builder.run_suite()
     suite_builder.access_suite_execution_from_toast()
+    report_execution.wait_until_execution_end()
     assert_element_text_contains(report_execution.title, 'test reports - simple suite')
     report_execution.assert_amount_of_tests(1)
-    report_execution.wait_until_execution_end()
     report_execution.assert_result_of_test(data.test_name, 'success')
     report_execution.expand_test(data.test_name)
     report_execution.assert_test_detail_row_is_displayed(data.test_name)
