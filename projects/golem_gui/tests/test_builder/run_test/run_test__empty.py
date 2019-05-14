@@ -1,11 +1,13 @@
 
 description = 'Verify the user can run an empty test'
 
+tags = ['smoke']
+
 pages = ['common',
          'index',
-         'test_list',
          'test_builder',
-         'test_run_modal']
+         'test_run_modal',
+         'test_list']
 
 def setup(data):
     common.access_golem(data.env.url, data.env.admin)

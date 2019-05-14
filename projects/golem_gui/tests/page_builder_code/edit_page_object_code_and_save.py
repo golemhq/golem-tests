@@ -1,10 +1,12 @@
 
 description = 'Verify the user can edit page code and save it'
 
+tags = ['smoke']
+
 pages = ['common',
          'index',
-         'page_list',
          'page_builder',
+         'page_list',
          'page_builder_code']
 
 def setup(data):
@@ -21,3 +23,6 @@ def test(data):
     click(page_builder_code.preview_button)
     click(page_builder.code_button)
     page_builder_code.assert_value(data.page_code)
+
+def teardown(data):
+    pass

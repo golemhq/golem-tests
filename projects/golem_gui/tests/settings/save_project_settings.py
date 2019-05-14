@@ -1,6 +1,8 @@
 
 description = 'Verify project settings can be modified and saved'
 
+tags = ['smoke']
+
 pages = ['common',
          'index',
          'settings']
@@ -16,3 +18,6 @@ def test(data):
     common.assert_toast_message_is_displayed('Settings saved')
     refresh_page()
     settings.assert_project_value('{\n"search_timeout": 10\n}')
+
+def teardown(data):
+    pass

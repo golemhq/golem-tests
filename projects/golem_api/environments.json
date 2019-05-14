@@ -1,0 +1,11 @@
+{
+    "test": {
+        "url": "http://localhost:8000/",
+        "users": {
+            "admin": {
+        	    "username": "admin",
+          	    "password": "admin"
+            }
+        }
+    }
+}

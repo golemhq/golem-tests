@@ -1,6 +1,8 @@
 
 description = 'Verify the user can access a suite by clicking on it in the suite list.'
 
+tags = ['smoke']
+
 pages = ['common',
          'index',
          'suite_list',

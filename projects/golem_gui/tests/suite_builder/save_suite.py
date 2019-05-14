@@ -1,10 +1,12 @@
 
 description = 'Verify the user can make changes to a suite and save it successfully'
 
+tags = ['smoke']
+
 pages = ['common',
          'index',
-         'suite_list',
-         'suite_builder']
+         'suite_builder',
+         'suite_list']
 
 def setup(data):
     common.access_golem(data.env.url, data.env.admin)
@@ -18,3 +20,6 @@ def test(data):
     suite_builder.save_suite()
     refresh_page()
     suite_builder.assert_processes_value(3)
+
+def teardown(data):
+    pass

@@ -1,6 +1,8 @@
 
 description = 'Verify project environments can be modified and saved'
 
+tags = ['smoke']
+
 pages = ['common',
          'index',
          'environments']
@@ -17,3 +19,6 @@ def test(data):
     common.assert_toast_message_is_displayed('Environments saved')
     refresh_page()
     environments.assert_value(data.code)
+
+def teardown(data):
+    pass

@@ -1,8 +1,10 @@
 
 description = 'Verify the user can create a new suite from the project page'
 
-pages = ['common',
-         'index',
+tags = ['smoke']
+
+pages = ['index',
+         'common',
          'suite_list']
 
 def setup(data):

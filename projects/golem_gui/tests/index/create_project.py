@@ -1,8 +1,10 @@
 
 description = 'Verify the user can create a new project in the index page'
 
-pages = ['common',
-         'index']
+tags = ['smoke']
+
+pages = ['index',
+         'common']
 
 
 def setup(data):

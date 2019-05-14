@@ -1,9 +1,11 @@
 
 description = 'Verify the user can access a test by clicking on it in the test list.'
 
-pages = ['common',
-         'index',
+tags = ['smoke']
+
+pages = ['index',
          'test_builder',
+         'common',
          'test_list']
 
 def setup(data):

@@ -1,10 +1,12 @@
 
 description = 'Verify the user can edit test code and save it'
 
+tags = ['smoke']
+
 pages = ['common',
          'index',
-         'test_list',
          'test_builder',
+         'test_list',
          'test_builder_code']
 
 def setup(data):
@@ -22,3 +24,4 @@ def test(data):
     common.assert_toast_message_is_displayed('Test '+data.test_name+' saved')
     refresh_page()
     test_builder_code.assert_value(data.test_line)
+

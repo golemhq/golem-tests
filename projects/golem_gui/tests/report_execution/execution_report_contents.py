@@ -13,7 +13,7 @@ def setup(data):
     common.access_golem(data.env.url, data.env.admin)
     index.create_access_project('test_reports')
     store('test_name', 'simple_test')
-    utils.create_access_simple_suite('simple_suite', data.test_name)
+    utils.create_access_simple_suite('simple_suite01', data.test_name)
 
 
 def test(data):

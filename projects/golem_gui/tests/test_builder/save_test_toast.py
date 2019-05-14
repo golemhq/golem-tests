@@ -1,6 +1,8 @@
 
 description = 'Verify the application displays a toast message when saving a test'
 
+tags = ['smoke']
+
 pages = ['common',
          'index',
          'test_list',

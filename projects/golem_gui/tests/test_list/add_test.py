@@ -1,9 +1,11 @@
 
 description = 'Verify the user can create a new test from the project page'
 
-pages = ['common',
-         'index',
+tags = ['smoke']
+
+pages = ['index',
          'test_builder',
+         'common',
          'test_list']
 
 def setup(data):

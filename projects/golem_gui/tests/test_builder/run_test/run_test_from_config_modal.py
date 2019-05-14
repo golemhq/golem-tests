@@ -1,12 +1,14 @@
 
 description = 'Verify the user can run a test from the config modal'
 
+tags = ['smoke']
+
 pages = ['common',
          'index',
          'test_list',
          'test_builder',
-         'test_run_config_modal',
-         'test_run_modal']
+         'test_run_modal',
+         'test_run_config_modal']
 
 def setup(data):
     common.access_golem(data.env.url, data.env.admin)

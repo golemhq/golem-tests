@@ -1,8 +1,11 @@
 
 description = 'Verify that the user can log in to Golem web module'
 
+tags = ['smoke']
+
 pages = ['login',
          'index']
+
 
 def test(data):
     navigate(data.env.url)

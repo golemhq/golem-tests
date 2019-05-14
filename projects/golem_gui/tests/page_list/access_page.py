@@ -1,11 +1,13 @@
 
 description = 'Verify the user can access a page by clicking on it in the page list.'
 
+tags = ['smoke']
+
 pages = ['login',
-         'common',
          'index',
-         'page_list',
-         'page_builder']
+         'common',
+         'page_builder',
+         'page_list']
 
 def setup(data):
     common.access_golem(data.env.url, data.env.admin)
@@ -17,3 +19,6 @@ def test(data):
     page_list.add_page(data.page_name)
     page_list.access_page(data.page_name)
     assert_element_text(page_builder.page_name, data.page_name)
+
+def teardown(data):
+    pass

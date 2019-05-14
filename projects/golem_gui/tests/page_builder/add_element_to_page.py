@@ -1,10 +1,12 @@
 
 description = 'Verify the user can add an element to a page and save it successfully'
 
+tags = ['smoke']
+
 pages = ['common',
          'index',
-         'page_list',
-         'page_builder']
+         'page_builder',
+         'page_list']
 
 def setup(data):
     common.access_golem(data.env.url, data.env.admin)
@@ -19,3 +21,5 @@ def test(data):
     refresh_page()
     page_builder.assert_element_exists(data.element_def)
 
+def teardown(data):
+    pass

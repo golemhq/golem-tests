@@ -1,14 +1,14 @@
 
-
 description = 'Run a suite'
 
-pages = ['common',
-         'index',
-         'test_list',
-         'suite_list',
-         'suite_builder',
-         'report_execution']
+tags = ['smoke']
 
+pages = ['test_list',
+         'report_execution',
+         'common',
+         'index',
+         'suite_builder',
+         'suite_list']
 
 def setup(data):
     common.access_golem(data.env.url, data.env.admin)
@@ -21,7 +21,6 @@ def setup(data):
     store('suite_name', random('suite' + random('dddd')))
     suite_list.create_access_suite(data.suite_name)
 
-
 def test(data):
     suite_builder.select_test('empty_test_one')
     suite_builder.select_test('empty_test_two')
@@ -31,3 +30,6 @@ def test(data):
     suite_builder.access_suite_execution_from_toast()
     report_execution.wait_until_execution_end()
     report_execution.assert_amount_of_tests(2)
+
+def teardown(data):
+    pass

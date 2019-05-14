@@ -1,10 +1,12 @@
 
 description = 'Verify the user can add an action to a test and save it successfully'
 
+tags = ['smoke']
+
 pages = ['common',
          'index',
-         'test_list',
-         'test_builder']
+         'test_builder',
+         'test_list']
 
 def setup(data):
     common.access_golem(data.env.url, data.env.admin)

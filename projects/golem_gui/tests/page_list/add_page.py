@@ -1,9 +1,11 @@
 
 description = 'Verify the user can create a new page from the project page'
 
+tags = ['smoke']
+
 pages = ['login',
-         'common',
          'index',
+         'common',
          'page_list']
 
 def setup(data):
@@ -15,3 +17,6 @@ def test(data):
     store('page_name', 'page_' + random('cccc'))
     page_list.add_page(data.page_name)
     page_list.assert_page_exists(data.page_name)
+
+def teardown(data):
+    pass
