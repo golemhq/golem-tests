@@ -1,18 +1,21 @@
+from golem import actions
+
+from projects.golem_gui.pages import common
+from projects.golem_gui.pages import index
+from projects.golem_gui.pages import api
+from projects.golem_gui.pages import test_builder
+from projects.golem_gui.pages import test_builder_code
+
 
 description = 'Verify the test code page opens when clicking Code button'
 
-pages = ['common',
-         'index',
-         'test_list',
-         'test_builder',
-         'test_builder_code']
 
 def setup(data):
     common.access_golem(data.env.url, data.env.admin)
     index.create_access_project('test')
-    common.navigate_menu('Tests')
-    test_list.create_access_random_test()
+    api.test.create_access_random_test('test')
+
 
 def test(data):
-    click(test_builder.code_button)
-    verify_element_present(test_builder_code.preview_button)
+    actions.click(test_builder.code_button)
+    actions.verify_element_present(test_builder_code.preview_button)

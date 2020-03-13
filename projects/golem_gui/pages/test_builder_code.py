@@ -24,6 +24,10 @@ def set_value(value):
     code_editor.set_value(value)
 
 
+def get_value():
+    return code_editor.get_value()
+
+
 def assert_value(value):
     code_editor.assert_value(value)
 

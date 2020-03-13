@@ -1,6 +1,6 @@
 from selenium.common.exceptions import TimeoutException
 from golem import actions
-from golem.browser import element, elements, get_browser
+from golem.browser import elements, get_browser
 
 from projects.golem_gui.pages import common
 
@@ -54,4 +54,3 @@ def create_access_project(project_name):
     if not _project_exists(project_name):
         create_project(project_name, ignore_exists=True)
     access_project(project_name)
-

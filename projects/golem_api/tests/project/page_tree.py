@@ -1,12 +1,10 @@
-
-pages = ['project']
+from projects.golem_api.pages import project
 
 
 def setup(data):
-    store('project', random('dddddd'))
-    project.create_project(data.project)
+    data.project = project.create_random_project()
 
 
 def test(data):
-    response = project.get_project_page_tree(data.project)
+    response = project.get_page_tree(data.project)
     assert response.status_code == 200

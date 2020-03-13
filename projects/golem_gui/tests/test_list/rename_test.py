@@ -1,24 +1,29 @@
+from golem import actions
+
+from projects.golem_gui.pages import common
+from projects.golem_gui.pages import api
+from projects.golem_gui.pages import test_list
+
 
 description = 'Verify the user can rename a test from the test list'
-
-pages = ['common',
-         'index',
-         'test_list']
 
 
 def setup(data):
     common.access_golem(data.env.url, data.env.admin)
-    index.create_access_project('test_list')
+    api.project.create_access_random_project()
+    actions.store('test', actions.random_str())
+    api.test.create_test(data.project, data.test)
     common.navigate_menu('Tests')
-    store('test_name', 'test' + random('ddddd'))
-    store('new_test_name', data.test_name + '_rename')
-    test_list.add_test(data.test_name)
 
 
 def test(data):
-    test_list.assert_test_exists(data.test_name)
-    test_list.rename_test(data.test_name, data.new_test_name)
-    assert not test_list.test_exists(data.test_name)
-    test_list.assert_test_exists(data.new_test_name)
-    refresh_page()
-    test_list.assert_test_exists(data.new_test_name)
+    new_name = data.test + '_rename'
+    test_list.rename_test(data.test, new_name)
+    assert not test_list.test_exists(data.test)
+    test_list.assert_test_exists(new_name)
+    actions.refresh_page()
+    test_list.assert_test_exists(new_name)
+
+
+def teardown(data):
+    api.project.delete_project(data.project)

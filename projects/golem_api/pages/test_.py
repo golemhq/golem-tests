@@ -1,45 +1,20 @@
 import requests
 
-from golem import execution
-
-from projects.golem_api.pages import utils
+from projects.golem_api.pages.utils import url, headers
 
 
-DELETE_TEST_ENDPOINT = 'api/test/delete'
-DUPLICATE_TEST_ENDPOINT = 'api/test/duplicate'
-RENAME_TEST_ENDPOINT = 'api/test/rename'
-RUN_TEST_ENDPOINT = 'api/test/run'
-SAVE_TEST_ENDPOINT = 'api/test/save'
-SAVE_TEST_CODE_ENDPOINT = 'api/test/code/save'
-
-
-def delete_test_url(base_url):
-    return '{}{}'.format(base_url, DELETE_TEST_ENDPOINT)
-
-
-def duplicate_test_url(base_url):
-    return '{}{}'.format(base_url, DUPLICATE_TEST_ENDPOINT)
-
-
-def run_test_url(base_url):
-    return '{}{}'.format(base_url, RUN_TEST_ENDPOINT)
-
-
-def rename_test_url(base_url):
-    return '{}{}'.format(base_url, RENAME_TEST_ENDPOINT)
-
-
-def save_test_url(base_url):
-    return '{}{}'.format(base_url, SAVE_TEST_ENDPOINT)
-
-
-def save_test_code_url(base_url):
-    return '{}{}'.format(base_url, SAVE_TEST_CODE_ENDPOINT)
+DELETE_TEST_ENDPOINT = '/test/delete'
+DUPLICATE_TEST_ENDPOINT = '/test/duplicate'
+RENAME_TEST_ENDPOINT = '/test/rename'
+RUN_TEST_ENDPOINT = '/test/run'
+SAVE_TEST_ENDPOINT = '/test/save'
+SAVE_TEST_CODE_ENDPOINT = '/test/code/save'
+RENAME_TEST_DIRECTORY_ENDPOINT = '/test/directory/rename'
+DELETE_TEST_DIRECTORY_ENDPOINT = '/test/directory/delete'
 
 
 def delete_test(project_name, test_name, user=None):
-    return requests.delete(delete_test_url(execution.data.env.url),
-                           headers=utils.common_headers(user),
+    return requests.delete(url(DELETE_TEST_ENDPOINT), headers=headers(user),
                            json={'project': project_name, 'fullPath': test_name})
 
 
@@ -49,8 +24,7 @@ def duplicate_test(project_name, test_name, new_test_name, user=None):
         'fullPath': test_name,
         'newFileFullPath': new_test_name
     }
-    return requests.post(duplicate_test_url(execution.data.env.url),
-                         headers=utils.common_headers(user), json=json_)
+    return requests.post(url(DUPLICATE_TEST_ENDPOINT), headers=headers(user), json=json_)
 
 
 def rename_test(project_name, test_name, new_test_name, user=None):
@@ -59,8 +33,7 @@ def rename_test(project_name, test_name, new_test_name, user=None):
         'fullFilename': test_name,
         'newFullFilename': new_test_name
     }
-    return requests.post(rename_test_url(execution.data.env.url),
-                         headers=utils.common_headers(user), json=json_)
+    return requests.post(url(RENAME_TEST_ENDPOINT), headers=headers(user), json=json_)
 
 
 def run_test(project_name, test_name, browsers=[], environments=[], processes=1, user=None):
@@ -71,11 +44,11 @@ def run_test(project_name, test_name, browsers=[], environments=[], processes=1,
         'environments': environments,
         'processes': processes
     }
-    return requests.post(run_test_url(execution.data.env.url),
-                         headers=utils.common_headers(user), json=json_)
+    return requests.post(url(RUN_TEST_ENDPOINT), headers=headers(user), json=json_)
 
 
-def save_test(project_name, test_name, description, pages, test_data, steps, tags, user=None):
+def save_test(project_name, test_name, description, pages, test_data, steps, tags,
+              skip=False, user=None):
     json_ = {
         'project': project_name,
         'testName': test_name,
@@ -84,9 +57,9 @@ def save_test(project_name, test_name, description, pages, test_data, steps, tag
         'testData': test_data,
         'steps': steps,
         'tags': tags,
+        'skip': skip
     }
-    return requests.put(save_test_url(execution.data.env.url),
-                        headers=utils.common_headers(user), json=json_)
+    return requests.put(url(SAVE_TEST_ENDPOINT), headers=headers(user), json=json_)
 
 
 def save_test_code(project_name, test_name, test_data, content, user=None):
@@ -96,5 +69,18 @@ def save_test_code(project_name, test_name, test_data, content, user=None):
         'testData': test_data,
         'content': content,
     }
-    return requests.put(save_test_code_url(execution.data.env.url),
-                        headers=utils.common_headers(user), json=json_)
+    return requests.put(url(SAVE_TEST_CODE_ENDPOINT), headers=headers(user), json=json_)
+
+
+def rename_test_directory(project_name, dir_name, new_dir_name, user=None):
+    json_ = {
+        'project': project_name,
+        'fullDirname': dir_name,
+        'newFullDirname': new_dir_name
+    }
+    return requests.post(url(RENAME_TEST_DIRECTORY_ENDPOINT), headers=headers(user), json=json_)
+
+
+def delete_test_directory(project_name, dir_name, user=None):
+    return requests.delete(url(DELETE_TEST_DIRECTORY_ENDPOINT), headers=headers(user),
+                           json={'project': project_name, 'fullDirname': dir_name})

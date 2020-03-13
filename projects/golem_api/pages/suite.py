@@ -1,40 +1,19 @@
 import requests
 
-from golem import execution
-
-from projects.golem_api.pages import utils
+from projects.golem_api.pages.utils import url, headers
 
 
-DELETE_SUITE_ENDPOINT = 'api/suite/delete'
-DUPLICATE_SUITE_ENDPOINT = 'api/suite/duplicate'
-RENAME_SUITE_ENDPOINT = 'api/suite/rename'
-RUN_SUITE_ENDPOINT = 'api/suite/run'
-SAVE_SUITE_ENDPOINT = 'api/suite/save'
-
-
-def delete_suite_url(base_url):
-    return '{}{}'.format(base_url, DELETE_SUITE_ENDPOINT)
-
-
-def duplicate_suite_url(base_url):
-    return '{}{}'.format(base_url, DUPLICATE_SUITE_ENDPOINT)
-
-
-def run_suite_url(base_url):
-    return '{}{}'.format(base_url, RUN_SUITE_ENDPOINT)
-
-
-def rename_suite_url(base_url):
-    return '{}{}'.format(base_url, RENAME_SUITE_ENDPOINT)
-
-
-def save_suite_url(base_url):
-    return '{}{}'.format(base_url, SAVE_SUITE_ENDPOINT)
+DELETE_SUITE_ENDPOINT = '/suite/delete'
+DUPLICATE_SUITE_ENDPOINT = '/suite/duplicate'
+RENAME_SUITE_ENDPOINT = '/suite/rename'
+RUN_SUITE_ENDPOINT = '/suite/run'
+SAVE_SUITE_ENDPOINT = '/suite/save'
+RENAME_SUITE_DIRECTORY_ENDPOINT = '/suite/directory/rename'
+DELETE_SUITE_DIRECTORY_ENDPOINT = '/suite/directory/delete'
 
 
 def delete_suite(project_name, suite_name, user=None):
-    return requests.delete(delete_suite_url(execution.data.env.url),
-                           headers=utils.common_headers(user),
+    return requests.delete(url(DELETE_SUITE_ENDPOINT), headers=headers(user),
                            json={'project': project_name, 'fullPath': suite_name})
 
 
@@ -44,8 +23,7 @@ def duplicate_suite(project_name, suite_name, new_suite_name, user=None):
         'fullPath': suite_name,
         'newFileFullPath': new_suite_name
     }
-    return requests.post(duplicate_suite_url(execution.data.env.url),
-                         headers=utils.common_headers(user), json=json_)
+    return requests.post(url(DUPLICATE_SUITE_ENDPOINT), headers=headers(user), json=json_)
 
 
 def rename_suite(project_name, suite_name, new_suite_name, user=None):
@@ -54,13 +32,11 @@ def rename_suite(project_name, suite_name, new_suite_name, user=None):
         'fullFilename': suite_name,
         'newFullFilename': new_suite_name
     }
-    return requests.post(rename_suite_url(execution.data.env.url),
-                         headers=utils.common_headers(user), json=json_)
+    return requests.post(url(RENAME_SUITE_ENDPOINT), headers=headers(user), json=json_)
 
 
 def run_suite(project_name, suite_name, user=None):
-    return requests.post(run_suite_url(execution.data.env.url),
-                         headers=utils.common_headers(user),
+    return requests.post(url(RUN_SUITE_ENDPOINT), headers=headers(user),
                          json={'project': project_name, 'suite': suite_name})
 
 
@@ -75,5 +51,18 @@ def save_suite(project_name, suite_name, tests=[], processes=1, tags=[], browser
         'browsers': browsers,
         'environments': environments
     }
-    return requests.put(save_suite_url(execution.data.env.url),
-                        headers=utils.common_headers(user), json=json_)
+    return requests.put(url(SAVE_SUITE_ENDPOINT), headers=headers(user), json=json_)
+
+
+def rename_suite_directory(project_name, dir_name, new_dir_name, user=None):
+    json_ = {
+        'project': project_name,
+        'fullDirname': dir_name,
+        'newFullDirname': new_dir_name
+    }
+    return requests.post(url(RENAME_SUITE_DIRECTORY_ENDPOINT), headers=headers(user), json=json_)
+
+
+def delete_suite_directory(project_name, dir_name, user=None):
+    return requests.delete(url(DELETE_SUITE_DIRECTORY_ENDPOINT), headers=headers(user),
+                           json={'project': project_name, 'fullDirname': dir_name})

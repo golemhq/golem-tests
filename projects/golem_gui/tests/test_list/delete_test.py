@@ -1,22 +1,28 @@
+from golem import actions
 
-description = 'Verify the user can delete a test'
+from projects.golem_gui.pages import common
+from projects.golem_gui.pages import api
+from projects.golem_gui.pages import test_list
 
-pages = ['common',
-         'index',
-         'test_list']
+
+description = 'Verify the user can rename a test from the test list'
 
 
 def setup(data):
     common.access_golem(data.env.url, data.env.admin)
-    index.create_access_project('test_list')
-    store('test_name', 'test' + random('ddddd'))
-    test_list.add_test(data.test_name)
+    api.project.create_access_random_project()
+    actions.store('test', actions.random_str())
+    api.test.create_test(data.project, data.test)
+    common.navigate_menu('Tests')
 
 
 def test(data):
-    test_list.click_delete_button(data.test_name)
-    common.confirm_confirm_modal()
-    common.assert_toast_message_is_displayed('File {} was removed'.format(data.test_name))
-    assert not test_list.test_exists(data.test_name)
-    refresh_page()
-    assert not test_list.test_exists(data.test_name)
+    test_list.delete_test(data.test)
+    common.assert_toast_message_is_displayed('File {} was removed'.format(data.test))
+    assert not test_list.test_exists(data.test)
+    actions.refresh_page()
+    assert not test_list.test_exists(data.test)
+
+
+def teardown(data):
+    api.project.delete_project(data.project)

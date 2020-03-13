@@ -1,16 +1,16 @@
+from golem import actions
 
-pages = ['project']
+from projects.golem_api.pages import project
 
 
 def setup(data):
-    store('project', 'general_project')
-    project.create_project_if(data.project)
+    project.using_project('general')
 
 
 def test(data):
-    store('page', random('dddddd'))
-    response = project.get_project_page_exists(data.project, data.page)
+    page = actions.random_str()
+    response = project.get_page_exists(data.project, page)
     assert response.json() is False
-    project.create_project_page(data.project, data.page)
-    response = project.get_project_page_exists(data.project, data.page)
+    project.create_page(data.project, page)
+    response = project.get_page_exists(data.project, page)
     assert response.json() is True

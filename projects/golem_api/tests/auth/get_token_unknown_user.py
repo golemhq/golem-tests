@@ -1,5 +1,4 @@
-
-pages = ['auth']
+from projects.golem_api.pages import auth
 
 
 def test(data):

@@ -1,15 +1,15 @@
+from golem import actions
 
-pages = ['project']
+from projects.golem_api.pages import project
 
 
 def setup(data):
-    store('project', random('dddddd'))
-    project.create_project(data.project)
+    data.project = project.create_random_project()
 
 
 def test(data):
     response = project.get_project_has_tests(data.project)
     assert not response.json()
-    project.create_project_test(data.project, random('dddd'))
+    project.create_test(data.project, actions.random_str())
     response = project.get_project_has_tests(data.project)
     assert response.json()

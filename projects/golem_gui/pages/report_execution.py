@@ -18,8 +18,11 @@ def test_detail_row_by_full_test_name(full_test_name):
 
 
 def wait_until_execution_end(timeout=30):
+    container = element('.report-container')
+    script = 'return arguments[0].ExecutionReport.suiteFinished'
+    actions.wait(3)
     for _ in range(timeout):
-        suite_finished = actions.get_browser().execute_script('return ExecutionReport.suiteFinished')
+        suite_finished = actions.get_browser().execute_script(script, container)
         if suite_finished:
             return
         time.sleep(1)

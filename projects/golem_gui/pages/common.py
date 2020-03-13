@@ -24,12 +24,24 @@ def navigate_menu(menu):
         actions.click(left_menu.pages_menu)
     elif menu == 'Reports':
         actions.click(left_menu.reports_menu)
-    elif menu == 'Settings':
-        actions.click(left_menu.settings_menu)
+    elif menu == 'Project Settings':
+        actions.click(left_menu.project_settings_menu)
     elif menu == 'Environments':
         actions.click(left_menu.environments_menu)
+    elif menu == 'Global Settings':
+        actions.click(left_menu.global_settings_menu)
+    elif menu == 'Users':
+        actions.click(left_menu.users_menu)
+    elif menu == 'User Profile':
+        actions.click(left_menu.user_menu)
+        actions.click(left_menu.profile_menu)
     else:
         raise Exception('Menu {} not implemented'.format(menu))
+
+
+def logout():
+    actions.click(left_menu.user_menu)
+    actions.click(left_menu.logout_menu)
 
 
 def get_toast_with_message(toast_message):
@@ -93,14 +105,37 @@ def assert_info_bar_message(msg):
 
 
 def confirm_confirm_modal():
-    element('#confirmModal button.confirm').click()
+    confirm_button = element('#confirmModal button.confirm')
+    confirm_button.click()
+    confirm_button.wait_not_displayed(timeout=5)
 
 
-def send_confirm_modal(value):
-    """Send a value to confirm modal and click Save button"""
-    input_ = element('#promptModalInput')
-    input_.clear()
-    input_.send_keys(value)
-    save_button = element('#prompSaveButton')
+def wait_confirm_modal_button_enabled(timeout=10):
+    element('#confirmModal button.confirm').wait_enabled(timeout)
+
+
+def submit_prompt_modal(value):
+    """Send a value to prompt modal and click Save button"""
+    prompt_input = element('#promptModal #promptModalInput', wait_displayed=5)
+    prompt_input.clear()
+    prompt_input.send_keys(value)
+    save_button = element('#promptModal #prompSaveButton')
     save_button.click()
     save_button.wait_not_displayed(5)
+
+
+def get_autocomplete_suggestions():
+    """Get the list of autocomplete suggestions.
+    There must be one autocomplete suggestions list displayed
+    otherwise it will return None
+    """
+    suggestions = None
+    auto_selector_lists = elements('.autocomplete-suggestions')
+    for suggestion_list in auto_selector_lists:
+        if suggestion_list.is_displayed():
+            suggestions = []
+            suggestion_elements = suggestion_list.find_all('div.autocomplete-suggestion')
+            for suggestion in suggestion_elements:
+                suggestions.append(suggestion.text)
+            break
+    return suggestions

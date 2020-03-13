@@ -1,23 +1,27 @@
+from golem import actions
 
-description = 'Verify the user can delete a page'
+from projects.golem_gui.pages import common
+from projects.golem_gui.pages import page_list
+from projects.golem_gui.pages import api
 
-pages = ['common',
-         'index',
-         'page_list']
+
+description = 'Verify the user can rename a page from the page list'
 
 
 def setup(data):
     common.access_golem(data.env.url, data.env.admin)
-    index.create_access_project('page_list')
-    store('page_name', 'page' + random('dddd'))
+    api.project.create_access_random_project()
+    actions.store('page', actions.random_str())
+    api.page.create_page(data.project, data.page)
     common.navigate_menu('Pages')
-    page_list.add_page(data.page_name)
 
 
 def test(data):
-    page_list.click_delete_button(data.page_name)
-    common.confirm_confirm_modal()
-    common.assert_toast_message_is_displayed('File {} was removed'.format(data.page_name))
-    assert not page_list.page_exists(data.page_name)
-    refresh_page()
-    assert not page_list.page_exists(data.page_name)
+    page_list.delete_page(data.page)
+    assert not page_list.page_exists(data.page)
+    actions.refresh_page()
+    assert not page_list.page_exists(data.page)
+
+
+def teardown(data):
+    api.project.delete_project(data.project)

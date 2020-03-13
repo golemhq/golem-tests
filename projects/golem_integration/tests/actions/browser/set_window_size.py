@@ -5,7 +5,7 @@ description = 'Verify set_window_size action'
 
 def test(data):
     actions.open_browser()
-    actions.set_window_size(500, 400)
+    actions.set_window_size(650, 600)
     size = actions.get_window_size()
-    assert size['width'] == 500
-    assert size['height'] == 400
+    assert size['width'] == 650
+    assert size['height'] == 600

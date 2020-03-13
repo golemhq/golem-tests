@@ -1,7 +1,10 @@
+from golem import actions
+
+from projects.golem_gui.pages import common
+
 
 description = 'Verify that accessing /project/<name>/* when project does not exist a correct message is displayed'
 
-pages = ['common']
 
 data = {
     'urls': [
@@ -21,13 +24,13 @@ data = {
     ]
 }
 
+
 def setup(data):
     common.access_golem(data.env.url, data.env.admin)
 
 
 def test(data):
-    store('project', 'not_existent')
-    store('error_msg', 'The project {} does not exist.'.format(data.project))
+    error_msg = 'The project not_existent does not exist.'
     for url in data.urls:
-        navigate(data.env.url + url)
-        assert_page_contains_text(data.error_msg)
+        actions.navigate(data.env.url + url)
+        actions.assert_page_contains_text(error_msg)

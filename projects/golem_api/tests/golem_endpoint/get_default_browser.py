@@ -1,5 +1,4 @@
-
-pages = ['golem_']
+from projects.golem_api.pages import golem_
 
 
 def test(data):

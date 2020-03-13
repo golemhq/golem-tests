@@ -1,22 +1,31 @@
 import requests
 
-from golem import execution
-
-from projects.golem_api.pages import utils
+from projects.golem_api.pages.utils import url, headers
 
 
-SAVE_SETTINGS_ENDPOINT = 'api/settings/save'
+SAVE_GLOBAL_SETTINGS_ENDPOINT = '/settings/global/save'
+SAVE_PROJECT_SETTINGS_ENDPOINT = '/settings/project/save'
+GET_GLOBAL_SETTINGS_ENDPOINT = '/settings/global'
+GET_PROJECT_SETTINGS_ENDPOINT = '/settings/project'
 
 
-def save_settings_url(base_url):
-    return '{}{}'.format(base_url, SAVE_SETTINGS_ENDPOINT)
+def save_global_settings(settings, user=None):
+    return requests.put(url(SAVE_GLOBAL_SETTINGS_ENDPOINT), headers=headers(user),
+                        json={'settings': settings})
 
 
-def save_settings(project_name, project_settings, global_settings, user=None):
+def save_project_settings(project_name, settings, user=None):
     json_ = {
         'project': project_name,
-        'projectSettings': project_settings,
-        'globalSettings': global_settings
+        'settings': settings,
     }
-    return requests.put(save_settings_url(execution.data.env.url),
-                        headers=utils.common_headers(user), json=json_)
+    return requests.put(url(SAVE_PROJECT_SETTINGS_ENDPOINT), headers=headers(user), json=json_)
+
+
+def get_global_settings(user=None):
+    return requests.get(url(GET_GLOBAL_SETTINGS_ENDPOINT), headers=headers(user))
+
+
+def get_project_settings(project_name, user=None):
+    return requests.get(url(GET_PROJECT_SETTINGS_ENDPOINT), headers=headers(user),
+                        params={'project': project_name})

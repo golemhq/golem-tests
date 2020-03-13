@@ -1,38 +1,39 @@
+from golem import actions
+
+from projects.golem_gui.pages import common
+from projects.golem_gui.pages import index
+from projects.golem_gui.pages import api
+from projects.golem_gui.pages import test_builder
+
 
 description = 'Verify the the new page modal has validations'
 
-pages = ['common',
-         'index',
-         'test_list',
-         'page_list',
-         'test_builder']
 
 def setup(data):
     common.access_golem(data.env.url, data.env.admin)
     index.create_access_project('test_add_page')
-    common.navigate_menu('Pages')
-    store('page_name', 'page_import_' + random('dddd'))
-    page_list.add_page(data.page_name)
-    common.navigate_menu('Tests')
-    test_list.create_access_random_test()
+    actions.store('page_name', actions.random_str())
+    api.page.create_page('test_add_page', data.page_name)
+    api.test.create_access_random_test('test_add_page')
+
 
 def test(data):
-    step('add a new page with a name that already exists')
-    click(test_builder.new_page_button)
-    send_keys(test_builder.new_page_modal_input, data.page_name)
-    click(test_builder.new_page_modal_submit)
-    common.assert_error_message('A page file with that name already exists')
-    refresh_page()
-    step('add a new page with empty name')
-    click(test_builder.new_page_button)
-    wait_for_element_displayed(test_builder.new_page_modal_input)
-    assert_element_attribute(test_builder.new_page_modal_input, 'value', '')
-    click(test_builder.new_page_modal_submit)
+    # page already exists
+    actions.click(test_builder.new_page_button)
+    actions.send_keys(test_builder.new_page_modal_input, data.page_name)
+    actions.click(test_builder.new_page_modal_submit)
+    common.assert_error_message('A page with that name already exists')
+    actions.refresh_page()
+    # empty name
+    actions.click(test_builder.new_page_button)
+    actions.wait_for_element_displayed(test_builder.new_page_modal_input)
+    actions.assert_element_attribute(test_builder.new_page_modal_input, 'value', '')
+    actions.click(test_builder.new_page_modal_submit)
     common.assert_error_message('New filename cannot be empty')
-    refresh_page()
-    step('add a new page with invalid characters')
-    click(test_builder.new_page_button)
-    send_keys(test_builder.new_page_modal_input, '$$invalid')
-    click(test_builder.new_page_modal_submit)
+    actions.refresh_page()
+    # invalid chars
+    actions.click(test_builder.new_page_button)
+    actions.send_keys(test_builder.new_page_modal_input, '$$invalid')
+    actions.click(test_builder.new_page_modal_submit)
     common.assert_error_message("Only letters, numbers and underscores are allowed")
-    refresh_page()
+    actions.refresh_page()

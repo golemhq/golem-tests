@@ -1,12 +1,12 @@
+from golem import actions
 
-pages = ['project', 'page']
+from projects.golem_api.pages import project
+from projects.golem_api.pages import page
 
 
 def setup(data):
-    store('project', 'general_project')
-    store('page', random('dddddd'))
-    project.create_project_if(data.project)
-    project.create_project_page(data.project, data.page)
+    project.using_project('general')
+    data.page = project.create_random_page(data.project)
 
 
 def test(data):

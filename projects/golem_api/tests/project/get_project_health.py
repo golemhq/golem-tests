@@ -1,10 +1,8 @@
-
-pages = ['project']
+from projects.golem_api.pages import project
 
 
 def setup(data):
-    store('project', random('dddddd'))
-    project.create_project(data.project)
+    data.project = project.create_random_project()
 
 
 def test(data):

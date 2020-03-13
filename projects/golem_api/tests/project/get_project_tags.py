@@ -1,10 +1,8 @@
-
-pages = ['project']
+from projects.golem_api.pages import project
 
 
 def setup(data):
-    store('project', 'general_project')
-    project.create_project_if(data.project)
+    project.using_project('general')
 
 
 def test(data):

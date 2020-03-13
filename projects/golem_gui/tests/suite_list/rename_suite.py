@@ -1,19 +1,26 @@
+from golem import actions
 
-description = 'Verify the user can rename a suite'
+from projects.golem_gui.pages import common
+from projects.golem_gui.pages import api
+from projects.golem_gui.pages import suite_list
 
-pages = ['common',
-         'index',
-         'suite_list']
 
 def setup(data):
     common.access_golem(data.env.url, data.env.admin)
-    index.create_access_project('test')
+    api.project.create_access_random_project()
+    actions.store('suite', actions.random_str())
+    api.suite.create_suite(data.project, data.suite)
     common.navigate_menu('Suites')
 
+
 def test(data):
-    store('suite_name', 'suite_' + random('cccc'))
-    store('new_suite_name', data.suite_name + '_rename')
-    suite_list.add_suite(data.suite_name)
-    suite_list.assert_suite_exists(data.suite_name)
-    suite_list.rename_suite(data.suite_name, data.new_suite_name)
-    suite_list.assert_suite_exists(data.new_suite_name)
+    new_name = data.suite + '_rename'
+    suite_list.rename_suite(data.suite, new_name)
+    assert not suite_list.suite_exists(data.suite)
+    suite_list.assert_suite_exists(new_name)
+    actions.refresh_page()
+    suite_list.assert_suite_exists(new_name)
+
+
+def teardown(data):
+    api.project.delete_project(data.project)

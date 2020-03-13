@@ -1,14 +1,15 @@
+from golem import actions
 
-pages = ['project', 'test_', 'report']
+from projects.golem_api.pages import project
+from projects.golem_api.pages import report
+from projects.golem_api.pages import test_
 
 
 def setup(data):
-    store('project', 'general_project')
-    project.create_project_if(data.project)
-    store('test', random('ddddd'))
-    project.create_project_test(data.project, data.test)
+    project.using_project('general')
+    data.test = project.create_random_test(data.project)
     response = test_.run_test(data.project, data.test)
-    store('timestamp', response.json())
+    actions.store('timestamp', response.json())
 
 
 def test(data):

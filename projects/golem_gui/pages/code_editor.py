@@ -1,30 +1,22 @@
-import time
-
-from selenium.common.exceptions import WebDriverException
-
-from golem.browser import get_browser
+from golem.browser import get_browser, element
 from golem import actions
 
 
-def set_value(code, code_editor_var='codeEditor'):
-    script = '{}.setValue(arguments[0])'.format(code_editor_var)
-    get_browser().execute_script(script, code)
+def set_value(code, code_mirror_selector='div.CodeMirror'):
+    """Set the value of the CodeMirror editor found by the selector"""
+    code_mirror = element(code_mirror_selector)
+    script = 'arguments[0].CodeMirror.setValue(arguments[1])'
+    get_browser().execute_script(script, code_mirror, code)
 
 
-def get_value(code_editor_var='codeEditor', timeout=5):
+def get_value(code_mirror_selector='div.CodeMirror', timeout=5):
     """Use the Javascript codeMirror object to retrieve
     the value of the code editor.
     """
-    for _ in range(timeout):
-        # Wait until the codeMirror object is initialized
-        script = 'return typeof({}) === "undefined"'.format(code_editor_var)
-        is_undefined = get_browser().execute_script(script)
-        if is_undefined:
-            time.sleep(1)
-        else:
-            break
-    script = 'return {}.getValue()'.format(code_editor_var)
-    all_code = get_browser().execute_script(script)
+    get_browser().wait_for_element_present('div.CodeMirror', timeout)
+    code_mirror = element(code_mirror_selector)
+    script = 'return arguments[0].CodeMirror.getValue()'
+    all_code = get_browser().execute_script(script, code_mirror)
     return all_code
 
 
@@ -41,9 +33,9 @@ def set_line_value(index, value):
     get_browser().execute_script(script, index, value)
 
 
-def assert_value(expected_value, code_editor_var='codeEditor'):
+def assert_value(expected_value, code_mirror_selector='div.CodeMirror'):
     actions.step('Verify code editor value is: {}'.format(expected_value))
-    actual_value = get_value(code_editor_var)
+    actual_value = get_value(code_mirror_selector)
     msg = 'Expected "{}" and received "{}"'.format(expected_value, actual_value)
     assert actual_value == expected_value, msg
 

@@ -1,12 +1,10 @@
-
-pages = ['project', 'suite']
+from projects.golem_api.pages import project
+from projects.golem_api.pages import suite
 
 
 def setup(data):
-    store('project', 'general_project')
-    store('suite', random('dddddd'))
-    project.create_project_if(data.project)
-    project.create_project_suite(data.project, data.suite)
+    project.using_project('general')
+    data.suite = project.create_random_suite(data.project)
 
 
 def test(data):

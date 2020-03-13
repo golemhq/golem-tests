@@ -1,5 +1,7 @@
 from golem import actions
 
+from projects.golem_api.pages.project import get_projects as api_get_projects
+from projects.golem_api.pages.users import create_new_user as api_create_new_user
 from projects.golem_gui.pages import common, test_list, suite_list, suite_builder, test_builder
 
 
@@ -51,3 +53,20 @@ def create_access_suite_with_different_results(suite_name):
         suite_builder.save_suite()
     else:
         suite_list.access_suite(suite_name)
+
+
+# TODO move to an 'api' utils
+
+def get_projects():
+    return api_get_projects().json()
+
+
+def create_user(username, password, email=None, is_superuser=False, project_permissions=None):
+    api_create_new_user(username, password, email, is_superuser, project_permissions)
+
+
+def create_random_user():
+    username = actions.random('ddddd')
+    password = actions.random('ddddd')
+    create_user(username, password)
+    return {'username': username, 'password': password}

@@ -1,19 +1,34 @@
+from golem import actions
 
-description = 'Verify the user can create a new test from the project page'
+from projects.golem_gui.pages import common
+from projects.golem_gui.pages import api
+from projects.golem_gui.pages import test_list
+
+
+description = 'Verify the user can create a new test from the test list page'
 
 tags = ['smoke']
 
-pages = ['index',
-         'test_builder',
-         'common',
-         'test_list']
 
 def setup(data):
     common.access_golem(data.env.url, data.env.admin)
-    index.create_access_project('test_list')
+    api.project.create_access_random_project()
     common.navigate_menu('Tests')
 
+
 def test(data):
-    store('test_name', 'test_' + random('cccc'))
-    test_list.add_test(data.test_name)
-    test_list.assert_test_exists(data.test_name)
+    # to root
+    test_one = actions.random_str()
+    test_list.add_test(test_one)
+    test_list.assert_test_exists(test_one)
+    # to folder
+    test_two = 'folder1.' + actions.random('ddddd')
+    test_list.add_test(test_two)
+    test_list.assert_test_exists(test_two)
+    actions.refresh_page()
+    test_list.assert_test_exists(test_one)
+    test_list.assert_test_exists(test_two)
+
+
+def teardown(data):
+    api.project.delete_project(data.project)

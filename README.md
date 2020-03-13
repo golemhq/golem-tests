@@ -32,7 +32,7 @@ webdriver-manager update
 
 # Suites
 
-This repository contains two suites: **golem_gui** and **golem_integration**
+This repository contains three projects: **golem_api**, **golem_gui** and **golem_integration**
 
 ## golem_gui
 
@@ -43,7 +43,7 @@ This will be considered the System Under Test.
 
 Open a new console pointing to a different location than before and run:
 
-```bash
+```
 golem-admin createdirectory test
 cd test
 golem gui -p 8000
@@ -51,7 +51,7 @@ golem gui -p 8000
 
 Then from the first console run:
 
-```bash
+```
 golem run golem_gui regression
 ```
 
@@ -63,7 +63,7 @@ These are tests that ensure the Browser class, Element class and actions module 
 
 Points to https://www.web-playground.net/
 
-```bash
+```
 golem run golem_integration regression -e stage
 ```
 
@@ -73,13 +73,13 @@ An instance of the [Web Playground](https://github.com/golemhq/web-playground) m
 
 Open a second console and run:
 
-```bash
+```
 pip install web-playground
 web-playground
 ```
 
 From the first console:
-```bash
+```
 golem run golem_integration regression -e test
 ```
 
@@ -87,7 +87,7 @@ golem run golem_integration regression -e test
 
 Start the Golem GUI:
 
-```bash
+```
 golem run gui
 ```
 

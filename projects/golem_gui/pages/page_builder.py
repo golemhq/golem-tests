@@ -24,6 +24,7 @@ def add_element(element_def):
     actions.send_keys(element_display_name_input, element_def[3])
     actions.press_key(element_display_name_input, 'TAB')
 
+
 def save_page():
     actions.click(save_button)
     actions.wait_for_element_present('#toast-container', timeout=5)

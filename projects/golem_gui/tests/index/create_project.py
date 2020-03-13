@@ -1,10 +1,12 @@
+from golem import actions
+
+from projects.golem_gui.pages import index
+from projects.golem_gui.pages import common
+
 
 description = 'Verify the user can create a new project in the index page'
 
 tags = ['smoke']
-
-pages = ['index',
-         'common']
 
 
 def setup(data):
@@ -12,10 +14,10 @@ def setup(data):
 
 
 def test(data):
-    store('project_name', 'project_' + random('cccc'))
-    click(index.create_project_button)
-    wait_for_element_displayed(index.project_name_input)
-    send_keys(index.project_name_input, data.project_name)
-    click(index.create_button)
-    wait_for_element_not_displayed(index.create_button)
-    index.assert_project_exists(data.project_name)
+    project_name = actions.random_str()
+    actions.click(index.create_project_button)
+    actions.wait_for_element_displayed(index.project_name_input)
+    actions.send_keys(index.project_name_input, project_name)
+    actions.click(index.create_button)
+    actions.wait_for_element_not_displayed(index.create_button)
+    index.assert_project_exists(project_name)

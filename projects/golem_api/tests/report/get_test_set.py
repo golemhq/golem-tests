@@ -1,17 +1,17 @@
+from golem import actions
 
-pages = ['project', 'suite', 'report']
+from projects.golem_api.pages import project
+from projects.golem_api.pages import suite
+from projects.golem_api.pages import report
 
 
 def setup(data):
-    store('project', 'general_project')
-    project.create_project_if(data.project)
-    store('suite', random('ddddd'))
-    project.create_project_suite(data.project, data.suite)
-    store('test', random('ddddd'))
-    project.create_project_test(data.project, data.test)
+    project.using_project('general')
+    data.suite = project.create_random_suite(data.project)
+    data.test = project.create_random_test(data.project)
     suite.save_suite(data.project, data.suite, tests=[data.test])
     response = suite.run_suite(data.project, data.suite)
-    store('timestamp', response.json())
+    actions.store('timestamp', response.json())
 
 
 def test(data):

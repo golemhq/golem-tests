@@ -1,23 +1,25 @@
+from golem import actions
+
+from projects.golem_gui.pages import common
+from projects.golem_gui.pages import api
+from projects.golem_gui.pages import test_builder
+from projects.golem_gui.pages import test_builder_code
+from projects.golem_gui.pages import test_run_modal
+from projects.golem_gui.pages import test_run_config_modal
+
 
 description = 'Verify the user can run a test from the config modal'
 
-pages = ['common',
-         'index',
-         'test_list',
-         'test_builder',
-         'test_builder_code',
-         'test_run_config_modal',
-         'test_run_modal']
 
 def setup(data):
     common.access_golem(data.env.url, data.env.admin)
-    index.create_access_project('test_run_test')
-    common.navigate_menu('Tests')
-    test_list.create_access_random_test()
-    click(test_builder.code_button)
+    api.project.create_project_if('test')
+    api.test.create_access_random_test('test')
+    actions.click(test_builder.code_button)
+
 
 def test(data):
-    click(test_builder_code.run_config_button)
-    wait_for_element_displayed(test_run_config_modal.config_modal)
-    click(test_run_config_modal.run_button)
+    actions.click(test_builder_code.run_config_button)
+    actions.wait_for_element_displayed(test_run_config_modal.config_modal)
+    actions.click(test_run_config_modal.run_button)
     test_run_modal.assert_result('success')

@@ -11,6 +11,7 @@ processes_input = ('id', 'processes', 'Processes input')
 environments_input = ('id', 'environments', 'Environments input')
 tags_input = ('id', 'tags', 'Tags input')
 suite_name = ('id', 'suiteName', 'Suite name')
+all_tests_checkbox = ('id', 'allTestCasesCheckbox')
 
 
 def save_suite():

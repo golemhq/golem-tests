@@ -1,18 +1,35 @@
+from golem import actions
 
-description = 'Verify the user can create a new suite from the project page'
+from projects.golem_gui.pages import common
+from projects.golem_gui.pages import api
+from projects.golem_gui.pages import suite_list
+
+
+description = 'Verify the user can create a new suite the suite list page'
 
 tags = ['smoke']
 
-pages = ['index',
-         'common',
-         'suite_list']
 
 def setup(data):
     common.access_golem(data.env.url, data.env.admin)
-    index.create_access_project('test')
+    api.project.create_access_random_project()
     common.navigate_menu('Suites')
 
+
 def test(data):
-    store('suite_name', 'suite_' + random('cccc'))
-    suite_list.add_suite(data.suite_name)
-    suite_list.assert_suite_exists(data.suite_name)
+    suite_list.dismiss_no_tests_alert_if()
+    # to root
+    actions.store('suite_one', actions.random_str())
+    suite_list.add_suite(data.suite_one)
+    suite_list.assert_suite_exists(data.suite_one)
+    # to folder
+    actions.store('suite_two', 'folder1.' + actions.random_str())
+    suite_list.add_suite(data.suite_two)
+    suite_list.assert_suite_exists(data.suite_two)
+    actions.refresh_page()
+    suite_list.assert_suite_exists(data.suite_one)
+    suite_list.assert_suite_exists(data.suite_two)
+
+
+def teardown(data):
+    api.project.delete_project(data.project)

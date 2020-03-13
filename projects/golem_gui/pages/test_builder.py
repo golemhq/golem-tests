@@ -1,5 +1,7 @@
 from golem import actions
-from golem.browser import element, elements
+from golem.browser import element, elements, get_browser
+
+from projects.golem_gui.pages import test_run_config_modal
 
 
 test_name = ('id', 'testName', 'Test Name')
@@ -16,6 +18,8 @@ new_page_modal_submit = ('css', '#prompSaveButton')
 open_test_code_button = ('link_text', 'Open Test Code', 'Open Test Code button')
 tags_input = ('id', 'tags', 'Tag input')
 tags_autocomplete_list = ('css', 'div.autocomplete-suggestions')
+skip_checkbox = ('id', 'skipCheckbox', 'Skip checkbox')
+skip_message_input = ('id', 'skipReason', 'Skip Message input')
 
 
 def add_action(action_name, params=[], where='test'):
@@ -66,7 +70,9 @@ def assert_last_action(action_name, where='test'):
     elif where == 'teardown':
         action_inputs = elements("#teardownSteps .step-first-input")
     last_input = action_inputs[-1]
-    assert last_input.get_attribute('value'), action_name
+    actual_value = last_input.get_attribute('value')
+    msg = 'Expected action to be {} but was {}'.format(action_name, actual_value)
+    assert actual_value == action_name, msg
 
 
 def assert_description(desc):
@@ -108,4 +114,61 @@ def assert_tags(expected_tags):
     msg = 'expected {} tags but found {}'.format(len(expected_tags), len(actual_tags))
     assert len(actual_tags) == len(expected_tags), msg
     for t in expected_tags:
-        assert t in actual_tags, 'tag "{}" is not in Tags input'
+        assert t in actual_tags, 'tag "{}" is not in Tags input'.format(t)
+
+
+def steps(where='test'):
+    if where == 'test':
+        return elements('#testSteps>.steps>.step')
+    elif where == 'setup':
+        return elements('#setupSteps>.steps>.step')
+    elif where == 'teardown':
+        return elements('#teardownSteps>.steps>.step')
+    else:
+        raise ValueError('invalid where value: {}'.format(where))
+
+
+def remove_steps(where='test'):
+    step_elements = steps(where)
+    for step in step_elements:
+        step.find('.step-remove-icon>a').click()
+
+
+def get_step(index, where='test'):
+    step_elements = steps(where)
+    try:
+        step = step_elements[index]
+    except IndexError:
+        raise IndexError('error getting step index {}, total steps: {}'
+                         .format(index, len(step_elements)))
+    return Step(step)
+
+
+def open_run_configurations_modal():
+    actions.step('Open Run Configurations modal')
+    element(run_config_button).click()
+    get_browser().wait_for_element_displayed(test_run_config_modal.config_modal, 5)
+
+
+def add_tag(tag_name):
+    actions.step('Add tag {}'.format(tag_name))
+    tags_input_element = element(tags_input)
+    value = tags_input_element.value
+    if value:
+        tag_name = ', ' + tag_name
+    tags_input_element.send_keys(tag_name)
+
+
+class Step:
+
+    def __init__(self, element):
+        self.element = element
+        self.step_type = element.get_attribute('step-type')
+
+    def set_code_value(self, value):
+        script = "arguments[0].querySelector('.CodeMirror').CodeMirror.setValue(arguments[1])"
+        get_browser().execute_script(script, self.element, value)
+
+    def get_code_value(self):
+        script = "return arguments[0].querySelector('.CodeMirror').CodeMirror.getValue()"
+        return get_browser().execute_script(script, self.element)
