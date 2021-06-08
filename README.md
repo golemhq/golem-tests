@@ -13,20 +13,20 @@ Read the full documentation here: http://golem-framework.readthedocs.io/
 
 ## Install Golem
 
-```bash
+```
 pip install golem-framework
 ```
 
 ## Clone This Repo
 
-```bash
+```
 git clone https://github.com/golemhq/golem-tests.git
 cd golem-tests
 ```
 
 ## Download Webdrivers
 
-```bash
+```
 webdriver-manager update
 ```
 
@@ -38,7 +38,7 @@ This repository contains three projects: **golem_api**, **golem_gui** and **gole
 
 These are Golem tests that test the Golem GUI. So meta... (⌐■_■)
 
-A Golem GUI instance must to be running in port 8000.
+A Golem GUI instance must be running in port 8000.
 This will be considered the System Under Test. 
 
 Open a new console pointing to a different location than before and run:
@@ -54,6 +54,15 @@ Then from the first console run:
 ```
 golem run golem_gui regression
 ```
+
+## golem_api
+
+Tests for the Golem web application API. The GUI must be running on port 8000:
+
+```
+golem run golem_api .
+```
+
 
 ## golem_integration
 
@@ -93,6 +102,8 @@ golem run gui
 
 Then the reports are available here:
     
-http://localhost:5000/report/project/golem_gui/
+http://localhost:5000/report/golem_gui/
 
-http://localhost:5000/report/project/golem_integration/
+http://localhost:5000/report/golem_api/
+
+http://localhost:5000/report/golem_integration/
