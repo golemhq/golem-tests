@@ -2,8 +2,8 @@ from golem import actions
 from golem.browser import elements
 
 
-page_name = ('id', 'pageObjectName', 'page_name')
-add_element_button = ('css', 'button[onclick="addPageObjectInput();"]', 'Add Element button')
+page_name = ('id', 'fileName', 'page_name')
+add_element_button = ('css', 'button[onclick="page.addPageObjectInput();"]', 'Add Element button')
 save_button = ('css', 'button#save', 'Save button')
 code_button = ('id', 'loadCodeButton', 'Code button')
 open_page_code_button = ('link_text', 'Open Page Code', 'Open Page Code button')

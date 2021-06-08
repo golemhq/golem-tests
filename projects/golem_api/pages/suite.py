@@ -8,6 +8,7 @@ DUPLICATE_SUITE_ENDPOINT = '/suite/duplicate'
 RENAME_SUITE_ENDPOINT = '/suite/rename'
 RUN_SUITE_ENDPOINT = '/suite/run'
 SAVE_SUITE_ENDPOINT = '/suite/save'
+SAVE_SUITE_CODE_ENDPOINT = '/suite/code/save'
 RENAME_SUITE_DIRECTORY_ENDPOINT = '/suite/directory/rename'
 DELETE_SUITE_DIRECTORY_ENDPOINT = '/suite/directory/delete'
 
@@ -52,6 +53,15 @@ def save_suite(project_name, suite_name, tests=[], processes=1, tags=[], browser
         'environments': environments
     }
     return requests.put(url(SAVE_SUITE_ENDPOINT), headers=headers(user), json=json_)
+
+
+def save_suite_code(project_name, suite_name, content, user=None):
+    json_ = {
+        'project': project_name,
+        'suiteName': suite_name,
+        'content': content
+    }
+    return requests.put(url(SAVE_SUITE_CODE_ENDPOINT), headers=headers(user), json=json_)
 
 
 def rename_suite_directory(project_name, dir_name, new_dir_name, user=None):

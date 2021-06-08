@@ -11,4 +11,4 @@ def test(data):
     actions.send_text_to_alert('hey, some text')
     golem_steps.assert_last_step_message("Send 'hey, some text' to alert")
     actions.accept_alert()
-    actions.verify_text_in_element('#result', 'hey, some text')
+    actions.verify_element_text('#result', 'hey, some text')

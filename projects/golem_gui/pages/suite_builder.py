@@ -10,7 +10,7 @@ browsers_input = ('id', 'browsers', 'Browsers input')
 processes_input = ('id', 'processes', 'Processes input')
 environments_input = ('id', 'environments', 'Environments input')
 tags_input = ('id', 'tags', 'Tags input')
-suite_name = ('id', 'suiteName', 'Suite name')
+suite_name = ('id', 'fileName', 'Suite name')
 all_tests_checkbox = ('id', 'allTestCasesCheckbox')
 
 

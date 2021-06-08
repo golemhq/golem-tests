@@ -8,6 +8,8 @@ from projects.golem_gui.pages import test_builder
 
 description = 'Verify the user can add an action to the setup'
 
+skip = True
+
 
 def setup(data):
     common.access_golem(data.env.url, data.env.admin)

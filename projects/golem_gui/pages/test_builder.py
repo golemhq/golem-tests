@@ -4,8 +4,8 @@ from golem.browser import element, elements, get_browser
 from projects.golem_gui.pages import test_run_config_modal
 
 
-test_name = ('id', 'testName', 'Test Name')
-test_name_input = ('css', '#testNameInput>input', 'Test Name input')
+test_name = ('id', 'fileName', 'Test Name')
+test_name_input = ('css', '#filenameInput>input', 'Test Name input')
 description = ('id', 'description', 'Description input')
 save_button = ('id', 'save', 'Save button')
 code_button = ('id', 'loadCodeButton', 'Code button')
@@ -22,11 +22,19 @@ skip_checkbox = ('id', 'skipCheckbox', 'Skip checkbox')
 skip_message_input = ('id', 'skipReason', 'Skip Message input')
 
 
+def test_function_element(test_function_name):
+    selector = "//span[@class='test-function-name' and text()='{}']/../../..".format(test_function_name)
+    return element(xpath=selector, timeout=0)
+
+
+def test_function_steps_element(tfname):
+    tfelement = test_function_element(tfname)
+    return tfelement.find('div.steps')
+
+
 def add_action(action_name, params=[], where='test'):
     """adds an action using the autocomplete list"""
-    if where == 'test':
-        steps_section = element('div#testSteps')
-    elif where == 'setup':
+    if where == 'setup':
         steps_section = element('#setupSteps', wait_displayed=False)
         if not steps_section.is_displayed():
             actions.click('#showSetupLink>a')
@@ -36,6 +44,8 @@ def add_action(action_name, params=[], where='test'):
         if not steps_section.is_displayed():
             actions.click('#showTeardownLink>a')
             actions.wait(0.5)
+    else:
+        steps_section = test_function_steps_element(where)
 
     # get last step
     steps = steps_section.find_all('div.step')
@@ -63,12 +73,13 @@ def add_action(action_name, params=[], where='test'):
 
 def assert_last_action(action_name, where='test'):
     action_inputs = None
-    if where == 'test':
-        action_inputs = elements("#testSteps .step-first-input")
-    elif where == 'setup':
+    if where == 'setup':
         action_inputs = elements("#setupSteps .step-first-input")
     elif where == 'teardown':
         action_inputs = elements("#teardownSteps .step-first-input")
+    else:
+        steps_section = test_function_steps_element(where)
+        action_inputs = steps_section.find_all('.step-first-input')
     last_input = action_inputs[-1]
     actual_value = last_input.get_attribute('value')
     msg = 'Expected action to be {} but was {}'.format(action_name, actual_value)
@@ -118,14 +129,13 @@ def assert_tags(expected_tags):
 
 
 def steps(where='test'):
-    if where == 'test':
-        return elements('#testSteps>.steps>.step')
-    elif where == 'setup':
+    if where == 'setup':
         return elements('#setupSteps>.steps>.step')
     elif where == 'teardown':
         return elements('#teardownSteps>.steps>.step')
     else:
-        raise ValueError('invalid where value: {}'.format(where))
+        steps_section = test_function_steps_element(where)
+        return steps_section.find_all('.steps>.step')
 
 
 def remove_steps(where='test'):

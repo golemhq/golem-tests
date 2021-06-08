@@ -36,10 +36,11 @@ def rename_test(project_name, test_name, new_test_name, user=None):
     return requests.post(url(RENAME_TEST_ENDPOINT), headers=headers(user), json=json_)
 
 
-def run_test(project_name, test_name, browsers=[], environments=[], processes=1, user=None):
+def run_test(project_name, test_name, test_functions=[], browsers=[], environments=[], processes=1, user=None):
     json_ = {
         'project': project_name,
         'testName': test_name,
+        'testFunctions': test_functions,
         'browsers': browsers,
         'environments': environments,
         'processes': processes

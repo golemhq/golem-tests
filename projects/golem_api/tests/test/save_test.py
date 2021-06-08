@@ -8,7 +8,13 @@ def setup(data):
 
 
 def test(data):
-    steps = {'setup': [], 'test': [], 'teardown': []}
+    steps = {
+        'setup': [],
+        'tests': {
+            'test': []
+        },
+        'teardown': []
+    }
     response = test_.save_test(data.project, data.test, description='',
                                pages=[], test_data=[], steps=steps, tags=[], skip=False)
     assert response.status_code == 200

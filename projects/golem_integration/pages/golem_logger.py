@@ -4,7 +4,8 @@ from golem import execution
 
 
 def get_last_info_log_line():
-    path = os.path.join(execution.report_directory, 'execution_info.log')
+    test_file_reportdir = os.path.dirname(execution.report_directory)  # TODO
+    path = os.path.join(test_file_reportdir, 'execution_info.log')
     with open(path) as f:
         return f.readlines()[-1]
 

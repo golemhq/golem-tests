@@ -5,7 +5,8 @@ from projects.golem_integration.pages import golem_logger
 
 description = 'Verify accept_alert action'
 
-def test(data):
+
+def test_accept_alert(data):
     # alert
     actions.navigate(data.env.url+'alert/')
     actions.click('#alert-button')
