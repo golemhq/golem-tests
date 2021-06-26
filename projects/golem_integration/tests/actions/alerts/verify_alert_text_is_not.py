@@ -6,7 +6,8 @@ from projects.golem_integration.pages import golem_steps
 
 description = 'Verify verify_alert_text_is_not action'
 
-def test(data):
+
+def test_verify_alert_text_is_not(data):
     actions.navigate(data.env.url+'alert/')
     actions.click('#alert-button')
     actions.verify_alert_text_is_not('incorrect text')

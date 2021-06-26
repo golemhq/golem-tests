@@ -7,7 +7,7 @@ def setup(data):
     data.project = project.create_random_project()
 
 
-def test(data):
+def test_project_health(data):
     # project without executions
     response = project.get_project_health(data.project)
     assert response.status_code == 200

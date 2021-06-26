@@ -7,7 +7,7 @@ def setup(data):
     data.suite = project.create_random_suite(data.project)
 
 
-def test(data):
-    response = suite.save_suite(data.project, data.suite, [], 1, [], [], [])
+def test_save_suite(data):
+    response = suite.save_suite(data.project, data.suite)
     assert response.status_code == 200
     assert response.json() == 'suite-saved'

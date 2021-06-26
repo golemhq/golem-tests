@@ -9,8 +9,10 @@ def setup(data):
     data.suite = project.create_random_suite(data.project)
 
 
-def test(data):
+def test_rename_suite(data):
     new_suite_name = actions.random_str()
     response = suite.rename_suite(data.project, data.suite, new_suite_name)
     assert response.status_code == 200
     assert response.json()['errors'] == []
+    assert not project.suite_exists(data.project, data.suite)
+    assert project.suite_exists(data.project, new_suite_name)

@@ -5,7 +5,8 @@ from projects.golem_integration.pages import golem_steps
 
 description = 'Verify http_post action'
 
-def test(data):
+
+def test_http_post(data):
     url = data.env.url + 'form-basic-result/'
     payload = {
         'name': 'name',

@@ -7,7 +7,8 @@ from projects.golem_integration.utils import expected_exception
 
 description = 'Verify wait_for_alert_present action'
 
-def test(data):
+
+def test_wait_for_alert_present(data):
     actions.navigate(data.env.url+'alert/')
     actions.click('#alert-delay-button')
     actions.wait_for_alert_present(5)

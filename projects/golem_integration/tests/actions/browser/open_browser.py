@@ -6,7 +6,8 @@ from projects.golem_integration.pages import golem_steps
 
 description = 'Verify browser action'
 
-def test(data):
+
+def test_open_browser(data):
     actions.open_browser()
     golem_steps.assert_last_step_message('Open browser')
     assert 'main' in execution.browsers.keys()

@@ -6,7 +6,8 @@ from projects.golem_integration.utils import expected_exception
 
 description = 'assert_element_not_displayed action'
 
-def test(data):
+
+def test_assert_element_not_displayed(data):
     actions.navigate(data.env.url+'special-elements/')
     actions.assert_element_not_displayed('#hidden-button')
     golem_steps.assert_last_step_message('Assert element #hidden-button is not displayed')

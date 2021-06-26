@@ -7,7 +7,7 @@ def setup(data):
     project.using_project('general')
 
 
-def test(data):
+def test_suite_exists(data):
     suite = actions.random_str()
     response = project.get_suite_exists(data.project, suite)
     assert response.json() is False

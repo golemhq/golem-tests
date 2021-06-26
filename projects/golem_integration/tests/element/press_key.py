@@ -7,7 +7,7 @@ def test(data):
     actions.navigate(data.env.url + 'elements/')
     element = actions.get_browser().find('#input-one')
     element.press_key('NUMPAD2')
-    actions.verify_text_in_element('#input-one-input-result', 'Welcome 2')
+    actions.verify_element_text('#input-one-input-result', 'Welcome 2')
     try:
         element = actions.get_browser().find('#input-one')
         element.press_key('UNDEFINED_KEY')

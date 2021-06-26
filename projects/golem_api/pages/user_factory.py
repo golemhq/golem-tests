@@ -19,6 +19,7 @@ def create_random_user(project_permissions=None):
 def create_user_if(username):
     """Create a user if it does not exist.
     username should be `project__permission`
+    eg: 'project_name__read-only'
     """
     password = '123'
     split_ = username.split('__')
@@ -27,6 +28,8 @@ def create_user_if(username):
     if not user_exists(username):
         project = split_[0]
         permission = split_[1]
+        if permission not in ['super-user', 'admin', 'standard', 'read-only', 'reports-only']:
+            raise Exception('Invalid permission: {}'.format(permission))
         project_page.create_project_if(project)
         permissions = [{'project': project, 'permission': permission}]
         users.create_new_user(username, password, project_permissions=permissions)

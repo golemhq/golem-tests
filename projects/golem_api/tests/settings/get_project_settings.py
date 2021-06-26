@@ -6,6 +6,6 @@ def setup(data):
     data.project = project.create_random_project()
 
 
-def test(data):
+def test_get_project_settings(data):
     response = settings.get_project_settings(data.project)
     assert response.status_code == 200

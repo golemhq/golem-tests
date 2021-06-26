@@ -7,7 +7,7 @@ def setup(data):
     data.test = project.create_random_test(data.project)
 
 
-def test(data):
+def test_run_test(data):
     response = test_.run_test(data.project, data.test)
     assert response.status_code == 200
     assert type(response.json()) == str

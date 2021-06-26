@@ -4,18 +4,29 @@ from projects.golem_api.pages import test_
 
 def setup(data):
     project.using_project('general')
-    data.test = project.create_random_test(data.project)
 
 
-def test(data):
+def test_save_test(data):
+    test_name = project.create_random_test(data.project)
     steps = {
         'setup': [],
         'tests': {
-            'test': []
+            'test_one': [
+                {'type': 'function-call', 'action': 'step', 'parameters': ["'msg'"]}
+            ]
         },
         'teardown': []
     }
-    response = test_.save_test(data.project, data.test, description='',
-                               pages=[], test_data=[], steps=steps, tags=[], skip=False)
+    response = test_.save_test(data.project, test_name, description='', pages=[],
+                               test_data=[], steps=steps, tags=[], skip=False)
     assert response.status_code == 200
     assert response.json() == 'test-saved'
+
+    response = test_.get_test_components(data.project, test_name)
+    expected = [{
+        'code': "step('msg')",
+        'function_name': 'step',
+        'parameters': ["'msg'"],
+        'type': 'function-call'
+    }]
+    assert response.json()['components']['test_functions']['test_one'] == expected

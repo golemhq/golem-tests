@@ -6,7 +6,8 @@ from projects.golem_integration.utils import expected_exception
 
 description = 'assert_alert_text_is_not action'
 
-def test(data):
+
+def test_assert_alert_text_is_not(data):
     actions.navigate(data.env.url+'alert/')
     actions.click('#alert-button')
     actions.assert_alert_text_is_not('incorrect text')

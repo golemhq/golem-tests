@@ -3,7 +3,8 @@ from golem import actions
 
 description = 'Verify maximize_window action'
 
-def test(data):
+
+def test_maximize_window(data):
     actions.open_browser()
     actions.set_window_size(400, 400)
     actions.maximize_window()

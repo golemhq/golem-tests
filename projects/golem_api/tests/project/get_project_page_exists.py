@@ -7,7 +7,7 @@ def setup(data):
     project.using_project('general')
 
 
-def test(data):
+def test_page_exists(data):
     page = actions.random_str()
     response = project.get_page_exists(data.project, page)
     assert response.json() is False

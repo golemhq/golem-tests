@@ -6,15 +6,23 @@ from projects.golem_api.pages import test_
 
 def setup(data):
     project.using_project('general')
-    data.test_one = project.create_random_test(data.project)
-    data.test_two = '{}.{}'.format(actions.random_str(), actions.random_str())
-    project.create_test(data.project, data.test_two)
 
 
-def test(data):
-    response = test_.delete_test(data.project, data.test_one)
+def test_delete_test(data):
+    test_one = project.create_random_test(data.project)
+    response = test_.delete_test(data.project, test_one)
     assert response.status_code == 200
     assert response.json() == []
-    assert not project.get_test_exists(data.project, data.test_one).json()
-    test_.delete_test(data.project, data.test_two)
-    assert not project.get_test_exists(data.project, data.test_two).json()
+    assert not project.test_exists(data.project, test_one)
+
+    test_two = '{}.{}'.format(actions.random_str(), actions.random_str())
+    project.create_test(data.project, test_two)
+    test_.delete_test(data.project, test_two)
+    assert not project.test_exists(data.project, test_two)
+
+
+def test_delete_test_doesnt_exist(data):
+    test_name = actions.random_str()
+    response = test_.delete_test(data.project, test_name)
+    assert response.status_code == 200
+    assert response.json() == ['Test {} does not exist'.format(test_name)]

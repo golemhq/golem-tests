@@ -5,7 +5,8 @@ from projects.golem_integration.pages import golem_steps
 
 description = 'Verify send_text_to_alert action'
 
-def test(data):
+
+def test_send_text_to_alert(data):
     actions.navigate(data.env.url + 'prompt/')
     actions.click('#prompt-button')
     actions.send_text_to_alert('hey, some text')

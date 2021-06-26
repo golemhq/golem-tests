@@ -5,7 +5,8 @@ from projects.golem_integration.pages import golem_steps
 
 description = 'Verify golem action delete_cookie'
 
-def test(data):
+
+def test_delete_cookie(data):
     actions.navigate('https://google.com')
     actions.add_cookie({'name': 'foo', 'value': 'bar'})
     actions.delete_cookie('foo')

@@ -15,7 +15,7 @@ def setup(data):
     report.wait_for_execution_to_finish(data.project, data.suite, data.timestamp)
 
 
-def test(data):
+def test_get_test_report(data):
     response = report.get_execution(data.project, data.suite, data.timestamp)
     test_file = response.json()['tests'][0]['test_file']
     test_name = response.json()['tests'][0]['test']

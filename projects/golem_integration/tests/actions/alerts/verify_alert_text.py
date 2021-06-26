@@ -6,7 +6,8 @@ from projects.golem_integration.pages import golem_steps
 
 description = 'Verify verify_alert_text action'
 
-def test(data):
+
+def test_verify_alert_text(data):
     actions.navigate(data.env.url+'alert/')
     actions.click('#alert-button')
     actions.verify_alert_text('an alert')

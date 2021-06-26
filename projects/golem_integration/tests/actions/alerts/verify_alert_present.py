@@ -5,7 +5,8 @@ from projects.golem_integration.pages import golem_steps
 
 description = 'Verify_alert_present action'
 
-def test(data):
+
+def test_verify_alert_present(data):
     actions.navigate(data.env.url+'alert/')
     actions.verify_alert_present()
     golem_steps.assert_last_step_message('Verify an alert is present')

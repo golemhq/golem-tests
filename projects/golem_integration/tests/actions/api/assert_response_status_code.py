@@ -6,7 +6,8 @@ from projects.golem_integration.utils import expected_exception
 
 description = 'assert_response_status_code action'
 
-def test(data):
+
+def test_assert_response_status_code(data):
     actions.http_get(data.env.url)
     actions.assert_response_status_code(data.last_response, 200)
     golem_steps.assert_last_step_message('Assert response status code is 200')

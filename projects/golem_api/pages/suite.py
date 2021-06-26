@@ -41,8 +41,16 @@ def run_suite(project_name, suite_name, user=None):
                          json={'project': project_name, 'suite': suite_name})
 
 
-def save_suite(project_name, suite_name, tests=[], processes=1, tags=[], browsers=[],
-               environments=[], user=None):
+def save_suite(project_name, suite_name, tests=None, processes=1, tags=None, browsers=None,
+               environments=None, user=None):
+    if tests is None:
+        tests = []
+    if tags is None:
+        tags = []
+    if browsers is None:
+        browsers = []
+    if environments is None:
+        environments = []
     json_ = {
         'project': project_name,
         'suite': suite_name,

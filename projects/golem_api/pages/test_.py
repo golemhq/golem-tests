@@ -3,6 +3,7 @@ import requests
 from projects.golem_api.pages.utils import url, headers
 
 
+TEST_COMPONENTS_ENDPOINT = '/test/components'
 DELETE_TEST_ENDPOINT = '/test/delete'
 DUPLICATE_TEST_ENDPOINT = '/test/duplicate'
 RENAME_TEST_ENDPOINT = '/test/rename'
@@ -11,6 +12,11 @@ SAVE_TEST_ENDPOINT = '/test/save'
 SAVE_TEST_CODE_ENDPOINT = '/test/code/save'
 RENAME_TEST_DIRECTORY_ENDPOINT = '/test/directory/rename'
 DELETE_TEST_DIRECTORY_ENDPOINT = '/test/directory/delete'
+
+
+def get_test_components(project_name, test_name, user=None):
+    return requests.get(url(TEST_COMPONENTS_ENDPOINT), headers=headers(user),
+                        params={'project': project_name, 'test': test_name})
 
 
 def delete_test(project_name, test_name, user=None):
@@ -48,8 +54,23 @@ def run_test(project_name, test_name, test_functions=[], browsers=[], environmen
     return requests.post(url(RUN_TEST_ENDPOINT), headers=headers(user), json=json_)
 
 
-def save_test(project_name, test_name, description, pages, test_data, steps, tags,
+def save_test(project_name, test_name, description='', pages=None, test_data=None, steps=None, tags=None,
               skip=False, user=None):
+    if pages is None:
+        pages = []
+    if test_data is None:
+        test_data = []
+    if steps is None:
+        steps = {
+            'setup': [],
+            'tests': {
+                'test_name': []
+            },
+            'teardown': []
+        }
+    if tags is None:
+        tags = []
+
     json_ = {
         'project': project_name,
         'testName': test_name,

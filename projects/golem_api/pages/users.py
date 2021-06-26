@@ -9,6 +9,7 @@ NEW_USER_ENDPOINT = '/users/new'
 EDIT_USER_ENDPOINT = '/users/edit'
 DELETE_USER_ENDPOINT = '/users/delete'
 RESET_USER_ENDPOINT = '/users/reset-password'
+RESET_OWN_PASSWORD_ENDPOINT = '/user/reset-password'
 
 
 def get_users(user=None):

@@ -6,7 +6,8 @@ from projects.golem_integration.utils import expected_exception
 
 description = 'assert_cookie_present action'
 
-def test(data):
+
+def test_assert_cookie_present(data):
     actions.navigate(data.env.url)
     cookie = {'name': 'foo', 'value': 'bar'}
     actions.add_cookie(cookie)

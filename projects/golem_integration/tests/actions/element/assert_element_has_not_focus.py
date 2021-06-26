@@ -6,7 +6,8 @@ from projects.golem_integration.utils import expected_exception
 
 description = 'assert_element_has_not_focus action'
 
-def test(data):
+
+def test_assert_element_has_not_focus(data):
     actions.navigate(data.env.url+'elements/')
     actions.assert_element_has_not_focus('#input-one')
     golem_steps.assert_last_step_message('Assert element #input-one does not have focus')

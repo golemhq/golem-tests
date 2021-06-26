@@ -6,7 +6,8 @@ from projects.golem_integration.utils import expected_exception
 
 description = 'assert_alert_present action'
 
-def test(data):
+
+def test_assert_alert_present(data):
     actions.navigate(data.env.url+'alert/')
     with expected_exception(AssertionError, 'an alert was not present'):
         actions.assert_alert_present()

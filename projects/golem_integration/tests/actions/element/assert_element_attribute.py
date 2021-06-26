@@ -6,7 +6,8 @@ from projects.golem_integration.utils import expected_exception
 
 description = 'assert_element_attribute action'
 
-def test(data):
+
+def test_assert_element_attribute(data):
     actions.navigate(data.env.url+'elements/')
     actions.assert_element_attribute('#button-one', 'id', 'button-one')
     expected = "Assert element #button-one attribute id value is 'button-one'"

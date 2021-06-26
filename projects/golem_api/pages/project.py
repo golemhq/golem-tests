@@ -176,7 +176,7 @@ def get_projects(user=None):
 
 def create_project_if(project_name, user=None):
     """Create a project only if it does not already exist"""
-    if not get_project_exists(project_name, user).json():
+    if not project_exists(project_name, user):
         response = create_project(project_name, user)
         if response.status_code != 200 or response.json()['errors'] != []:
             raise Exception('Error creating project {}'.format(project_name))
@@ -215,3 +215,18 @@ def create_random_test(project_name):
     create_test(project_name, test_name)
     return test_name
 
+
+def project_exists(project_name, user=None):
+    return get_project_exists(project_name, user).json() is True
+
+
+def test_exists(project_name, test_name):
+    return get_test_exists(project_name, test_name).json() is True
+
+
+def page_exists(project_name, page_name):
+    return get_page_exists(project_name, page_name).json() is True
+
+
+def suite_exists(project_name, suite_name):
+    return get_suite_exists(project_name, suite_name).json() is True

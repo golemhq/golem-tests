@@ -5,7 +5,8 @@ from projects.golem_integration.pages import golem_steps
 
 description = 'verify_cookie_value action'
 
-def test(data):
+
+def test_verify_cookie_value(data):
     actions.navigate(data.env.url)
     actions.add_cookie({'name': 'foo', 'value': 'bar'})
     actions.verify_cookie_value('foo', 'bar')

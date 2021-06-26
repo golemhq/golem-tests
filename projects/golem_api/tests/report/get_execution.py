@@ -11,11 +11,11 @@ def setup(data):
     data.test_name = project.create_random_test(data.project)
     suite.save_suite(data.project, data.suite, tests=[data.test_name])
     response = suite.run_suite(data.project, data.suite)
-    actions.store('timestamp', response.json())
+    data.timestamp = response.json()
     report.wait_for_execution_to_finish(data.project, data.suite, data.timestamp)
 
 
-def test(data):
+def test_get_execution(data):
     response = report.get_execution(data.project, data.suite, data.timestamp)
     assert response.status_code == 200
     assert response.json()['tests'][0]['test_file'] == data.test_name

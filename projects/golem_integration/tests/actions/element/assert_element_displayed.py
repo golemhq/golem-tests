@@ -6,7 +6,8 @@ from projects.golem_integration.utils import expected_exception
 
 description = 'assert_element_displayed action'
 
-def test(data):
+
+def test_assert_element_displayed(data):
     actions.navigate(data.env.url+'special-elements/')
     actions.assert_element_displayed('#double-click-one')
     golem_steps.assert_last_step_message('Assert element #double-click-one is displayed')

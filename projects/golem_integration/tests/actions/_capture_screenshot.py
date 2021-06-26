@@ -10,7 +10,7 @@ description = 'Verify _capture_screenshot'
 
 def test(data):
     original_screenshot_settings = execution.settings['screenshots']
-    reportdir = execution.report_directory
+    reportdir = execution.test_reportdir
     imgpath = lambda filename: os.path.join(reportdir, filename)
 
     actions.navigate(data.env.url)

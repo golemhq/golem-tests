@@ -14,7 +14,7 @@ def setup(data):
     actions.store('timestamp', response.json())
 
 
-def test(data):
+def test_get_test_status(data):
     for _ in range(10):
         response = report.get_test_status(data.project, data.test, data.timestamp)
         if response.json()['has_finished'] is True:
@@ -24,4 +24,4 @@ def test(data):
     if response.json()['has_finished']:
         assert len(response.json()['sets']) == 1
     else:
-        raise AssertionError('Test execution did not finish in time')
+        actions.fail('Test execution did not finish in time')
