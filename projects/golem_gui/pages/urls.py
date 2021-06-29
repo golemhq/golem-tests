@@ -1,24 +1,28 @@
 from golem import execution
 
 
-def project(project):
-    return '{}project/{}/'.format(execution.data.env.url, project)
+def project(project_name):
+    return '{}project/{}/'.format(execution.data.env.url, project_name)
 
 
-def test(project, test):
-    return '{}project/{}/test/{}/'.format(execution.data.env.url, project, test)
+def test(project_name, test_name):
+    return '{}project/{}/test/{}/'.format(execution.data.env.url, project_name, test_name)
 
 
-def page(project, page):
-    return '{}project/{}/page/{}/'.format(execution.data.env.url, project, page)
+def test_code(project_name, test_name):
+    return '{}project/{}/test/{}/code/'.format(execution.data.env.url, project_name, test_name)
 
 
-def suite(project, suite):
-    return '{}project/{}/suite/{}/'.format(execution.data.env.url, project, suite)
+def page(project_name, page_name):
+    return '{}project/{}/page/{}/'.format(execution.data.env.url, project_name, page_name)
 
 
-def environments(project):
-    return '{}project/{}/environments/'.format(execution.data.env.url, project)
+def suite(project_name, suite_name):
+    return '{}project/{}/suite/{}/'.format(execution.data.env.url, project_name, suite_name)
+
+
+def environments(project_name):
+    return '{}project/{}/environments/'.format(execution.data.env.url, project_name)
 
 
 def users_new():

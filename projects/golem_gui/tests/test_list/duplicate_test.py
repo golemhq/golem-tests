@@ -10,10 +10,8 @@ description = 'Verify the user can duplicate a test and tags are displayed for d
 
 def setup(data):
     common.access_golem(data.env.url, data.env.admin)
-    api.project.create_access_random_project()
-    common.navigate_menu('Tests')
-    actions.store('test', actions.random_str())
-    api.test.create_test(data.project, data.test)
+    api.project.using_project('test_list')
+    data.test = api.test.create_test(data.project)
     common.navigate_menu('Tests')
 
 
@@ -30,7 +28,3 @@ def test(data):
     test_list.assert_test_exists(data.test)
     test_list.assert_test_exists(new_name)
     test_list.assert_test_exists(new_name_two)
-
-
-def teardown(data):
-    api.project.delete_project(data.project)

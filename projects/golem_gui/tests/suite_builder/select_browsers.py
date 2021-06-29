@@ -2,7 +2,6 @@ from golem import actions
 
 from projects.golem_gui.pages import common
 from projects.golem_gui.pages import settings
-from projects.golem_gui.pages import index
 from projects.golem_gui.pages import api
 from projects.golem_gui.pages import suite_builder
 
@@ -12,11 +11,11 @@ description = 'Verify browsers can be selected'
 
 def setup(data):
     common.access_golem(data.env.url, data.env.admin)
-    index.create_access_project('suite_builder')
+    api.project.create_access_random_project()
     common.navigate_menu('Project Settings')
     settings.set_settings_value('{"remote_browsers": {"browser001": {}}}')
     actions.click(settings.save_button)
-    api.suite.create_access_random_suite('suite_builder')
+    api.suite.create_access_suite(data.project)
 
 
 def test(data):

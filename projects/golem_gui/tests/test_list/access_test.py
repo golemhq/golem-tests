@@ -13,16 +13,11 @@ tags = ['smoke']
 
 def setup(data):
     common.access_golem(data.env.url, data.env.admin)
-    api.project.create_access_random_project()
-    actions.store('test', actions.random_str())
-    api.test.create_test(data.project, data.test)
+    api.project.using_project('test_list')
+    data.test = api.test.create_test(data.project)
     common.navigate_menu('Tests')
 
 
 def test(data):
     test_list.access_test(data.test)
     actions.assert_element_text(test_builder.test_name, data.test)
-
-
-def teardown(data):
-    api.project.delete_project(data.project)

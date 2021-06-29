@@ -12,23 +12,21 @@ tags = ['smoke']
 
 def setup(data):
     common.access_golem(data.env.url, data.env.admin)
-    api.project.create_access_random_project()
+    api.project.using_project('page_list')
     common.navigate_menu('Pages')
 
 
-def test(data):
+def test_add_page(data):
     # to root
     page_one = actions.random_str()
     page_list.add_page(page_one)
-    page_list.assert_page_exists(page_one)
+    assert page_list.page_exists(page_one)
+
     # to folder
     page_two = 'folder1.' + actions.random_str()
     page_list.add_page(page_two)
-    page_list.assert_page_exists(page_two)
+    assert page_list.page_exists(page_two)
+
     actions.refresh_page()
-    page_list.assert_page_exists(page_one)
-    page_list.assert_page_exists(page_two)
-
-
-def teardown(data):
-    api.project.delete_project(data.project)
+    assert page_list.page_exists(page_one)
+    assert page_list.page_exists(page_two)

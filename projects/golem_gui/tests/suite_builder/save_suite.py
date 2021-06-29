@@ -1,7 +1,6 @@
 from golem import actions
 
 from projects.golem_gui.pages import common
-from projects.golem_gui.pages import index
 from projects.golem_gui.pages import api
 from projects.golem_gui.pages import suite_builder
 
@@ -12,8 +11,8 @@ tags = ['smoke']
 
 def setup(data):
     common.access_golem(data.env.url, data.env.admin)
-    index.create_access_project('run_suite')
-    api.suite.create_access_random_suite('run_suite')
+    api.project.using_project('suite_builder')
+    api.suite.create_access_suite(data.project)
 
 
 def test(data):

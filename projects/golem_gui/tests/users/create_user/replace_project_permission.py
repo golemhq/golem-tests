@@ -1,5 +1,3 @@
-from golem import actions
-
 from projects.golem_gui.pages import common
 from projects.golem_gui.pages.users import create_user
 

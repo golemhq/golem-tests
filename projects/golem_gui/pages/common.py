@@ -69,6 +69,10 @@ def wait_for_toast_to_dissapear():
     get_browser().wait_for_element_not_present('div.toast', 10)
 
 
+def wait_for_error_modal_displayed(timeout=10):
+    get_browser().wait_for_element_displayed(error_modal, timeout)
+
+
 def error_modal_is_displayed():
     error_modal_element = get_browser().find(error_modal, timeout=0, wait_displayed=False)
     return error_modal_element.is_displayed()

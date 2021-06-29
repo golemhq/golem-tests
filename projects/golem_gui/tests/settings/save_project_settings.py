@@ -2,7 +2,7 @@ from golem import actions
 
 from projects.golem_gui.pages import common
 from projects.golem_gui.pages import settings
-from projects.golem_gui.pages import index
+from projects.golem_gui.pages import api
 
 
 description = 'Verify project settings can be modified and saved'
@@ -12,7 +12,7 @@ tags = ['smoke']
 
 def setup(data):
     common.access_golem(data.env.url, data.env.admin)
-    index.create_access_project('test_project_settings')
+    api.project.using_project('settings')
 
 
 def test(data):

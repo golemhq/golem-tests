@@ -10,8 +10,7 @@ def setup(data):
 
 
 def test(data):
-    new_username = actions.random_str()
-    actions.send_keys(create_user.username, new_username)
+    actions.send_keys(create_user.username, actions.random_str())
     actions.send_keys(create_user.email, 'test@')
     actions.send_keys(create_user.password, '123456')
     actions.click(create_user.create_user_button)

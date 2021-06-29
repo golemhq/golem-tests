@@ -9,7 +9,7 @@ description = 'Verify that the user can log in to Golem web module'
 tags = ['smoke']
 
 
-def test(data):
+def test_login_success(data):
     actions.navigate(data.env.url)
     actions.click(login.login_button)
     actions.send_keys(login.username_input, 'admin')

@@ -1,7 +1,6 @@
 from golem import actions
 
 from projects.golem_gui.pages import common
-from projects.golem_gui.pages import index
 from projects.golem_gui.pages import api
 from projects.golem_gui.pages import suite_builder
 
@@ -11,10 +10,9 @@ description = 'Verify tests can be selected'
 
 def setup(data):
     common.access_golem(data.env.url, data.env.admin)
-    index.create_access_project('suite_builder')
-    actions.store('test', actions.random_str())
-    api.test.create_test('suite_builder', data.test)
-    api.suite.create_access_random_suite('suite_builder')
+    api.project.using_project('suite_builder')
+    data.test = api.test.create_test(data.project)
+    api.suite.create_access_suite(data.project)
 
 
 def test(data):

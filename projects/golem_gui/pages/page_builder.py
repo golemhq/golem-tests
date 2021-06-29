@@ -1,5 +1,5 @@
 from golem import actions
-from golem.browser import elements
+from golem.browser import elements, get_browser
 
 
 page_name = ('id', 'fileName', 'page_name')
@@ -9,17 +9,22 @@ code_button = ('id', 'loadCodeButton', 'Code button')
 open_page_code_button = ('link_text', 'Open Page Code', 'Open Page Code button')
 
 
+def is_displayed(page_name):
+    selector = '//h3/span[contains(text(),"{}")]'.format(page_name)
+    return get_browser().element_is_present(('xpath', selector))
+
+
 def add_element(element_def):
     actions.click(add_element_button)
     elemement_rows = elements('#elements>div.element')
     last_element_row = elemement_rows[-1]
     element_name_input = last_element_row.find('input.element-name')
-    actions.send_keys(element_name_input, element_def[0])
     element_selector_input = last_element_row.find('input.element-selector')
-    actions.send_keys(element_selector_input, element_def[1])
     element_value_input = last_element_row.find('input.element-value')
-    actions.send_keys(element_value_input, element_def[2])
     element_display_name_input = last_element_row.find('input.element-display-name')
+    actions.send_keys(element_name_input, element_def[0])
+    actions.send_keys(element_selector_input, element_def[1])
+    actions.send_keys(element_value_input, element_def[2])
     actions.clear_element(element_display_name_input)
     actions.send_keys(element_display_name_input, element_def[3])
     actions.press_key(element_display_name_input, 'TAB')

@@ -1,5 +1,7 @@
-from projects.golem_gui.pages.api_utils import (test_factory, project_factory,
-                                                page_factory, suite_factory)
+from projects.golem_gui.pages.api_utils import test_factory
+from projects.golem_gui.pages.api_utils import project_factory
+from projects.golem_gui.pages.api_utils import page_factory
+from projects.golem_gui.pages.api_utils import suite_factory
 
 
 test = test_factory

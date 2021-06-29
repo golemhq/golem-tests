@@ -7,7 +7,7 @@ from projects.golem_gui.pages import test_list
 
 def setup(data):
     common.access_golem(data.env.url, data.env.admin)
-    api.project.create_access_random_project()
+    api.project.using_project('test_list')
     common.navigate_menu('Tests')
 
 
@@ -21,7 +21,3 @@ def test(data):
     test_list.add_test(test_name)
     common.assert_error_message('Maximum name length is 150 characters')
     assert not test_list.test_exists(test_name)
-
-
-def teardown(data):
-    api.project.delete_project(data.project)

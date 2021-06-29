@@ -1,7 +1,6 @@
 from golem import actions
 
 from projects.golem_gui.pages import common
-from projects.golem_gui.pages import index
 from projects.golem_gui.pages import api
 from projects.golem_gui.pages import test_builder
 from projects.golem_gui.pages import test_run_modal
@@ -13,8 +12,8 @@ description = 'The user can add two data sets before running a test'
 
 def setup(data):
     common.access_golem(data.env.url, data.env.admin)
-    index.create_access_project('project_two_envs')
-    api.test.create_access_random_test('project_no_envs')
+    api.project.create_access_random_project()
+    api.test.create_access_test(data.project)
 
 
 def test(data):

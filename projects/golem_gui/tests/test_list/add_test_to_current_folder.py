@@ -7,7 +7,7 @@ from projects.golem_gui.pages import test_list
 
 def setup(data):
     common.access_golem(data.env.url, data.env.admin)
-    api.project.create_access_random_project()
+    api.project.using_project('test_list')
     common.navigate_menu('Tests')
 
 
@@ -22,7 +22,3 @@ def test(data):
     common.navigate_menu('Tests')
     test_list.assert_test_exists('{}.{}'.format(folder, test_one))
     test_list.assert_test_exists('{}.{}'.format(folder, test_two))
-
-
-def teardown(data):
-    api.project.delete_project(data.project)

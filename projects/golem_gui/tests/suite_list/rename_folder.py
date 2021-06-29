@@ -7,9 +7,9 @@ from projects.golem_gui.pages import suite_list
 
 def setup(data):
     common.access_golem(data.env.url, data.env.admin)
-    api.project.create_access_random_project()
+    api.project.using_project('suite_list')
     common.navigate_menu('Suites')
-    actions.store('folder', actions.random_str())
+    data.folder = actions.random_str()
     suite_list.add_folder(data.folder)
     actions.refresh_page()
 
@@ -23,7 +23,3 @@ def test(data):
     actions.refresh_page()
     assert not suite_list.folder_exists(data.folder)
     assert suite_list.folder_exists(new_folder)
-
-
-def teardown(data):
-    api.project.delete_project(data.project)

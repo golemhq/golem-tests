@@ -1,10 +1,7 @@
 from golem import actions
 
 from projects.golem_gui.pages import common
-from projects.golem_gui.pages import index
 from projects.golem_gui.pages import api
-from projects.golem_gui.pages import urls
-from projects.golem_gui.pages import environments
 from projects.golem_gui.pages import test_builder
 from projects.golem_gui.pages import test_run_modal
 from projects.golem_gui.pages import test_run_config_modal
@@ -15,11 +12,9 @@ description = 'The user can select two environments before running a test'
 
 def setup(data):
     common.access_golem(data.env.url, data.env.admin)
-    index.create_access_project('project_two_envs')
-    actions.navigate(urls.environments('project_two_envs'))
-    environments.set_value('{"foo": {}, "bar": {}}')
-    actions.click(environments.save_button)
-    api.test.create_access_random_test('project_two_envs')
+    api.project.create_access_random_project()
+    api.project.set_environments(data.project, '{"foo": {}, "bar": {}}')
+    api.test.create_access_test(data.project)
 
 
 def test(data):

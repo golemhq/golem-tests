@@ -8,7 +8,7 @@ from projects.golem_gui.pages import index
 
 
 def setup(data):
-    actions.store('user', utils.create_random_user())
+    data.user = utils.create_random_user()
     common.access_golem(data.env.url, data.user)
     common.navigate_menu('User Profile')
 

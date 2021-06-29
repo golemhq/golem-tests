@@ -2,7 +2,6 @@ from golem import actions
 
 from projects.golem_gui.pages import common
 from projects.golem_gui.pages import api
-from projects.golem_gui.pages import test_builder
 from projects.golem_gui.pages import test_builder_code
 from projects.golem_gui.pages import test_run_modal
 from projects.golem_gui.pages import test_run_config_modal
@@ -13,9 +12,8 @@ description = 'Verify the user can run a test from the config modal'
 
 def setup(data):
     common.access_golem(data.env.url, data.env.admin)
-    api.project.create_project_if('test')
-    api.test.create_access_random_test('test')
-    actions.click(test_builder.code_button)
+    api.project.using_project('test_builder_code')
+    api.test.create_access_test_code(data.project)
 
 
 def test(data):

@@ -10,9 +10,8 @@ description = 'Verify the user can duplicate a suite'
 
 def setup(data):
     common.access_golem(data.env.url, data.env.admin)
-    api.project.create_access_random_project()
-    actions.store('suite', actions.random_str())
-    api.suite.create_suite(data.project, data.suite)
+    api.project.using_project('suite_list')
+    data.suite = api.suite.create_suite(data.project)
     common.navigate_menu('Suites')
 
 
@@ -22,7 +21,3 @@ def test(data):
     suite_list.duplicate_suite(data.suite, new_name)
     suite_list.assert_suite_exists(data.suite)
     suite_list.assert_suite_exists(new_name)
-
-
-def teardown(data):
-    api.project.delete_project(data.project)

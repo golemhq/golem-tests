@@ -11,7 +11,7 @@ def test_get_project_tags(data):
     assert response.status_code == 200
     assert response.json() == []
     # add a test with one tag
-    test_name = project.create_random_test(data.project)
+    test_name = project.create_test(data.project)
     test_.save_test(data.project, test_name, tags=['tag1'])
     response = project.get_project_tags(data.project)
     assert response.status_code == 200

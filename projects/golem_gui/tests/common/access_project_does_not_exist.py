@@ -19,8 +19,8 @@ data = {
         'project/not_existent/page/foo/',
         'project/not_existent/page/foo/code/',
         'project/not_existent/suite/foo/',
-        'report/project/not_existent/',
-        'report/project/not_existent/suite/foo/'
+        'report/not_existent/',
+        'report/not_existent/foo/'
     ]
 }
 

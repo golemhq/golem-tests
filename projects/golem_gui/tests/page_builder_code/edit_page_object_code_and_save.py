@@ -14,8 +14,8 @@ tags = ['smoke']
 
 def setup(data):
     common.access_golem(data.env.url, data.env.admin)
-    index.create_access_project('test')
-    api.page.create_access_random_page('test')
+    api.project.using_project('page_builder_code')
+    api.page.create_access_page(data.project)
 
 
 def test(data):

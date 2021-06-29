@@ -35,17 +35,20 @@ def test_function_steps_element(tfname):
 def add_action(action_name, params=[], where='test'):
     """adds an action using the autocomplete list"""
     if where == 'setup':
+        # function_element
         steps_section = element('#setupSteps', wait_displayed=False)
         if not steps_section.is_displayed():
             actions.click('#showSetupLink>a')
             actions.wait(0.5)
     elif where == 'teardown':
+        # function_element
         steps_section = element('#teardownSteps', wait_displayed=False)
         if not steps_section.is_displayed():
             actions.click('#showTeardownLink>a')
             actions.wait(0.5)
     else:
-        steps_section = test_function_steps_element(where)
+        # function_element = test_function_element(where)
+        steps_section = test_function_element(where)
 
     # get last step
     steps = steps_section.find_all('div.step')

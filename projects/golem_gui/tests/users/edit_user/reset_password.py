@@ -7,7 +7,7 @@ from projects.golem_gui.pages import utils
 
 
 def setup(data):
-    actions.store('username', actions.random_str())
+    data.username = actions.random_str()
     utils.create_user(data.username, '123456')
     common.access_golem(data.env.url, data.env.admin)
     common.navigate_menu('Users')

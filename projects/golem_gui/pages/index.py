@@ -13,15 +13,10 @@ cancel_create_button = ('id', "createProjectCancel", 'Cancel button')
 project_list_item = ('css', '#projectList>a')
 
 
-def _project_exists(project_name):
+def project_is_present(project_name):
     items = elements(project_list_item)
     project_names = [x.text for x in items]
     return project_name in project_names
-
-
-def assert_project_exists(project_name):
-    actions.take_screenshot('verify the project exists in the list')
-    assert _project_exists(project_name), 'Project {} does not exists'.format(project_name)
 
 
 def access_project(project_name):
@@ -40,7 +35,7 @@ def create_project(project_name, ignore_exists=False):
     actions.send_keys(project_name_input, project_name)
     try:
         actions.click(create_button)
-        actions.wait_for_element_displayed(create_project_button)
+        actions.wait_for_element_displayed(create_project_button, 2)
     except TimeoutException as e:
         if ignore_exists:
             if common.error_modal_is_displayed():
@@ -51,6 +46,7 @@ def create_project(project_name, ignore_exists=False):
 
 
 def create_access_project(project_name):
-    if not _project_exists(project_name):
+    if not project_is_present(project_name):
         create_project(project_name, ignore_exists=True)
     access_project(project_name)
+    actions.get_data().project = project_name

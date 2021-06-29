@@ -29,11 +29,6 @@ def folder_exists(folder_name):
     return list_common.folder_exists(folder_name)
 
 
-def assert_folder_exists(folder_name):
-    actions.step('Assert folder {} exists'.format(folder_name))
-    assert folder_exists(folder_name)
-
-
 def add_folder(folder_name):
     actions.step('Add folder {}'.format(folder_name))
     folder_name_split = folder_name.split('.')

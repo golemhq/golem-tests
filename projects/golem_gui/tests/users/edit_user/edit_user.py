@@ -18,9 +18,9 @@ def test(data):
     users.click_edit_button(data.username)
     new_username = actions.random_str()
     new_email = 'test@test.com'
-    actions.clear(create_user.username)
+    actions.clear_element(create_user.username)
     actions.send_keys(create_user.username, new_username)
-    actions.clear(create_user.email)
+    actions.clear_element(create_user.email)
     actions.send_keys(create_user.email, new_email)
     actions.click(create_user.update_user_button)
     users.wait_for_table_to_load()

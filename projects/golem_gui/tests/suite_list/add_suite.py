@@ -12,24 +12,20 @@ tags = ['smoke']
 
 def setup(data):
     common.access_golem(data.env.url, data.env.admin)
-    api.project.create_access_random_project()
+    api.project.using_project('suite_list')
     common.navigate_menu('Suites')
 
 
 def test(data):
     suite_list.dismiss_no_tests_alert_if()
     # to root
-    actions.store('suite_one', actions.random_str())
-    suite_list.add_suite(data.suite_one)
-    suite_list.assert_suite_exists(data.suite_one)
+    suite_one = actions.random_str()
+    suite_list.add_suite(suite_one)
+    suite_list.assert_suite_exists(suite_one)
     # to folder
-    actions.store('suite_two', 'folder1.' + actions.random_str())
-    suite_list.add_suite(data.suite_two)
-    suite_list.assert_suite_exists(data.suite_two)
+    suite_two = '{}.{}'.format(actions.random_str(), actions.random_str())
+    suite_list.add_suite(suite_two)
+    suite_list.assert_suite_exists(suite_two)
     actions.refresh_page()
-    suite_list.assert_suite_exists(data.suite_one)
-    suite_list.assert_suite_exists(data.suite_two)
-
-
-def teardown(data):
-    api.project.delete_project(data.project)
+    suite_list.assert_suite_exists(suite_one)
+    suite_list.assert_suite_exists(suite_two)

@@ -12,9 +12,9 @@ tags = ['smoke']
 
 def setup(data):
     common.access_golem(data.env.url, data.env.admin)
-    api.project.create_access_random_project()
+    api.project.using_project('test_list')
     common.navigate_menu('Tests')
-    actions.store('test_one', actions.random_str())
+    data.test_one = actions.random_str()
     test_list.add_test(data.test_one)
 
 
