@@ -5,6 +5,7 @@ from golem.webdriver.extended_webelement import ExtendedFirefoxWebElement
 
 description = 'Verify that the webdriver.find method can find a web element by passing a css selector string directly to it'
 
+
 def test(data):
     actions.navigate(data.env.url+'elements/')
     browser = actions.get_browser()

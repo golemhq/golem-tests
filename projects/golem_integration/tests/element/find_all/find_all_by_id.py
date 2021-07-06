@@ -5,10 +5,10 @@ from golem.webdriver.extended_webelement import ExtendedFirefoxWebElement
 
 description = 'Verify that the webelement.find_all method can find a web element by id'
 
+
 def test(data):
     actions.navigate(data.env.url+'elements/')
-    browser = actions.get_browser()
-    container = browser.find('#button-one-container')
+    container = actions.get_browser().find('#button-one-container')
     selector = 'button-one'
     actions.step('Find all elements by id')
     click_me_buttons = container.find_all(id=selector)
