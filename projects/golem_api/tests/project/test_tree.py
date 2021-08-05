@@ -3,7 +3,7 @@ from projects.golem_api.pages import project
 
 def setup(data):
     data.project = project.create_random_project()
-    data.test = project.create_test(data.project)
+    data.test = project.create_random_test(data.project)
 
 
 def test_get_test_tree(data):

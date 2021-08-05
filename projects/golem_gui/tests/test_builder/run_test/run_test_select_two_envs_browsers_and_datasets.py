@@ -14,7 +14,7 @@ description = 'The user can select two environments, browsers and data sets befo
 def setup(data):
     common.access_golem(data.env.url, data.env.admin)
     api.project.create_access_random_project()
-    api.project.set_environments(data.project, '{"foo": {}, "bar": {}}')
+    api.project.set_environments(data.project, {'foo': {}, 'bar': {}})
     api.test.create_access_test(data.project)
 
 

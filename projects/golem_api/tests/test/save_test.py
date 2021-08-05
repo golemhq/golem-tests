@@ -7,7 +7,7 @@ def setup(data):
 
 
 def test_save_test(data):
-    test_name = project.create_test(data.project)
+    test_name = project.create_random_test(data.project)
     steps = {
         'setup': [],
         'tests': {

@@ -27,7 +27,7 @@ def test_project_health(data):
 
     # project with two executions, last one has one test
     # project-health should return the last one
-    test_name = project.create_test(data.project)
+    test_name = project.create_random_test(data.project)
     suite.save_suite(data.project, suite_name, tests=[test_name])
     response = suite.run_suite(data.project, suite_name)
     timestamp = response.json()

@@ -9,7 +9,7 @@ def setup(data):
 
 
 def test_rename_test(data):
-    test_one = project.create_test(data.project)
+    test_one = project.create_random_test(data.project)
     new_test_name = actions.random_str()
     response = test_.rename_test(data.project, test_one, new_test_name)
     assert response.status_code == 200
@@ -29,13 +29,13 @@ def test_rename_test_in_folder(data):
 
 
 def test_rename_test_destination_exists(data):
-    test_one = project.create_test(data.project)
+    test_one = project.create_random_test(data.project)
     response = test_.rename_test(data.project, test_one, test_one)
     assert response.json()['errors'] == ['A file with that name already exists']
 
 
 def test_rename_test_with_invalid_name(data):
-    test_name = project.create_test(data.project)
+    test_name = project.create_random_test(data.project)
     new_name = 'test-{}'.format(actions.random_str())
     response = test_.rename_test(data.project, test_name, new_name)
     assert response.status_code == 200

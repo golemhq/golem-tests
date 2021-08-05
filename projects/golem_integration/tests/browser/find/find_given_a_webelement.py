@@ -7,6 +7,7 @@ from golem.webdriver.extended_webelement import ExtendedFirefoxWebElement
 
 description = 'Verify that the webdriver.find method returns a ExtendedWebElement when a WebElement or ExtendedWebElement is passed as argument'
 
+
 def test(data):
     valid_element_classes = [ExtendedRemoteWebElement, ExtendedFirefoxWebElement]
     actions.navigate(data.env.url+'elements/')

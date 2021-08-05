@@ -9,7 +9,7 @@ def setup(data):
 
 
 def test_delete_test(data):
-    test_one = project.create_test(data.project)
+    test_one = project.create_random_test(data.project)
     response = test_.delete_test(data.project, test_one)
     assert response.status_code == 200
     assert response.json() == []

@@ -12,7 +12,7 @@ description = 'The app will prompt the user to select one env when there is more
 def setup(data):
     common.access_golem(data.env.url, data.env.admin)
     api.project.create_access_random_project()
-    api.project.set_environments(data.project, '{"foo": {}, "bar": {}}')
+    api.project.set_environments(data.project, {'foo': {}, 'bar': {}})
     api.test.create_access_test(data.project)
 
 

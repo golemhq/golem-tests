@@ -6,7 +6,7 @@ from projects.golem_api.pages import test_
 
 def setup(data):
     project.using_project('general')
-    data.test = project.create_test(data.project)
+    data.test = project.create_random_test(data.project)
 
 
 def test_duplicate_test(data):
@@ -25,7 +25,7 @@ def test_duplicate_test_to_another_folder(data):
 
 
 def test_duplicate_test_destination_exists(data):
-    test_name = project.create_test(data.project)
+    test_name = project.create_random_test(data.project)
     response = test_.duplicate_test(data.project, data.test, test_name)
     assert response.status_code == 200
     assert response.json() == ['A test with that name already exists']

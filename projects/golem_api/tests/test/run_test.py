@@ -4,7 +4,7 @@ from projects.golem_api.pages import test_
 
 def setup(data):
     project.using_project('general')
-    data.test = project.create_test(data.project)
+    data.test = project.create_random_test(data.project)
 
 
 def test_run_test(data):

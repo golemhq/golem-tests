@@ -31,7 +31,7 @@ def test_create_test_to_subfolder(data):
 
 
 def test_create_test_existing_name(data):
-    test_name = project.create_test(data.project)
+    test_name = project.create_random_test(data.project)
     response = project.create_test(data.project, test_name)
     assert response.status_code == 200
     assert response.json()['errors'] == ['A test with that name already exists']

@@ -162,7 +162,7 @@ def get_project_health(project_name, user=None):
 
 
 def save_environments(project_name, env_data, user=None):
-    # env_data = json.dumps(env_data)
+    env_data = json.dumps(env_data)
     return requests.put(url(SAVE_ENVIRONMENTS_ENDPOINT), headers=headers(user),
                         json={'project': project_name, 'environmentData': env_data})
 

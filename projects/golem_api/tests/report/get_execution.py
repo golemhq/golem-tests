@@ -8,7 +8,7 @@ from projects.golem_api.pages import report
 def setup(data):
     project.using_project('general')
     data.suite = project.create_random_suite(data.project)
-    data.test_name = project.create_test(data.project)
+    data.test_name = project.create_random_test(data.project)
     suite.save_suite(data.project, data.suite, tests=[data.test_name])
     response = suite.run_suite(data.project, data.suite)
     data.timestamp = response.json()
