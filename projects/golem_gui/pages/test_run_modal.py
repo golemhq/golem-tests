@@ -27,9 +27,10 @@ def assert_result_log_line(index, expected_line):
     assert expected_line in actual_line, msg
 
 
-def assert_result(expected_result):
-    # expects on test set
-    result = element('#testRunModal .test-results .test-result')
+def assert_result(expected_result, test_name='test'):
+    # expects one test set
+    test_function_report = element(f'//div[@id="testRunModal"]//div[@test-function-name="{test_name}"]')
+    result = test_function_report.find('.test-result')
     assert expected_result in result.text
 
 

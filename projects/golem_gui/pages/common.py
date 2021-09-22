@@ -60,7 +60,18 @@ def assert_toast_message_is_displayed(toast_message):
         toasts = elements('div.toast>.toast-message')
         for toast in toasts:
             if toast.text == toast_message:
-                return
+                return True
+        time.sleep(0.5)
+    assert False, 'Toast with message "{}" was not found'.format(toast_message)
+
+
+def assert_toast_message_is_displayed_and_contains(toast_message):
+    actions.step('Assert a toast is displayed with message {}'.format(toast_message))
+    for _ in range(6):
+        toasts = elements('div.toast>.toast-message')
+        for toast in toasts:
+            if toast_message in toast.text:
+                return True
         time.sleep(0.5)
     assert False, 'Toast with message "{}" was not found'.format(toast_message)
 

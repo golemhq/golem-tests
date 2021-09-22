@@ -19,6 +19,7 @@ def setup(data):
 
 
 def test(data):
+    test_builder_common.add_csv_datasource()
     test_builder_common.add_variable_to_datatable('foo', ['1', '2'])
     test_builder.save_test()
     test_builder.open_run_configurations_modal()

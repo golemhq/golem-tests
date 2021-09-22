@@ -17,6 +17,7 @@ def setup(data):
 
 
 def test(data):
+    test_builder_common.add_csv_datasource()
     test_builder_common.add_variable_to_datatable('foo', ['1', '2'])
     actions.click(test_builder.run_button)
     test_run_modal.wait_for_test_to_run()

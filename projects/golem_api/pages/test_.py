@@ -59,7 +59,11 @@ def save_test(project_name, test_name, description='', pages=None, test_data=Non
     if pages is None:
         pages = []
     if test_data is None:
-        test_data = []
+        test_data = {
+            'csv': None,
+            'json': None,
+            'internal': None
+        }
     if steps is None:
         steps = {
             'setup': [],
@@ -84,7 +88,13 @@ def save_test(project_name, test_name, description='', pages=None, test_data=Non
     return requests.put(url(SAVE_TEST_ENDPOINT), headers=headers(user), json=json_)
 
 
-def save_test_code(project_name, test_name, test_data, content, user=None):
+def save_test_code(project_name, test_name, content, test_data=None, user=None):
+    if test_data is None:
+        test_data = {
+            'csv': None,
+            'json': None,
+            'internal': None
+        }
     json_ = {
         'project': project_name,
         'testName': test_name,

@@ -26,5 +26,5 @@ def create_access_test_code(project_name, test_name=None):
 
 def create_test_with_code(project_name, test_name, code):
     create_test(project_name, test_name)
-    test_api.save_test_code(project_name, test_name, [], code)
+    test_api.save_test_code(project_name, test_name, code)
     return test_name

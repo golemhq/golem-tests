@@ -179,7 +179,10 @@ def create_project_if(project_name, user=None):
     if not project_exists(project_name, user):
         response = create_project(project_name, user)
         if response.status_code != 200 or response.json()['errors'] != []:
-            raise Exception('Error creating project {}'.format(project_name))
+            if 'A project with that name already exists' in response.json()['errors']:
+                return
+            else:
+                raise Exception('Error creating project {}'.format(project_name))
 
 
 def using_project(project_name, user=None):
