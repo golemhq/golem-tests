@@ -16,10 +16,10 @@ def setup(data):
 
 
 def test(data):
-    actions.click(test_builder.code_button)
+    test_builder.go_to_code_view()
     test_builder_code.set_value('undefined_var')
     test_builder_code.save_test()
-    actions.click(test_builder_code.preview_button)
+    test_builder_code.go_to_preview_view()
     actions.assert_page_contains_text('There are errors in the test')
     actions.assert_page_contains_text('There are errors and the test cannot be displayed, open the test code editor to solve them.')
     actions.assert_element_present(test_builder.open_test_code_button)

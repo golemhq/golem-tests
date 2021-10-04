@@ -66,11 +66,10 @@ def save_test(project_name, test_name, description='', pages=None, test_data=Non
         }
     if steps is None:
         steps = {
-            'setup': [],
+            'hooks': {},
             'tests': {
                 'test_name': []
-            },
-            'teardown': []
+            }
         }
     if tags is None:
         tags = []

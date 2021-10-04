@@ -11,5 +11,5 @@ def test_open_browser(data):
     actions.open_browser()
     golem_steps.assert_last_step_message('Open browser')
     assert 'main' in execution.browsers.keys()
-    actions.open_browser('other_browser')
+    actions.open_browser(browser_id='other_browser')
     assert 'other_browser' in execution.browsers.keys()

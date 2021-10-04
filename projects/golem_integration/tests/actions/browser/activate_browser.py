@@ -12,7 +12,7 @@ def test_activate_browser(data):
     actions.navigate(data.env.url)
     assert browser.get_browser().current_url == data.env.url
     actions.open_browser('second_browser')
-    actions.activate_browser('second_browser')
+    actions.activate_browser(browser_id='second_browser')
     assert golem_steps.get_last_step_message() == 'Activate browser second_browser'
     actions.navigate(data.env.url + 'elements/')
     assert browser.get_browser().current_url == data.env.url + 'elements/'

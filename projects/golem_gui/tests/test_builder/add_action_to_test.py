@@ -17,7 +17,6 @@ def setup(data):
 
 
 def test(data):
-    test_builder.add_action('click')
-    test_builder.save_test()
-    actions.refresh_page()
-    test_builder.assert_last_action('click')
+    test_builder.add_step_to_test('test', 'click')
+    test_builder.save_test_and_refresh_page()
+    assert test_builder.get_steps('test')[0].action_name == 'click'

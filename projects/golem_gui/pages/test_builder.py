@@ -20,47 +20,36 @@ tags_input = ('id', 'tags', 'Tag input')
 tags_autocomplete_list = ('css', 'div.autocomplete-suggestions')
 skip_checkbox = ('id', 'skipCheckbox', 'Skip checkbox')
 skip_message_input = ('id', 'skipReason', 'Skip Message input')
+test_hook_selector = ('css', "#hookSelector button")
 
 
-def test_function_element(test_function_name):
+def go_to_code_view():
+    element(code_button).click()
+
+
+def test_function_section(test_function_name):
     selector = "//span[@class='test-function-name' and text()='{}']/../../..".format(test_function_name)
     return element(xpath=selector, timeout=0)
 
 
 def test_function_steps_element(tfname):
-    tfelement = test_function_element(tfname)
+    tfelement = test_function_section(tfname)
     return tfelement.find('div.steps')
 
 
-def add_action(action_name, params=[], where='test'):
+def add_step_to_test(test_name, action_name, params=None):
     """adds an action using the autocomplete list"""
-    if where == 'setup':
-        # function_element
-        steps_section = element('#setupSteps', wait_displayed=False)
-        if not steps_section.is_displayed():
-            actions.click('#showSetupLink>a')
-            actions.wait(0.5)
-    elif where == 'teardown':
-        # function_element
-        steps_section = element('#teardownSteps', wait_displayed=False)
-        if not steps_section.is_displayed():
-            actions.click('#showTeardownLink>a')
-            actions.wait(0.5)
-    else:
-        # function_element = test_function_element(where)
-        steps_section = test_function_element(where)
-
     # get last step
-    steps = steps_section.find_all('div.step')
-    step = steps[-1]
-
+    test_container = test_function_section(test_name)
+    steps = test_container.find_all('div.step')
+    last_step = steps[-1]
     # if the last action input is not empty, add a new one
-    if step.find('input.step-first-input').value:
-        steps_section.find('button.add-step').click()
-        steps = steps_section.find_all('div.step')
-        step = steps[-1]
+    if last_step.find('input.step-first-input').value:
+        test_container.find('button.add-step').click()
+        steps = test_container.find_all('div.step')
+        last_step = steps[-1]
 
-    action_input = step.find('input.step-first-input')
+    action_input = last_step.find('input.step-first-input')
     for i in range(len(action_name)):
         action_input.send_keys(action_name[i])
         actions.wait(0.1)
@@ -69,24 +58,31 @@ def add_action(action_name, params=[], where='test'):
 
     # fill in each param
     if params:
-        param_inputs = step.find_all('input.parameter-input')
+        param_inputs = last_step.find_all('input.parameter-input')
         for i, param in enumerate(params):
             param_inputs[i].send_keys(param)
 
 
-def assert_last_action(action_name, where='test'):
-    action_inputs = None
-    if where == 'setup':
-        action_inputs = elements("#setupSteps .step-first-input")
-    elif where == 'teardown':
-        action_inputs = elements("#teardownSteps .step-first-input")
-    else:
-        steps_section = test_function_steps_element(where)
-        action_inputs = steps_section.find_all('.step-first-input')
-    last_input = action_inputs[-1]
-    actual_value = last_input.get_attribute('value')
-    msg = 'Expected action to be {} but was {}'.format(action_name, actual_value)
-    assert actual_value == action_name, msg
+def get_steps(test_name):
+    test_container = test_function_section(test_name)
+    return [Step(s) for s in test_container.find_all('div.step')]
+
+
+def get_step(test_name, index):
+    steps = get_steps(test_name)
+    return steps[index]
+
+
+def add_test_hook(test_hook_name):
+    element(test_hook_selector).click()
+    if test_hook_name == 'before_test':
+        element('#addTestHookBeforeTest').click()
+    if test_hook_name == 'before_each':
+        element('#addTestHookBeforeEach').click()
+    if test_hook_name == 'after_each':
+        element('#addTestHookAfterEach').click()
+    if test_hook_name == 'after_test':
+        element('#addTestHookAfterTest').click()
 
 
 def assert_description(desc):
@@ -96,6 +92,12 @@ def assert_description(desc):
 def save_test():
     actions.click(save_button)
     actions.wait_for_element_displayed('#toast-container', timeout=5)
+
+
+def save_test_and_refresh_page():
+    actions.click(save_button)
+    actions.wait_for_element_displayed('#toast-container', timeout=5)
+    actions.refresh_page()
 
 
 def import_page(page_name):
@@ -131,30 +133,10 @@ def assert_tags(expected_tags):
         assert t in actual_tags, 'tag "{}" is not in Tags input'.format(t)
 
 
-def steps(where='test'):
-    if where == 'setup':
-        return elements('#setupSteps>.steps>.step')
-    elif where == 'teardown':
-        return elements('#teardownSteps>.steps>.step')
-    else:
-        steps_section = test_function_steps_element(where)
-        return steps_section.find_all('.steps>.step')
-
-
-def remove_steps(where='test'):
-    step_elements = steps(where)
-    for step in step_elements:
-        step.find('.step-remove-icon>a').click()
-
-
-def get_step(index, where='test'):
-    step_elements = steps(where)
-    try:
-        step = step_elements[index]
-    except IndexError:
-        raise IndexError('error getting step index {}, total steps: {}'
-                         .format(index, len(step_elements)))
-    return Step(step)
+# def remove_steps(where='test'):
+#     step_elements = steps(where)
+#     for step in step_elements:
+#         step.find('.step-remove-icon>a').click()
 
 
 def open_run_configurations_modal():
@@ -174,9 +156,17 @@ def add_tag(tag_name):
 
 class Step:
 
-    def __init__(self, element):
-        self.element = element
-        self.step_type = element.get_attribute('step-type')
+    def __init__(self, step_element):
+        self.element = step_element
+        self.step_type = step_element.get_attribute('step-type')
+
+    @property
+    def first_input(self):
+        return self.element.find('input.step-first-input')
+
+    @property
+    def action_name(self):
+        return self.first_input.value
 
     def set_code_value(self, value):
         script = "arguments[0].querySelector('.CodeMirror').CodeMirror.setValue(arguments[1])"

@@ -18,13 +18,13 @@ def setup(data):
 
 
 def test(data):
-    test_builder.add_action('code_block')
-    step = test_builder.get_step(0)
+    test_builder.add_step_to_test('test', 'code_block')
+    step = test_builder.get_step('test', 0)
     assert step.step_type == 'code-block'
     step.set_code_value('if(True):\n    print("True")')
     assert step.get_code_value() == 'if(True):\n    print("True")'
     test_builder.save_test()
-    actions.click(test_builder.code_button)
+    test_builder.go_to_code_view()
     expected = ('def test(data):\n'
                 '    if(True):\n'
                 '        print("True")\n')

@@ -16,7 +16,7 @@ def setup(data):
 
 
 def test(data):
-    test_builder.add_action('error', params=["'error message'"])
+    test_builder.add_step_to_test('test', 'error', params=["'error message'"])
     actions.click(test_builder.run_button)
     test_run_modal.wait_for_test_to_run()
     test_run_modal.assert_result_log_line(0, 'Test execution started: {}'.format(data.test))

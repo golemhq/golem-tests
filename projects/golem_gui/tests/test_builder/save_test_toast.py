@@ -16,7 +16,13 @@ def setup(data):
     data.test = api.test.create_access_test(data.project)
 
 
-def test(data):
-    test_builder.add_action('click')
+def test_toast_is_displayed_when_saving_changes(data):
+    test_builder.add_step_to_test('test', 'click')
+    actions.click(test_builder.save_button)
+    common.assert_toast_message_is_displayed('Test '+data.test+' saved')
+
+
+def test_toast_is_displayed_with_no_changes(data):
+    actions.refresh_page()
     actions.click(test_builder.save_button)
     common.assert_toast_message_is_displayed('Test '+data.test+' saved')

@@ -18,8 +18,7 @@ def test_add_then_remove_internal_datasource(data):
     api.test.create_access_test(data.project)
     test_builder_common.add_internal_datasource()
     test_builder_common.set_value_to_internal_data_editor('data = [{"foo": "bar"}]')
-    test_builder.save_test()
-    actions.refresh_page()
+    test_builder.save_test_and_refresh_page()
     assert test_builder_common.get_value_of_internal_data_editor() == ('data = [\n'
                                                                        '    {\n'
                                                                        '        \'foo\': \'bar\',\n'
@@ -27,8 +26,7 @@ def test_add_then_remove_internal_datasource(data):
                                                                        ']\n')
     # remove internal datasource
     test_builder_common.remove_internal_datasource()
-    test_builder.save_test()
-    actions.refresh_page()
+    test_builder.save_test_and_refresh_page()
     assert not test_builder_common.internal_datasource_is_present()
 
 

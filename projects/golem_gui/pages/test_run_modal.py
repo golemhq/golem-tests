@@ -23,8 +23,7 @@ def assert_result_log_line(index, expected_line):
     # expects one test set
     test_result_logs = elements('#TestRunModalTabContainer>.test-run-tab-content>.test-result-logs>.log-line')
     actual_line = test_result_logs[index].text
-    msg = 'Expected "{}" in "{}"'.format(expected_line, actual_line)
-    assert expected_line in actual_line, msg
+    assert expected_line in actual_line, f'Expected "{expected_line}" in "{actual_line}"'
 
 
 def assert_result(expected_result, test_name='test'):

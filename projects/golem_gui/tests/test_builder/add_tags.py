@@ -19,11 +19,9 @@ def test(data):
     tag2 = 'bar'
     # add one tag
     test_builder.add_tag(tag1)
-    test_builder.save_test()
-    actions.refresh_page()
+    test_builder.save_test_and_refresh_page()
     test_builder.assert_tags([tag1])
     # add two tags
     test_builder.add_tag(tag2)
-    test_builder.save_test()
-    actions.refresh_page()
+    test_builder.save_test_and_refresh_page()
     test_builder.assert_tags([tag1, tag2])

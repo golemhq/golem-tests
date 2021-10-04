@@ -9,13 +9,12 @@ def setup(data):
 def test_save_test(data):
     test_name = project.create_random_test(data.project)
     steps = {
-        'setup': [],
+        'hooks': {},
         'tests': {
             'test_one': [
                 {'type': 'function-call', 'action': 'step', 'parameters': ["'msg'"]}
             ]
-        },
-        'teardown': []
+        }
     }
     response = test_.save_test(data.project, test_name, description='', pages=[],
                                steps=steps, tags=[], skip=False)

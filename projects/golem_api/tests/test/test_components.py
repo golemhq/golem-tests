@@ -13,16 +13,16 @@ def test_save_test_code(data):
 
     response = test_.get_test_components(data.project, test_name)
     expected = {
-        'code': 'def test_one(data):\n    assert True',
         'description': '',
         'pages': [],
-        'setup_steps': None,
-        'skip': False,
         'tags': [],
-        'teardown_steps': None,
-        'test_function_list': ['test_one'],
+        'skip': False,
         'test_functions': {
             'test_one': [{'code': 'assert True', 'type': 'code-block'}]
-        }
+        },
+        'test_function_list': ['test_one'],
+        'test_hooks': {},
+        'test_hook_list': [],
+        'code': 'def test_one(data):\n    assert True',
     }
     assert response.json()['components'] == expected

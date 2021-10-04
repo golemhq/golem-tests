@@ -15,8 +15,7 @@ def setup(data):
 
 
 def test(data):
-    description = 'description of the test'
-    actions.send_keys(test_builder.description, description)
-    test_builder.save_test()
-    actions.refresh_page()
-    test_builder.assert_description(description)
+    desc = 'description of the test'
+    actions.send_keys(test_builder.description, desc)
+    test_builder.save_test_and_refresh_page()
+    test_builder.assert_description(desc)

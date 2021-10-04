@@ -10,6 +10,10 @@ run_button = ('id', 'runTest', 'Run button')
 run_config_button = ('id', 'openRunTestConfig')
 
 
+def go_to_preview_view():
+    element(preview_button).click()
+
+
 def assert_error_message(expected_error):
     error_container = element(id='error-container')
     assert error_container.text == expected_error
